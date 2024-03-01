@@ -1,7 +1,7 @@
 WITH CTE AS (
   SELECT 
     'https://identifiers.org/pubmed:' || pmid AS "@id",
-    'MedicalScholarlyArticle' as "@type",
+    'ScholarlyArticle' as "@type",
     'PMID:' || pmid AS identifier,
     article_title AS name,
     pub_year::integer AS "datePublished"
