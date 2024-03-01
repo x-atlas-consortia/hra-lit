@@ -1,0 +1,214 @@
+Run started on Thu Feb 29 08:07:19 PM EST 2024...
+
+>> Running scripts/00-setup-environment.sh...
+2024-02-29 20:07:21 URL:https://objects.githubusercontent.com/github-production-release-asset-2e65be/97999461/04bce11b-c981-445b-97fe-7ab6c5c3de38?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240301%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240301T010719Z&X-Amz-Expires=300&X-Amz-Signature=37528d10eb330d6451bd2a6ba7d7d471d7347fa42af3d0e6dfe6484b32ac5442&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=97999461&response-content-disposition=attachment%3B%20filename%3Dblazegraph-runner-1.7.tgz&response-content-type=application%2Foctet-stream [106516804/106516804] -> "blazegraph-runner-1.7.tgz" [1]
+
+real	0m3.596s
+user	0m0.645s
+sys	0m0.612s
+
+>> Running scripts/70-create-internal-blazegraph.sh...
+
+DIR=$RAW_DIR/$VERSION
+JNL=$DIR/blazegraph.jnl
+rm -f $JNL
+
+MESH=http://id.nlm.nih.gov/mesh/
+MESH_DL=https://nlmpubs.nlm.nih.gov/projects/mesh/rdf/mesh.nt.gz
+
+HRA_LIT=https://purl.humanatlas.io/graph/hra-lit
+CCF=https://purl.humanatlas.io/graph/ccf
+
+run_ndjsonld() {
+  QUADS=${1%.jsonld}.nq
+  ndjsonld canonize $1 $QUADS -c ccf-context.jsonld 
+  blazegraph-runner load --journal=$JNL "--graph=${2}" $QUADS
+}
+
+run_jsonld() {
+  QUADS=${1%.jsonld}.nq
+  jsonld canonize $1 > $QUADS
+  blazegraph-runner load --journal=$JNL "--graph=${2}" $QUADS
+}
+
+# HRA-LIT
+# run_jsonld $DIR/atlas-enriched-dataset-graph.jsonld $HRA_LIT
+
+# Precomputed Atlas distances and similarities
+# blazegraph-runner load --journal=$JNL "--graph=${HRA_POP}#distances" $DIR/euclidean-distances.ttl
+
+# Import CCF.OWL
+curl -s $CCF -H "Accept: application/rdf+xml" > $DIR/ccf.owl
+blazegraph-runner load --journal=$JNL "--graph=${CCF}" $DIR/ccf.owl
+log4j:WARN No appenders could be found for logger (com.bigdata.config.Configuration).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+ERROR: com.bigdata.util.config.LogUtil : Could not initialize Log4J logging utility.
+Set system property '-Dlog4j.configuration=file:bigdata/src/resources/logging/log4j.properties'
+  and / or 
+Set system property '-Dlog4j.primary.configuration=file:<installDir>/bigdata/src/resources/logging/log4j.properties'
+
+BlazeGraph(TM) Graph Engine
+
+                   Flexible
+                   Reliable
+                  Affordable
+      Web-Scale Computing for the Enterprise
+
+Copyright SYSTAP, LLC DBA Blazegraph 2006-2016.  All rights reserved.
+
+bl-sice-g7241f3.ads.iu.edu
+Thu Feb 29 20:07:24 EST 2024
+Linux/5.15.133.1-microsoft-standard-WSL2 amd64
+11th Gen Intel(R) Core(TM) i9-11950H @ 2.60GHz Family 6 Model 141 Stepping 1, GenuineIntel #CPU=16
+Ubuntu 11.0.21
+freeMemory=1015455424
+buildVersion=2.1.4
+gitCommit=738d05f08cffd319233a4bfbb0ec2a858e260f9c
+
+Dependency         License                                                                 
+ICU                http://source.icu-project.org/repos/icu/icu/trunk/license.html          
+bigdata-ganglia    http://www.apache.org/licenses/LICENSE-2.0.html                         
+blueprints-core    https://github.com/tinkerpop/blueprints/blob/master/LICENSE.txt         
+colt               http://acs.lbl.gov/software/colt/license.html                           
+commons-codec      http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-fileupload http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-io         http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-logging    http://www.apache.org/licenses/LICENSE-2.0.html                         
+dsiutils           http://www.gnu.org/licenses/lgpl-2.1.html                               
+fastutil           http://www.apache.org/licenses/LICENSE-2.0.html                         
+flot               http://www.opensource.org/licenses/mit-license.php                      
+high-scale-lib     http://creativecommons.org/licenses/publicdomain                        
+httpclient         http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpclient-cache   http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpcore           http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpmime           http://www.apache.org/licenses/LICENSE-2.0.html                         
+jackson-core       http://www.apache.org/licenses/LICENSE-2.0.html                         
+jetty              http://www.apache.org/licenses/LICENSE-2.0.html                         
+jquery             https://github.com/jquery/jquery/blob/master/MIT-LICENSE.txt            
+jsonld             https://raw.githubusercontent.com/jsonld-java/jsonld-java/master/LICENCE
+log4j              http://www.apache.org/licenses/LICENSE-2.0.html                         
+lucene             http://www.apache.org/licenses/LICENSE-2.0.html                         
+nanohttp           http://elonen.iki.fi/code/nanohttpd/#license                            
+rexster-core       https://github.com/tinkerpop/rexster/blob/master/LICENSE.txt            
+river              http://www.apache.org/licenses/LICENSE-2.0.html                         
+semargl            https://github.com/levkhomich/semargl/blob/master/LICENSE               
+servlet-api        http://www.apache.org/licenses/LICENSE-2.0.html                         
+sesame             http://www.openrdf.org/download.jsp                                     
+slf4j              http://www.slf4j.org/license.html                                       
+zookeeper          http://www.apache.org/licenses/LICENSE-2.0.html                         
+
+[36m[1m2024.02.29 20:07:25:154[0m[36m[0m [3mmain[0m [34mINFO[0m [32morg.renci.blazegraph.Load.runUsingConnection:43[0m
+    Loading ./raw-data/v0.6.0/ccf.owl[0m
+[36m[1m2024.02.29 20:07:31:128[0m[36m[0m [3mmain[0m [34mINFO[0m [32morg.renci.blazegraph.Load.runUsingConnection:47[0m
+    557129 stmts added in 5.3 secs, rate= 105118, commitLatency=601ms, {failSet=0,goodSet=0}[0m
+
+# Import MESH
+curl $MESH_DL | zcat > $DIR/mesh.nt
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 11  129M   11 14.3M    0     0  11.6M      0  0:00:11  0:00:01  0:00:10 11.5M 26  129M   26 34.5M    0     0  15.4M      0  0:00:08  0:00:02  0:00:06 15.4M 37  129M   37 48.3M    0     0  14.9M      0  0:00:08  0:00:03  0:00:05 14.9M 47  129M   47 61.3M    0     0  14.4M      0  0:00:08  0:00:04  0:00:04 14.4M 61  129M   61 80.0M    0     0  15.3M      0  0:00:08  0:00:05  0:00:03 16.0M 75  129M   75 98.0M    0     0  15.7M      0  0:00:08  0:00:06  0:00:02 16.7M 88  129M   88  113M    0     0  15.7M      0  0:00:08  0:00:07  0:00:01 15.8M100  129M  100  129M    0     0  15.7M      0  0:00:08  0:00:08 --:--:-- 16.2M
+blazegraph-runner load --journal=$JNL "--graph=${MESH}" $DIR/mesh.nt
+log4j:WARN No appenders could be found for logger (com.bigdata.config.Configuration).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+ERROR: com.bigdata.util.config.LogUtil : Could not initialize Log4J logging utility.
+Set system property '-Dlog4j.configuration=file:bigdata/src/resources/logging/log4j.properties'
+  and / or 
+Set system property '-Dlog4j.primary.configuration=file:<installDir>/bigdata/src/resources/logging/log4j.properties'
+
+BlazeGraph(TM) Graph Engine
+
+                   Flexible
+                   Reliable
+                  Affordable
+      Web-Scale Computing for the Enterprise
+
+Copyright SYSTAP, LLC DBA Blazegraph 2006-2016.  All rights reserved.
+
+bl-sice-g7241f3.ads.iu.edu
+Thu Feb 29 20:07:39 EST 2024
+Linux/5.15.133.1-microsoft-standard-WSL2 amd64
+11th Gen Intel(R) Core(TM) i9-11950H @ 2.60GHz Family 6 Model 141 Stepping 1, GenuineIntel #CPU=16
+Ubuntu 11.0.21
+freeMemory=1014449712
+buildVersion=2.1.4
+gitCommit=738d05f08cffd319233a4bfbb0ec2a858e260f9c
+
+Dependency         License                                                                 
+ICU                http://source.icu-project.org/repos/icu/icu/trunk/license.html          
+bigdata-ganglia    http://www.apache.org/licenses/LICENSE-2.0.html                         
+blueprints-core    https://github.com/tinkerpop/blueprints/blob/master/LICENSE.txt         
+colt               http://acs.lbl.gov/software/colt/license.html                           
+commons-codec      http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-fileupload http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-io         http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-logging    http://www.apache.org/licenses/LICENSE-2.0.html                         
+dsiutils           http://www.gnu.org/licenses/lgpl-2.1.html                               
+fastutil           http://www.apache.org/licenses/LICENSE-2.0.html                         
+flot               http://www.opensource.org/licenses/mit-license.php                      
+high-scale-lib     http://creativecommons.org/licenses/publicdomain                        
+httpclient         http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpclient-cache   http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpcore           http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpmime           http://www.apache.org/licenses/LICENSE-2.0.html                         
+jackson-core       http://www.apache.org/licenses/LICENSE-2.0.html                         
+jetty              http://www.apache.org/licenses/LICENSE-2.0.html                         
+jquery             https://github.com/jquery/jquery/blob/master/MIT-LICENSE.txt            
+jsonld             https://raw.githubusercontent.com/jsonld-java/jsonld-java/master/LICENCE
+log4j              http://www.apache.org/licenses/LICENSE-2.0.html                         
+lucene             http://www.apache.org/licenses/LICENSE-2.0.html                         
+nanohttp           http://elonen.iki.fi/code/nanohttpd/#license                            
+rexster-core       https://github.com/tinkerpop/rexster/blob/master/LICENSE.txt            
+river              http://www.apache.org/licenses/LICENSE-2.0.html                         
+semargl            https://github.com/levkhomich/semargl/blob/master/LICENSE               
+servlet-api        http://www.apache.org/licenses/LICENSE-2.0.html                         
+sesame             http://www.openrdf.org/download.jsp                                     
+slf4j              http://www.slf4j.org/license.html                                       
+zookeeper          http://www.apache.org/licenses/LICENSE-2.0.html                         
+
+[36m[1m2024.02.29 20:07:40:384[0m[36m[0m [3mmain[0m [34mINFO[0m [32morg.renci.blazegraph.Load.runUsingConnection:43[0m
+    Loading ./raw-data/v0.6.0/mesh.nt[0m
+[36m[1m2024.02.29 20:10:02:680[0m[36m[0m [3mmain[0m [34mINFO[0m [32morg.renci.blazegraph.Load.runUsingConnection:47[0m
+    18334034 stmts added in 140.702 secs, rate= 130304, commitLatency=1515ms, {failSet=0,goodSet=0}[0m
+
+real	2m40.098s
+user	10m22.382s
+sys	0m20.898s
+
+>> Running scripts/75-run-reports.sh...
+Creating report: named-graphs
+
+real	0m1.636s
+user	0m2.420s
+sys	0m0.738s
+
+>> Running scripts/80-publish-results.sh...
+
+DIR=$RAW_DIR/$VERSION
+OUT=$OUTPUT_DIR/$VERSION
+
+mkdir -p $OUT
+
+# cp $DIR/atlas-enriched-dataset-graph.jsonld $OUT
+
+cp -r $DIR/reports $OUT
+
+node src/gen-report-markdown.js $OUT/REPORTS.md queries $OUT/reports
+
+for file in `find $OUT -name "*.*" -size +95M`; do
+  zip -j ${file}.zip $file
+  rm $file
+done
+
+CREATION_DATE=$(date)
+echo "$CREATION_DATE" > $OUT/CREATION_DATE
+
+node src/gen-readme.js $VERSION "$CREATION_DATE" $OUT/README.md
+
+real	0m0.131s
+user	0m0.113s
+sys	0m0.015s
+
+
+Run finished on Thu Feb 29 08:10:04 PM EST 2024
