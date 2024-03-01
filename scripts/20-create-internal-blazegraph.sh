@@ -10,12 +10,13 @@ rm -f $JNL
 MESH=http://id.nlm.nih.gov/mesh/
 MESH_DL=https://nlmpubs.nlm.nih.gov/projects/mesh/rdf/mesh.nt.gz
 
+HRA_LIT_UNIVERSE=https://purl.humanatlas.io/graph/hra-lit-universe
 HRA_LIT=https://purl.humanatlas.io/graph/hra-lit
 CCF=https://purl.humanatlas.io/graph/ccf
 
 run_ndjsonld() {
   QUADS=${1%.jsonld}.nq
-  ndjsonld canonize $1 $QUADS -c ccf-context.jsonld 
+  ndjsonld canonize $1 $QUADS -c context.jsonld 
   blazegraph-runner load --journal=$JNL "--graph=${2}" $QUADS
 }
 
@@ -24,6 +25,10 @@ run_jsonld() {
   jsonld canonize $1 > $QUADS
   blazegraph-runner load --journal=$JNL "--graph=${2}" $QUADS
 }
+
+# HRA-LIT Universe
+run_ndjsonld $DIR/universe-publications.jsonl $HRA_LIT_UNIVERSE
+run_ndjsonld $DIR/universe-pmid-mesh.jsonl $HRA_LIT_UNIVERSE
 
 # HRA-LIT
 # run_jsonld $DIR/atlas-enriched-dataset-graph.jsonld $HRA_LIT
