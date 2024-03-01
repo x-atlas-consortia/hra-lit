@@ -8,4 +8,4 @@ source db-config.sh
 DIR=$RAW_DIR/$VERSION
 
 psql -t -A -f sql/10-universe-data/10-publications.sql > $DIR/universe-publications.jsonl
-psql -t -A -f sql/10-universe-data/pmid-mesh.sql > $DIR/universe-pmid-mesh.jsonl
+psql -t -A -f sql/10-universe-data/20-pmid-mesh.sql > $DIR/universe-pmid-mesh.jsonl
