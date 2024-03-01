@@ -1,0 +1,19 @@
+PREFIX schema: <http://schema.org/>
+PREFIX meshv: <http://id.nlm.nih.gov/mesh/vocab#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX MESH: <http://id.nlm.nih.gov/mesh/>
+PREFIX HRAlitUniverse: <https://purl.humanatlas.io/graph/hra-lit-universe>
+
+SELECT ?mesh (SAMPLE(?mesh_label) as ?mesh_label) (COUNT(DISTINCT(?pmid)) as ?pmid_count)
+WHERE {
+  GRAPH HRAlitUniverse: {
+    ?pmid schema:about ?mesh .
+  }
+  OPTIONAL {
+    GRAPH MESH: {
+      ?mesh meshv:prefLabel ?mesh_label .
+    }
+  }
+}
+GROUP BY ?mesh
+ORDER BY DESC(?pmid_count)
