@@ -18,12 +18,14 @@ run_ndjsonld() {
   QUADS=${1%.jsonld}.nq
   ndjsonld canonize $1 $QUADS -c context.jsonld 
   blazegraph-runner load --journal=$JNL "--graph=${2}" $QUADS
+  rm -f $QUADS
 }
 
 run_jsonld() {
   QUADS=${1%.jsonld}.nq
   jsonld canonize $1 > $QUADS
   blazegraph-runner load --journal=$JNL "--graph=${2}" $QUADS
+  rm -f $QUADS
 }
 
 # HRA-LIT Universe
