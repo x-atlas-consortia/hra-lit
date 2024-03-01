@@ -4,7 +4,7 @@
 SELECT DISTINCT ?graph ?predicate
 WHERE {
   GRAPH ?graph {
-    [] ?predicate ?o .
+    [] ?predicate [] .
   }
 }
 ORDER BY ?graph ?predicate
