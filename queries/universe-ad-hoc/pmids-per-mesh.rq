@@ -4,11 +4,13 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX MESH: <http://id.nlm.nih.gov/mesh/>
 PREFIX HRAlitUniverse: <https://purl.humanatlas.io/graph/hra-lit-universe>
 
-SELECT ?mesh (SAMPLE(?mesh_label) as ?mesh_label) (COUNT(DISTINCT(?pmid)) as ?pmid_count)
+SELECT ?mesh (SAMPLE(?mesh_label) as ?mesh_label) (COUNT(?pmid) as ?pmid_count)
 FROM MESH:
 FROM HRAlitUniverse:
 WHERE {
-  ?mesh meshv:prefLabel ?mesh_label .
+  ?mesh rdfs:label ?mesh_label .
   ?pmid schema:about ?mesh .
+  hint:Query hint:analytic "true" .
 }
 GROUP BY ?mesh
+ORDER BY DESC(?pmid_count)

@@ -1,10 +1,12 @@
 #+ summary: Predicates in named graphs in the db
 #+ description: All predicates in named graphs in the queried SPARQL database
 
-SELECT DISTINCT ?graph ?predicate
+SELECT ?graph ?predicate
 WHERE {
   GRAPH ?graph {
     [] ?predicate [] .
   }
+  hint:Query hint:analytic "true" .
 }
+GROUP BY ?graph ?predicate
 ORDER BY ?graph ?predicate
