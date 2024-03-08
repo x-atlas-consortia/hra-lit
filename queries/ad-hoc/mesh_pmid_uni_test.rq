@@ -5,7 +5,7 @@ PREFIX mesh: <http://id.nlm.nih.gov/mesh/>
 PREFIX schema: <http://schema.org/>
 PREFIX hra: <https://purl.humanatlas.io/graph/hra-lit-universe>
 
-SELECT DISTINCT ?pmid ?title ?date
+SELECT DISTINCT ?pmid
 FROM mesh:
 FROM hra:
 
@@ -174,8 +174,6 @@ WHERE {
 #+ Pattern looks for the PMIDs with HRA LIT relevant MeSH Terms
 #+ Collects title and publication date for article.
 { ?pmid schema:about ?descriptor .
-  ?pmid schema:datePublished ?date .
-  ?pmid schema:name ?title .
   hint:Query hint:analytic "true" .
 }
 }
