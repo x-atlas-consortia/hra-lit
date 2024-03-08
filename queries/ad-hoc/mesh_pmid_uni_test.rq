@@ -1,0 +1,183 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX meshv: <http://id.nlm.nih.gov/mesh/vocab#>
+PREFIX mesh: <http://id.nlm.nih.gov/mesh/>
+PREFIX schema: <http://schema.org/>
+PREFIX hra: <https://purl.humanatlas.io/graph/hra-lit-universe>
+
+SELECT DISTINCT ?pmid ?title ?date
+FROM mesh:
+FROM hra:
+
+WHERE {
+#+ Brain
+{ mesh:D001921 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION
+#+ Spinal Cord 
+{ mesh:D013116 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION
+#+ Eyes
+{ mesh:D005123 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION
+#+ Uterus
+{ mesh:D014599 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION
+#+ Fallopian tubes
+{ mesh:D005187 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION 
+#+ Placenta
+{ mesh:D010920 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION 
+#+ Gonads
+{ mesh:D006066 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION 
+#+ Prostate
+{ mesh:D011467 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION 
+#+ Breasts
+{ mesh:D001940 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION
+#+ Liver
+{ mesh:D008099 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION 
+#+ Kidney
+{ mesh:D007668 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION 
+#+ Lung + Bronchus
+{ mesh:D008168 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION 
+#+ Larynx
+{ mesh:D007830 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION
+#+ Trachea 
+{ mesh:D014132 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION 
+#+ Heart
+{ mesh:D006321 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION 
+#+ Small and Large Intestines May need to split apart.
+{ mesh:D007422 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+}UNION
+#+ Pancreas
+{ mesh:D010179
+  meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION
+#+ BoneMarrow
+{ mesh:D001853 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION
+#+ Bone Marrow Cells
+{ mesh:D001854 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION 
+#+ Adipose
+{ mesh:D000273 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION 
+#+ Adrenal Gland
+{ mesh:D000311 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION
+#+ Bladder
+{ mesh:D001743 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION
+#+ Uterer
+{ mesh:D014513 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION
+#+ Palatine Tonsil
+{ mesh:D014066 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION
+#+ Blood Vessels/Vasculature 
+{ mesh:D001808 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION
+#+ Lymphatic System includes: spleen, thymus, palentine tonsils,
+{ mesh:D008208 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION
+#+ Skin
+{ mesh:D012867 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION
+# Pelvic Bones
+{ mesh:D010384 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+ } UNION 
+#+ Pelvis (region)
+{ mesh:D010388 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION
+#+ Knee Joint
+{ mesh:D007719 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION
+#+ Knee (region)
+{ mesh:D007717 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+}  UNION
+#+ Patella
+{ mesh:D010329 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} 
+#+ Pattern looks for the PMIDs with HRA LIT relevant MeSH Terms
+#+ Collects title and publication date for article.
+{ ?pmid schema:about ?descriptor .
+  ?pmid schema:datePublished ?date .
+  ?pmid schema:name ?title .
+  hint:Query hint:analytic "true" .
+}
+}
+
+ORDER BY ?pmid

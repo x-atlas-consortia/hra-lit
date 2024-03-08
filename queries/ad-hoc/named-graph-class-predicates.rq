@@ -1,12 +1,16 @@
-#+ summary: Class objects in named graphs in the db
+#+ summary: Class subjects in named graphs in the db
 #+ description: Retrieves all class objects in named graphs in the queried SPARQL database
 
-SELECT ?graph ?class ?predicate
+SELECT DISTINCT ?graph ?class ?subClass ?predicate
 WHERE {
-  GRAPH ?graph {
+  {GRAPH ?graph {
      ?subject ?predicate [] .
-     ?subject rdf:type ?class }
+     ?subject rdf:type ?class }}
+     UNION
+  {GRAPH ?graph {
+     [] ?predicate ?object .
+     ?object rdf:type ?class }}
   hint:Query hint:analytic "true" .
 }
-GROUP BY ?graph ?class ?predicate
-ORDER BY ?graph ?class ?predicate
+GROUP BY ?graph ?class ?subClass ?predicate
+ORDER BY ?graph ?class ?subClass ?predicate
