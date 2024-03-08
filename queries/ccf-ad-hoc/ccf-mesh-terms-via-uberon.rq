@@ -1,0 +1,30 @@
+#+ summary: CCF UBERON related MESH terms
+#+ description: Get the MESH dbxrefs from CCF-referenced UBERON terms
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ccf: <http://purl.org/ccf/>
+PREFIX CCF: <https://purl.humanatlas.io/graph/ccf>
+PREFIX UBERON: <https://purl.humanatlas.io/vocab/uberon>
+PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
+
+SELECT DISTINCT ?uberon ?uberon_label ?mesh
+WHERE {
+  GRAPH CCF: {
+    SELECT DISTINCT ?uberon
+    WHERE {
+      {
+        [] ?pred ?uberon .
+      }
+      UNION
+      {
+        ?uberon ?pred2 [] .
+      }
+    }
+  }
+  GRAPH UBERON: {
+    ?uberon oboInOwl:hasDbXref ?mesh ;
+            rdfs:label ?uberon_label .
+    FILTER(STRSTARTS(?mesh, 'MESH:'))
+  }
+}
+ORDER BY ?uberon_label
