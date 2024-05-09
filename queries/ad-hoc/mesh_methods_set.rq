@@ -1,0 +1,61 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX meshv: <http://id.nlm.nih.gov/mesh/vocab#>
+PREFIX mesh: <http://id.nlm.nih.gov/mesh/>
+
+SELECT DISTINCT ?pmid ?descriptor ?label
+FROM mesh:
+
+WHERE {
+#+ MeSH Descriptor: RNA-Seq
+{ mesh:D000081246 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION
+#+ MeSH Descriptor: Single-Cell Analysis
+{ mesh:D059010 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION
+#+ MeSH Descriptor: Single-Cell Gene Expression Analysis
+{ mesh:D000092386 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION
+#+ MeSH Descriptor: Subtractive Hybridization Techniques
+{ mesh:D066251 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION
+#+ MeSH Descriptor: Metabolomics
+{ mesh:D055432 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION 
+#+ MeSH Descriptor: Lipidomics
+{ mesh:D000081362 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION
+#+ MeSH Descriptor: Proteomics
+{ mesh:D040901 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION
+#+ MeSH Descriptor: Proteogenomics
+{ mesh:D000071696 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} 
+}
+
+ORDER BY ?descriptor
+
+D059010	Single-Cell Analysis
+D000092386	Single-Cell Gene Expression Analysis
+D000081246	
+D066251	Subtractive Hybridization Techniques
+D055432	Metabolomics
+D000081362	Lipidomics
+D040901	Proteomics
+D000071696	Proteogenomics
