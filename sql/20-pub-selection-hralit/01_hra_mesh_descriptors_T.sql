@@ -29,6 +29,13 @@ WITH (
 )
 TABLESPACE pg_default;
 
+ALTER TABLE IF EXISTS public.hra_meshd_methods
+    OWNER to mginda;
+GRANT ALL ON TABLE public.hra_meshd_methods TO bherr;
+GRANT ALL ON TABLE public.hra_meshd_methods TO gallantm;
+GRANT ALL ON TABLE public.hra_meshd_methods TO mginda;
+
+
 \copy public.hra_meshd_anatomy from './raw-data/v0.6.0/reports/ad-hoc/mesh_anatomy_set.csv' WITH DELIMITER ',' CSV HEADER;
 
 \copy public.hra_meshd_methods from './raw-data/v0.6.0/reports/ad-hoc/mesh_method_set.csv' WITH DELIMITER ',' CSV HEADER;
