@@ -131,3 +131,7 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# sql permissions
+*-db_permissions.sql
+*-permissions-pm24_db.sh

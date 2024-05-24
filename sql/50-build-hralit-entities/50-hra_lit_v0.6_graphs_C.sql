@@ -20,10 +20,10 @@ AS
   GROUP BY a.ident, a.name, a.initials, a.fore_name, a.last_name, a.suffix, a.author_type, a.orcid
 WITH DATA
 
--- view: hrao - organization graph
+-- view: public.hrao - organization graph
 DROP MATERIALIZED VIEW IF EXISTS public.hrao;
 
-CREATE MATERIALIZED VIEW hrao AS
+CREATE MATERIALIZED VIEW public.hrao AS
 SELECT DISTINCT ON (ident)
     a.ident AS "@id",
     a.name AS "name",
@@ -90,10 +90,10 @@ UNION
   ORDER BY 3
 WITH DATA;
 
--- view: hraa - article graph
+-- view: public.hraa - article graph
 DROP MATERIALIZED VIEW IF EXISTS public.hraa;
 
-CREATE MATERIALIZED VIEW hraa AS
+CREATE MATERIALIZED VIEW public.hraa AS
 SELECT DISTINCT
 	'https://identifiers.org/pubmed:'||pml.pmid AS "@id",
 	'ScholarlyArticle' as "@type",
