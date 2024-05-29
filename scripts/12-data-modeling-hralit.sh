@@ -18,6 +18,7 @@ psql -f sql/30-data-modeling-hralit/22-hra_journals_MV.sql 2>$1$LOG/22-hra_journ
 psql -f sql/30-data-modeling-hralit/23-hra_vparts_MV.sql 2>$1$LOG/23-hra_vparts_MV.log
 psql -f sql/30-data-modeling-hralit/24-hra_jvol_MV.sql 2>$1$LOG/24-hra_jvol_MV.log
 psql -f sql/30-data-modeling-hralit/25-hra_jiss_MV.sql 2>$1$LOG/25-hra_jiss_MV.log
+
 # Author data modeling
 psql -f sql/30-data-modeling-hralit/31-hra_author_names_MV.sql 2>$1$LOG/31-hra_author_names_MV.log
 psql -f sql/30-data-modeling-hralit/32-hra_author_id_MV.sql 2>$1$LOG/32-hra_author_id_MV.log
