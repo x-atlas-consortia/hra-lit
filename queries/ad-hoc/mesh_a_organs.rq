@@ -122,6 +122,12 @@ WHERE {
   ?childTreeNum meshv:parentTreeNumber* ?treeNum .
   ?descriptor meshv:treeNumber ?childTreeNum .
 } UNION 
+#+ A10 - Tissues
+#+ Mammary Glands
+{ mesh:D042361 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION 
 #+ A15 - Hemic & Immune 
 #+ A15.145 - Blood
 #+ Blood
