@@ -57,11 +57,6 @@ WHERE {
 { mesh:D014599 meshv:treeNumber ?treeNum .
   ?childTreeNum meshv:parentTreeNumber* ?treeNum .
   ?descriptor meshv:treeNumber ?childTreeNum .
-} UNION
-#+ Placenta
-{ mesh:D010920 meshv:treeNumber ?treeNum .
-  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
-  ?descriptor meshv:treeNumber ?childTreeNum .
 } UNION 
 #+ Fallopian tubes
 { mesh:D005187 meshv:treeNumber ?treeNum .
@@ -164,6 +159,12 @@ WHERE {
 } UNION
 #+ Thymus Gland
 { mesh:D013950 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+} UNION
+#+ A16 - Embryonic Structures
+#+ Placenta
+{ mesh:D010920 meshv:treeNumber ?treeNum .
   ?childTreeNum meshv:parentTreeNumber* ?treeNum .
   ?descriptor meshv:treeNumber ?childTreeNum .
 } UNION
