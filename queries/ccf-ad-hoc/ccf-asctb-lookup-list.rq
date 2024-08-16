@@ -1,0 +1,13 @@
+
+PREFIX ccf: <http://purl.org/ccf/>
+PREFIX CCF: <https://purl.humanatlas.io/graph/ccf>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?iri ?label ?ccf_label
+
+WHERE {
+  ?iri ccf:ccf_pref_label ?ccf_label .
+  ?iri rdfs:label ?label .
+  ?iri ccf:ccf_asctb_type ?asctb_type .
+  FILTER(?asctb_type = 'AS')
+}

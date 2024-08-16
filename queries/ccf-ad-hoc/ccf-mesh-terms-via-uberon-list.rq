@@ -4,9 +4,9 @@
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX ccf: <http://purl.org/ccf/>
 PREFIX CCF: <https://purl.humanatlas.io/graph/ccf>
+PREFIX UBERON: <https://purl.humanatlas.io/vocab/uberon>
 PREFIX meshv: <http://id.nlm.nih.gov/mesh/vocab#>
 PREFIX mesh: <http://id.nlm.nih.gov/mesh/>
-PREFIX UBERON: <https://purl.humanatlas.io/vocab/uberon>
 PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
 
 SELECT DISTINCT ?uberon ?uberon_label ?mesh_ui ?mesh_label
