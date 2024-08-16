@@ -1,0 +1,79 @@
+#+ summary: CCF UBERON related MESH terms
+#+ description: Get the MESH dbxrefs from CCF-referenced UBERON terms
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ccf: <http://purl.org/ccf/>
+PREFIX CCF: <https://purl.humanatlas.io/graph/ccf>
+PREFIX meshv: <http://id.nlm.nih.gov/mesh/vocab#>
+PREFIX mesh: <http://id.nlm.nih.gov/mesh/>
+PREFIX UBERON: <https://purl.humanatlas.io/vocab/uberon>
+PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
+
+SELECT DISTINCT ?uberon ?uberon_label ?mesh_ui ?mesh_label
+                ?parent_mesh_ui ?parent_mesh_label 
+                ?super_parent_mesh_ui ?super_parent_mesh_label
+                ?treenum
+WHERE {
+  {
+    GRAPH CCF: {
+      SELECT DISTINCT ?uberon
+      WHERE {
+        {
+          [] ?pred ?uberon .
+        }
+        UNION
+        {
+          ?uberon ?pred2 [] .
+        }
+
+        ?uberon ccf:ccf_asctb_type ?asctb_type .
+        FILTER(?asctb_type = 'AS')
+      }
+    }
+
+    GRAPH UBERON: {
+      ?uberon rdfs:label ?uberon_label .
+    }
+
+    OPTIONAL {
+      GRAPH UBERON: {
+        ?uberon oboInOwl:hasDbXref ?meshStr .
+        FILTER(STRSTARTS(?meshStr, 'MESH:')) 
+        BIND (URI(REPLACE(?meshStr, 'MESH:', STR(mesh:))) AS ?mesh)
+      } 
+      ?mesh rdfs:label ?mesh_label .
+      ?mesh meshv:identifier ?mesh_ui .
+      ?mesh meshv:treeNumber ?treenum .
+    }
+
+    OPTIONAL {
+      GRAPH CCF: {
+        ?uberon ccf:ccf_part_of ?parent_uberon .
+      }
+      GRAPH UBERON: {
+        ?parent_uberon oboInOwl:hasDbXref ?parent_meshStr .
+        FILTER(STRSTARTS(?parent_meshStr, 'MESH:'))
+        BIND (URI(REPLACE(?parent_meshStr, 'MESH:', STR(mesh:))) AS ?mesh)
+      }
+      ?mesh rdfs:label ?parent_mesh_label .
+      ?mesh meshv:identifier ?parent_mesh_ui .
+      ?mesh meshv:treeNumber ?treenum2 .
+    }
+
+    OPTIONAL {
+      GRAPH CCF: {
+        ?uberon ccf:ccf_part_of+ ?super_parent_uberon .
+      }
+      GRAPH UBERON: {
+        ?super_parent_uberon oboInOwl:hasDbXref ?super_parent_meshStr .
+        FILTER(STRSTARTS(?super_parent_meshStr, 'MESH:'))
+        BIND (URI(REPLACE(?super_parent_meshStr, 'MESH:', STR(mesh:))) AS ?mesh)
+      }
+      ?mesh rdfs:label ?super_parent_mesh_label .
+      ?mesh meshv:identifier ?super_parent_mesh_ui . 
+      ?mesh meshv:treeNumber ?treenum .
+    }
+  } 
+}
+
+ORDER BY ?treenum
