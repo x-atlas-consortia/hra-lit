@@ -19,7 +19,8 @@ AS
  FROM pm1 AS pm1
  LEFT JOIN medline_article_date as dat
  	ON pm1.pmid = dat.pmid
- WHERE dat.article_year::integer > 2013
+ WHERE dat.article_year::integer > 1899
+ -- AND dat. -- KEEP ONLY RESEARCH ARTICLES --
  ORDER BY dat.article_year DESC
  
 WITH DATA;

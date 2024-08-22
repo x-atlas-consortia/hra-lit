@@ -6,19 +6,19 @@ TABLESPACE pg_default
 AS
  WITH jid AS (
          SELECT DISTINCT a.pmid,
-            'https://perl.humanatlas.io/graph/hra-lit/v0.6#'::text || a.journal_nlmuniqueid::text AS id,
+            'https://purl.humanatlas.io/graph/hra-lit/v0.6#'::text || a.journal_nlmuniqueid::text AS id,
             'Periodical'::text AS type,
             a.journal_nlmuniqueid AS identifier
            FROM medline_master a
         UNION
          SELECT DISTINCT a.pmid,
-            (('https://perl.humanatlas.io/graph/hra-lit/v0.6#'::text || a.journal_nlmuniqueid::text) || '_'::text) || a.volume::text AS id,
+            (('https://purl.humanatlas.io/graph/hra-lit/v0.6#'::text || a.journal_nlmuniqueid::text) || '_'::text) || a.volume::text AS id,
             'PublicationVolume'::text AS type,
             (a.journal_nlmuniqueid::text || '_'::text) || a.volume::text AS identifier
            FROM medline_master a
         UNION
          SELECT DISTINCT a.pmid,
-            (((('https://perl.humanatlas.io/graph/hra-lit/v0.6#'::text || a.journal_nlmuniqueid::text) || '_'::text) || a.volume::text) || '_'::text) || a.issue::text AS id,
+            (((('https://purl.humanatlas.io/graph/hra-lit/v0.6#'::text || a.journal_nlmuniqueid::text) || '_'::text) || a.volume::text) || '_'::text) || a.issue::text AS id,
             'PublicationIssue'::text AS type,
             (((a.journal_nlmuniqueid::text || '_'::text) || a.volume::text) || '_'::text) || a.issue::text AS identifier
            FROM medline_master a

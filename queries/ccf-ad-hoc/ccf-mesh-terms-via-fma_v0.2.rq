@@ -1,0 +1,44 @@
+#+ summary: CCF FMA related MESH terms
+#+ description: Get the MESH dbxrefs from CCF-referenced FMA terms that are referenced by an UBERON term
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ccf: <http://purl.org/ccf/>
+PREFIX FMA: <http://purl.org/sig/ont/fma/fma>
+PREFIX CCF: <https://purl.humanatlas.io/graph/ccf>
+PREFIX UBERON: <https://purl.humanatlas.io/vocab/uberon>
+PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
+
+SELECT DISTINCT ?fma ?fma_label ?mesh ?uberon ?uberon_label
+WHERE {
+  GRAPH CCF: {
+    SELECT DISTINCT ?fmaId ?fma_label
+    WHERE {
+      {
+        [] ?pred ?fmaId .
+      }
+      UNION
+      {
+        ?fmaId ?pred2 [] .
+      }
+      ?fmaId ccf:ccf_asctb_type ?asctb_type .
+      FILTER(?asctb_type = 'AS')
+      FILTER(STRSTARTS(STR(?fmaId), STR(FMA:)))
+      ?fmaId rdfs:label ?fma_label .
+      hint:SubQuery hint:runOnce true .
+    }
+  }
+  {
+    SELECT DISTINCT ?uberon ?uberon_label ?mesh ?fma ?fmaId
+    WHERE {
+      GRAPH UBERON: {
+        ?uberon oboInOwl:hasDbXref ?mesh ;
+            oboInOwl:hasDbXref ?fma ;
+            rdfs:label ?uberon_label .
+        FILTER(STRSTARTS(?mesh, 'MESH:') && STRSTARTS(?fma, 'FMA:'))
+        BIND(URI(REPLACE(?fma, 'FMA:', STR(FMA:))) as ?fmaId)
+      }
+      hint:SubQuery hint:runOnce true .
+    }
+  }
+}
+ORDER BY ?uberon_label

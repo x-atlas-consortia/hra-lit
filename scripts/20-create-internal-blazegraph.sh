@@ -33,11 +33,14 @@ run_jsonld() {
 run_ndjsonld $DIR/universe-publications.jsonl $HRA_LIT_UNIVERSE
 run_ndjsonld $DIR/universe-pmid-mesh.jsonl $HRA_LIT_UNIVERSE
 
-# HRA-LIT
-# run_jsonld $DIR/atlas-enriched-dataset-graph.jsonld $HRA_LIT
+# HRA-LIT World  
+run_ndjsonld $DIR/hralit-articles.jsonl  $HRA_LIT
+#run_ndjsonld $DIR/hralit-journals.jsonl  $HRA_LIT
+run_ndjsonld $DIR/hralit-organizations.jsonl  $HRA_LIT
+run_ndjsonld $DIR/hralit-persons.jsonl  $HRA_LIT
 
 # Precomputed Atlas distances and similarities
-# blazegraph-runner load --journal=$JNL "--graph=${HRA_POP}#distances" $DIR/euclidean-distances.ttl
+#blazegraph-runner load --journal=$JNL "--graph=${HRA_POP}#distances" $DIR/euclidean-distances.ttl
 
 # Import CCF.OWL
 curl -s $CCF -H "Accept: application/rdf+xml" > $DIR/ccf.owl

@@ -1,14 +1,14 @@
 -- View: public.hra_jparts
-DROP MATERIALIZED VIEW IF EXISTS public.hra_jparts;
+DROP MATERIALIZED VIEW IF EXISTS public.hra_jparts CASCADE;
 
 CREATE MATERIALIZED VIEW IF NOT EXISTS public.hra_jparts
 TABLESPACE pg_default
 AS
  SELECT DISTINCT a.journal_nlmuniqueid,
-    array_agg(DISTINCT (('https://perl.humanatlas.io/graph/hra-lit/v0.6#'::text || a.journal_nlmuniqueid::text) || '_'::text) || a.volume::text) AS has_part
-   FROM medline_master a
-     RIGHT JOIN hra_pmid hra ON a.pmid::text = hra.pmid::text
-  GROUP BY a.journal_nlmuniqueid
+   array_agg(DISTINCT REPLACE(('https://purl.humanatlas.io/graph/hra-lit/v0.6#'::text || a.journal_nlmuniqueid::text || '_'::text || a.volume::text),' ', '%20')) AS has_part
+ FROM medline_master a
+   RIGHT JOIN hra_pmid hra ON a.pmid::text = hra.pmid::text
+ GROUP BY a.journal_nlmuniqueid
 WITH DATA;
 
 -- View: public.hra_journals
@@ -29,7 +29,7 @@ AS
           WHERE c.journal_issnlinking IS NOT NULL
   ORDER BY 1
         )
- SELECT DISTINCT 'https://perl.humanatlas.io/graph/hra-lit/v0.6#'::text || a.journal_nlmuniqueid::text AS "@id",
+ SELECT DISTINCT 'https://purl.humanatlas.io/graph/hra-lit/v0.6#'::text || a.journal_nlmuniqueid::text AS "@id",
     'Periodical'::text AS "@type",
     a.journal_nlmuniqueid AS identifier,
     a.journal_title AS name,
@@ -58,12 +58,12 @@ DROP MATERIALIZED VIEW IF EXISTS public.hra_vparts CASCADE;
 CREATE MATERIALIZED VIEW IF NOT EXISTS public.hra_vparts
 TABLESPACE pg_default
 AS
- SELECT DISTINCT (a.journal_nlmuniqueid::text || '_'::text) || a.volume::text AS volume_id,
-    array_agg(DISTINCT (((('https://perl.humanatlas.io/graph/hra-lit/v0.6#'::text || a.journal_nlmuniqueid::text) || '_'::text) || a.volume::text) || '_'::text) || a.issue::text) AS has_part
-   FROM medline_master a
+ SELECT DISTINCT REPLACE((a.journal_nlmuniqueid::text || '_'::text || a.volume::text),' ','%20') AS volume_id,
+   array_agg(DISTINCT REPLACE(('https://purl.humanatlas.io/graph/hra-lit/v0.6#'::text || a.journal_nlmuniqueid::text || '_'::text || a.volume::text || '_'::text || a.issue::text),' ','%20')) AS has_part
+ FROM medline_master a
      RIGHT JOIN hra_pmid hra ON a.pmid::text = hra.pmid::text
-  WHERE a.volume IS NOT NULL AND ((((a.journal_nlmuniqueid::text || '_'::text) || a.volume::text) || '_'::text) || a.issue::text) IS NOT NULL
-  GROUP BY ((a.journal_nlmuniqueid::text || '_'::text) || a.volume::text)
+ WHERE a.volume IS NOT NULL AND ((((a.journal_nlmuniqueid::text || '_'::text) || a.volume::text) || '_'::text) || a.issue::text) IS NOT NULL
+ GROUP BY ((a.journal_nlmuniqueid::text || '_'::text) || a.volume::text)
 WITH DATA;
 
 -- View: public.hra_jvol
@@ -72,7 +72,7 @@ DROP MATERIALIZED VIEW IF EXISTS public.hra_jvol CASCADE;
 CREATE MATERIALIZED VIEW IF NOT EXISTS public.hra_jvol
 TABLESPACE pg_default
 AS
- SELECT DISTINCT (('https://perl.humanatlas.io/graph/hra-lit/v0.6#'::text || a.journal_nlmuniqueid::text) || '_'::text) || a.volume::text AS "@id",
+ SELECT DISTINCT REPLACE(('https://purl.humanatlas.io/graph/hra-lit/v0.6#'::text || a.journal_nlmuniqueid::text || '_'::text || a.volume::text),' ','%20') AS "@id",
     'PublicationVolume'::text AS "@type",
     (a.journal_nlmuniqueid::text || '_'::text) || a.volume::text AS identifier,
     NULL::character varying AS name,
@@ -85,13 +85,13 @@ AS
     NULL::character varying AS "issueNumber",
     NULL::character varying AS "pageStart",
     NULL::character varying AS "pageEnd",
-    'https://perl.humanatlas.io/graph/hra-lit/v0.6#'::text || a.journal_nlmuniqueid::text AS "isPartOf",
+    'https://purl.humanatlas.io/graph/hra-lit/v0.6#'::text || a.journal_nlmuniqueid::text AS "isPartOf",
     vpt.has_part AS "hasPart"
    FROM medline_master a
      RIGHT JOIN hra_pmid hra ON a.pmid::text = hra.pmid::text
      LEFT JOIN hra_vparts vpt ON ((a.journal_nlmuniqueid::text || '_'::text) || a.volume::text) = vpt.volume_id
   WHERE a.volume IS NOT NULL
-  ORDER BY ('https://perl.humanatlas.io/graph/hra-lit/v0.6#'::text || a.journal_nlmuniqueid::text), a.volume
+  ORDER BY ('https://purl.humanatlas.io/graph/hra-lit/v0.6#'::text || a.journal_nlmuniqueid::text), a.volume
 WITH DATA;
 
 -- View: public.hra_jiss
@@ -100,9 +100,9 @@ DROP MATERIALIZED VIEW IF EXISTS public.hra_jiss CASCADE;
 CREATE MATERIALIZED VIEW IF NOT EXISTS public.hra_jiss
 TABLESPACE pg_default
 AS
- SELECT DISTINCT (((('https://perl.humanatlas.io/graph/hra-lit/v0.6#'::text || a.journal_nlmuniqueid::text) || '_'::text) || a.volume::text) || '_'::text) || a.issue::text AS "@id",
+ SELECT DISTINCT REPLACE(('https://purl.humanatlas.io/graph/hra-lit/v0.6#'::text || a.journal_nlmuniqueid::text || '_'::text || a.volume::text || '_'::text || a.issue::text), ' ', '%20') AS "@id",
     'PublicationIssue'::text AS "@type",
-    (((a.journal_nlmuniqueid::text || '_'::text) || a.volume::text) || '_'::text) || a.issue::text AS identifier,
+    REPLACE((a.journal_nlmuniqueid::text || '_'::text || a.volume::text || '_'::text || a.issue::text), ' ', '%20' ) AS identifier,
     NULL::character varying AS name,
     NULL::character varying AS "alternateName",
     NULL::character varying AS country,
@@ -113,10 +113,10 @@ AS
     a.issue AS "issueNumber",
     NULL::character varying AS "pageStart",
     NULL::character varying AS "pageEnd",
-    (('https://perl.humanatlas.io/graph/hra-lit/v0.6#'::text || a.journal_nlmuniqueid::text) || '_'::text) || a.volume::text AS "isPartOf",
+    REPLACE(('https://purl.humanatlas.io/graph/hra-lit/v0.6#'::text || a.journal_nlmuniqueid::text || '_'::text || a.volume::text), ' ', '%20') AS "isPartOf",
     NULL::text[] AS "hasPart"
    FROM medline_master a
      RIGHT JOIN hra_pmid hra ON a.pmid::text = hra.pmid::text
   WHERE a.issue IS NOT NULL
-  ORDER BY ((('https://perl.humanatlas.io/graph/hra-lit/v0.6#'::text || a.journal_nlmuniqueid::text) || '_'::text) || a.volume::text)
+  ORDER BY REPLACE(('https://purl.humanatlas.io/graph/hra-lit/v0.6#'::text || a.journal_nlmuniqueid::text || '_'::text || a.volume::text), ' ', '%20') 
 WITH DATA;

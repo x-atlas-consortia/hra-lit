@@ -1,0 +1,246 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX meshv: <http://id.nlm.nih.gov/mesh/vocab#>
+PREFIX mesh: <http://id.nlm.nih.gov/mesh/>
+
+SELECT DISTINCT ?descriptor ?ui ?childTreeNum ?label
+FROM mesh:
+
+WHERE {
+#+ A02 - Musculoskeletal System
+# Musculature
+{ mesh:D009132 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} UNION
+#+ Skeleton - captures Pelvis and Knee Joint
+{ mesh:D012863 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+}  UNION
+#+ A03 - Digestive System
+#+ Small and Large Intestines May need to split apart.
+{ mesh:D007422 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} UNION
+#+ Liver
+{ mesh:D008099 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} UNION 
+#+ Pancreas
+{ mesh:D010179
+  meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} UNION
+#+ A04 - Respiratory System
+#+ Lung - includes brochus
+{ mesh:D008168 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} UNION 
+#+ Trachea 
+{ mesh:D014132 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} UNION 
+#+ A05 - Urogential System
+#+ A05.360 - Genital
+#+ Uterus
+{ mesh:D014599 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} UNION 
+#+ Fallopian tubes
+{ mesh:D005187 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} UNION 
+#+ Ovary
+{ mesh:D010053 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} UNION 
+#+ Prostate
+{ mesh:D011467 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} UNION 
+#+ A05.810 - Urinary Tract
+#+ Kidney
+{ mesh:D007668 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} UNION 
+#+ Urinary Bladder
+{ mesh:D001743 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} UNION
+#+ Uterer
+{ mesh:D014513 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} UNION
+#+ A07 - Cardiovascular System
+#+ Heart
+{ mesh:D006321 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} UNION 
+#+ Blood Vessels/Vasculature
+{ mesh:D001808 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} UNION
+#+ A08 - Nervous System
+#+ Brain
+{ mesh:D001921 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} UNION
+#+ Spinal Cord 
+{ mesh:D013116 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} UNION 
+#+ Peripherial Nervous System
+{ mesh:D017933 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} UNION
+#+ A09 - Sensory Organs
+#+ Eyes
+{ mesh:D005123 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} UNION 
+#+ A10 - Tissues
+#+ Mammary Glands
+{ mesh:D042361 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} UNION 
+#+ A15 - Hemic & Immune 
+#+ A15.145 - Blood
+#+ Blood
+{ mesh:D001769 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} UNION
+#+ A15.378 - Hematopoietic System 
+#+ Bone Marrow Cells
+{ mesh:D001854 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} UNION 
+#+ A15.382 - Immune System
+#+ BoneMarrow
+{ mesh:D001853 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} UNION
+#+ A15.382.520 - Lymphatic System
+#+ Lymphatic Vasculature
+{ mesh:D042601 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} UNION
+#+ Lymphatic Nodes
+{ mesh:D008198 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} UNION
+#+ Spleen
+{ mesh:D013154 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} UNION
+#+ Thymus Gland
+{ mesh:D013950 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} UNION
+#+ Palatine Tonsil
+{ mesh:D014066 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} UNION
+#+ A16 - Embryonic Structures
+#+ Placenta
+{ mesh:D010920 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} UNION
+#+ A17 - Integumentary System
+#+ Skin
+{ mesh:D012867 meshv:treeNumber ?treeNum .
+  ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+  ?descriptor meshv:treeNumber ?childTreeNum .
+  ?descriptor rdfs:label ?label .
+  ?descriptor meshv:identifier ?ui .
+} 
+}
+ORDER BY ?childTreeNum
