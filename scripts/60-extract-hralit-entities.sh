@@ -3,12 +3,11 @@ source constants.sh
 shopt -s extglob
 set -e
 
-source db-config.sh
-
 DIR=$RAW_DIR/$VERSION
+SQL=sql/60-extract-hralit-entities
 
 # Export data to jsonld format
-psql -t -A -f sql/60-extract-hralit-entities/61-hraj_graph_jsonld.sql > $DIR/hralit-journals.jsonl
-psql -t -A -f sql/60-extract-hralit-entities/62-hrap_graph_jsonld.sql > $DIR/hralit-persons.jsonl
-psql -t -A -f sql/60-extract-hralit-entities/63-hrao_graph_jsonld.sql > $DIR/hralit-organizations.jsonl
-psql -t -A -f sql/60-extract-hralit-entities/64-hraa_graph_jsonld.sql > $DIR/hralit-articles.jsonl
+./src/sql-extract.sh $SQL/61-hraj_graph_jsonld.sql $DIR/hralit-journals.jsonl
+./src/sql-extract.sh $SQL/62-hrap_graph_jsonld.sql $DIR/hralit-persons.jsonl
+./src/sql-extract.sh $SQL/63-hrao_graph_jsonld.sql $DIR/hralit-organizations.jsonl
+./src/sql-extract.sh $SQL/64-hraa_graph_jsonld.sql $DIR/hralit-articles.jsonl
