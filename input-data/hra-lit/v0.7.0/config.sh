@@ -1,4 +1,4 @@
-SCHEMA="hralit"
+SCHEMA="${USER}_hralit"
 DATASET="hra-lit"
 VERSION="v0.7.0"
 
