@@ -20,3 +20,5 @@ WHERE
   OR g.source IS NULL
 WITH
   DATA;
+
+CREATE INDEX ON ml_author_aff ((pmid::TEXT));

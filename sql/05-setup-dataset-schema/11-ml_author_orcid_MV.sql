@@ -277,3 +277,5 @@ WHERE
   )
 WITH
   DATA;
+
+CREATE INDEX ON ml_author_orcid (auth_id);

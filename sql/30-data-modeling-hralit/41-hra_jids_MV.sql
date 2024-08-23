@@ -13,6 +13,7 @@ WITH
     a.journal_nlmuniqueid AS identifier
     FROM
       medline_master a
+      RIGHT JOIN hra_pmid hra ON a.pmid::TEXT = hra.pmid::TEXT
     UNION
     SELECT DISTINCT
       a.pmid,
@@ -22,6 +23,7 @@ WITH
     normalize_identifier (a.journal_nlmuniqueid::TEXT || '_'::TEXT || a.volume::TEXT) AS identifier
     FROM
       medline_master a
+      RIGHT JOIN hra_pmid hra ON a.pmid::TEXT = hra.pmid::TEXT
     UNION
     SELECT DISTINCT
       a.pmid,
@@ -31,6 +33,7 @@ WITH
     normalize_identifier (a.journal_nlmuniqueid::TEXT || '_'::TEXT || a.volume::TEXT || '_'::TEXT || a.issue::TEXT) AS identifier
     FROM
       medline_master a
+      RIGHT JOIN hra_pmid hra ON a.pmid::TEXT = hra.pmid::TEXT
   )
 SELECT
   jid.pmid,

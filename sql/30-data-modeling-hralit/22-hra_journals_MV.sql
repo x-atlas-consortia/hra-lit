@@ -18,6 +18,7 @@ WITH
       c.journal_issnlinking AS issn
     FROM
       medline_master c
+      RIGHT JOIN hra_pmid hra ON c.pmid::TEXT = hra.pmid::TEXT
     WHERE
       c.journal_issnlinking IS NOT NULL
     ORDER BY
