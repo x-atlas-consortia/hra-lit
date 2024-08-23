@@ -1,7 +1,7 @@
--- View: public.hra_author_id
-DROP MATERIALIZED VIEW IF EXISTS public.hra_author_id CASCADE;
+-- View: hra_author_id
+DROP MATERIALIZED VIEW IF EXISTS hra_author_id CASCADE;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS public.hra_author_id
+CREATE MATERIALIZED VIEW IF NOT EXISTS hra_author_id
 TABLESPACE pg_default
 AS
  SELECT DISTINCT ON (a.name, a.orcid) 'https://purl.humanatlas.io/graph/hra-lit/v0.6#person_'::text || row_number() OVER () AS ident,

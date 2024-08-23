@@ -1,8 +1,8 @@
--- View: public.hraa 
+-- View: hraa 
 
-DROP MATERIALIZED VIEW IF EXISTS public.hraa;
+DROP MATERIALIZED VIEW IF EXISTS hraa;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS public.hraa
+CREATE MATERIALIZED VIEW IF NOT EXISTS hraa
 TABLESPACE pg_default
 AS
  SELECT DISTINCT 'https://identifiers.org/pubmed:'::text || pml.pmid::text AS "@id",

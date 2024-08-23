@@ -3,7 +3,7 @@ source constants.sh
 shopt -s extglob
 set -e
 
-DIR=$RAW_DIR/$VERSION
+DIR=$RAW_DIR/$DATASET/$VERSION
 SQL=sql/10-extract-universe-data
 
 ./src/sql-extract.sh $SQL/10-publications.sql $DIR/universe-publications.jsonl

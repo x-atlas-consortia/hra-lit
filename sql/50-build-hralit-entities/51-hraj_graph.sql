@@ -1,7 +1,7 @@
--- View: public.hraj - journal graph 
-DROP MATERIALIZED VIEW IF EXISTS public.hraj;
+-- View: hraj - journal graph 
+DROP MATERIALIZED VIEW IF EXISTS hraj;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS public.hraj
+CREATE MATERIALIZED VIEW IF NOT EXISTS hraj
 TABLESPACE pg_default
 AS
  SELECT hra_journals."@id",

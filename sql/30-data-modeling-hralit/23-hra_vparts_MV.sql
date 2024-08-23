@@ -1,7 +1,7 @@
--- View: public.hra_vparts
-DROP MATERIALIZED VIEW IF EXISTS public.hra_vparts CASCADE;
+-- View: hra_vparts
+DROP MATERIALIZED VIEW IF EXISTS hra_vparts CASCADE;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS public.hra_vparts
+CREATE MATERIALIZED VIEW IF NOT EXISTS hra_vparts
 TABLESPACE pg_default
 AS
  SELECT DISTINCT REPLACE((a.journal_nlmuniqueid::text || '_'::text || a.volume::text),' ','%20') AS volume_id,

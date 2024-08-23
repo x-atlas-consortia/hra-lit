@@ -1,7 +1,7 @@
--- View: public.hra_jparts
-DROP MATERIALIZED VIEW IF EXISTS public.hra_jparts CASCADE;
+-- View: hra_jparts
+DROP MATERIALIZED VIEW IF EXISTS hra_jparts CASCADE;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS public.hra_jparts
+CREATE MATERIALIZED VIEW IF NOT EXISTS hra_jparts
 TABLESPACE pg_default
 AS
  SELECT DISTINCT a.journal_nlmuniqueid,

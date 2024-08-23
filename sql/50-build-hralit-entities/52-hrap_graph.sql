@@ -1,7 +1,7 @@
--- View: public.hrap 
-DROP MATERIALIZED VIEW IF EXISTS public.hrap;
+-- View: hrap 
+DROP MATERIALIZED VIEW IF EXISTS hrap;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS public.hrap
+CREATE MATERIALIZED VIEW IF NOT EXISTS hrap
 TABLESPACE pg_default
 AS
  SELECT DISTINCT ON (a.ident) a.ident AS "@id",

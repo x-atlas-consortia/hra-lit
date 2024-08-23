@@ -1,7 +1,7 @@
--- View: public.ml_author_aff
-DROP MATERIALIZED VIEW IF EXISTS public.ml_author_aff CASCADE;
+-- View: ml_author_aff
+DROP MATERIALIZED VIEW IF EXISTS ml_author_aff CASCADE;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS public.ml_author_aff
+CREATE MATERIALIZED VIEW IF NOT EXISTS ml_author_aff
 TABLESPACE pg_default
 AS
  SELECT c.pmid,

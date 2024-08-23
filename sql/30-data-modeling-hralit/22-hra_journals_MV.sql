@@ -1,7 +1,7 @@
--- View: public.hra_journals
-DROP MATERIALIZED VIEW IF EXISTS public.hra_journals CASCADE;
+-- View: hra_journals
+DROP MATERIALIZED VIEW IF EXISTS hra_journals CASCADE;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS public.hra_journals
+CREATE MATERIALIZED VIEW IF NOT EXISTS hra_journals
 TABLESPACE pg_default
 AS
  WITH pm_journals AS (

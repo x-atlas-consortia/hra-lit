@@ -1,7 +1,7 @@
--- View: public.hra_author_names
-DROP MATERIALIZED VIEW IF EXISTS public.hra_author_names CASCADE;
+-- View: hra_author_names
+DROP MATERIALIZED VIEW IF EXISTS hra_author_names CASCADE;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS public.hra_author_names
+CREATE MATERIALIZED VIEW IF NOT EXISTS hra_author_names
 TABLESPACE pg_default
 AS
  SELECT hra.pmid,
@@ -32,10 +32,10 @@ UNION
   WHERE a_2.last_name IS NULL AND a_2.author_valid::text = 'Y'::text
 WITH DATA;
 
--- View: public.hra_author_id
-DROP MATERIALIZED VIEW IF EXISTS public.hra_author_id CASCADE;
+-- View: hra_author_id
+DROP MATERIALIZED VIEW IF EXISTS hra_author_id CASCADE;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS public.hra_author_id
+CREATE MATERIALIZED VIEW IF NOT EXISTS hra_author_id
 TABLESPACE pg_default
 AS
  SELECT DISTINCT ON (a.name, a.orcid) 'https://purl.humanatlas.io/graph/hra-lit/v0.6#person_'::text || row_number() OVER () AS ident,
@@ -51,10 +51,10 @@ UNION
   WHERE a.author_type::text = 'Organization'::text
 WITH DATA;
 
--- View: public.hra_authors
-DROP MATERIALIZED VIEW IF EXISTS public.hra_authors CASCADE;
+-- View: hra_authors
+DROP MATERIALIZED VIEW IF EXISTS hra_authors CASCADE;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS public.hra_authors
+CREATE MATERIALIZED VIEW IF NOT EXISTS hra_authors
 TABLESPACE pg_default
 AS
  SELECT hra.pmid,
@@ -86,10 +86,10 @@ UNION
   WHERE hra.orcid IS NULL AND i.orcid IS NULL
 WITH DATA;
 
--- View: public.hra_author_affiliations
-DROP MATERIALIZED VIEW IF EXISTS public.hra_author_affiliations CASCADE;
+-- View: hra_author_affiliations
+DROP MATERIALIZED VIEW IF EXISTS hra_author_affiliations CASCADE;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS public.hra_author_affiliations
+CREATE MATERIALIZED VIEW IF NOT EXISTS hra_author_affiliations
 TABLESPACE pg_default
 AS
  SELECT hra.pmid,

@@ -1,7 +1,7 @@
 -- view: hra_jid - Journal Entity Identifiers for articles
-DROP MATERIALIZED VIEW IF EXISTS public.hra_jid CASCADE;
+DROP MATERIALIZED VIEW IF EXISTS hra_jid CASCADE;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS public.hra_jid
+CREATE MATERIALIZED VIEW IF NOT EXISTS hra_jid
 TABLESPACE pg_default
 AS
  WITH jid AS (
@@ -32,10 +32,10 @@ AS
   WHERE ad.article_year::integer > 2009 AND jid.identifier IS NOT NULL
 WITH DATA;
 
--- View: public.hra_titles
-DROP MATERIALIZED VIEW IF EXISTS public.hra_titles CASCADE;
+-- View: hra_titles
+DROP MATERIALIZED VIEW IF EXISTS hra_titles CASCADE;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS public.hra_titles
+CREATE MATERIALIZED VIEW IF NOT EXISTS hra_titles
 TABLESPACE pg_default
 AS
  SELECT hra.pmid,
@@ -51,10 +51,10 @@ UNION
   WHERE a.article_title IS NULL AND a.vernacular_title IS NOT NULL
 WITH DATA;
 
--- View: public.hra_abs
-DROP MATERIALIZED VIEW IF EXISTS public.hra_abs CASCADE;
+-- View: hra_abs
+DROP MATERIALIZED VIEW IF EXISTS hra_abs CASCADE;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS public.hra_abs
+CREATE MATERIALIZED VIEW IF NOT EXISTS hra_abs
 TABLESPACE pg_default
 AS
 	WITH abs AS (
@@ -71,22 +71,22 @@ AS
 	GROUP BY hra.pmid
 WITH DATA;
 
--- View: public.hra_dates
-DROP MATERIALIZED VIEW IF EXISTS public.hra_dates CASCADE;
+-- View: hra_dates
+DROP MATERIALIZED VIEW IF EXISTS hra_dates CASCADE;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS public.hra_dates
+CREATE MATERIALIZED VIEW IF NOT EXISTS hra_dates
 AS
 SELECT pml.pmid, 
 	to_date((ad.article_year||'_'||ad.article_month||'_'||ad.article_day), 'YYYY-MM-DD') AS "date_published"
-FROM public.hra_pmid AS pml 
-LEFT JOIN public.medline_article_date AS ad 
+FROM hra_pmid AS pml 
+LEFT JOIN medline_article_date AS ad 
 	ON (pml.pmid = ad.pmid)
 WITH DATA;
 
--- View: public.hra_doi
-DROP MATERIALIZED VIEW IF EXISTS public.hra_doi CASCADE;
+-- View: hra_doi
+DROP MATERIALIZED VIEW IF EXISTS hra_doi CASCADE;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS public.hra_doi
+CREATE MATERIALIZED VIEW IF NOT EXISTS hra_doi
 TABLESPACE pg_default
 AS
  SELECT pml.pmid,
@@ -96,10 +96,10 @@ AS
   WHERE ei.eid_type::text = 'doi'::text AND ei.eid_valid::text = 'Y'::text
 WITH DATA;
 
--- View: public.hra_mesh_all
-DROP MATERIALIZED VIEW IF EXISTS public.hra_mesh_all CASCADE;
+-- View: hra_mesh_all
+DROP MATERIALIZED VIEW IF EXISTS hra_mesh_all CASCADE;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS public.hra_mesh_all
+CREATE MATERIALIZED VIEW IF NOT EXISTS hra_mesh_all
 TABLESPACE pg_default
 AS
  SELECT pml.pmid,

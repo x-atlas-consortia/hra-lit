@@ -1,7 +1,7 @@
--- View: public.hra_jiss
-DROP MATERIALIZED VIEW IF EXISTS public.hra_jiss CASCADE;
+-- View: hra_jiss
+DROP MATERIALIZED VIEW IF EXISTS hra_jiss CASCADE;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS public.hra_jiss
+CREATE MATERIALIZED VIEW IF NOT EXISTS hra_jiss
 TABLESPACE pg_default
 AS
  SELECT DISTINCT REPLACE(('https://purl.humanatlas.io/graph/hra-lit/v0.6#'::text || a.journal_nlmuniqueid::text || '_'::text || a.volume::text || '_'::text || a.issue::text), ' ', '%20') AS "@id",

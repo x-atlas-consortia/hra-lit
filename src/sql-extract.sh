@@ -1,5 +1,5 @@
 #!/bin/bash
-source db-config.sh
+source constants.sh
 set -e
 
 sql=$1
@@ -7,6 +7,6 @@ out=$2
 
 echo ">>>> Extracting data from SQL Script:" $sql on $(date)
 echo
-psql -t -A -f $sql > $out
+time psql -t -A -f $sql > $out
 echo
 echo "<<<< Finished SQL Script:" $sql on $(date)

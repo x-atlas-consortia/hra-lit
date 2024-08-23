@@ -3,8 +3,8 @@ source constants.sh
 shopt -s extglob
 set -ev
 
-DIR=$RAW_DIR/$VERSION
-OUT=$OUTPUT_DIR/$VERSION
+DIR=$RAW_DIR/$DATASET/$VERSION
+OUT=$OUTPUT_DIR/$DATASET/$VERSION
 
 mkdir -p $OUT
 

@@ -3,7 +3,7 @@ source constants.sh
 shopt -s extglob
 set -ev
 
-DIR=$RAW_DIR/$VERSION
+DIR=$RAW_DIR/$DATASET/$VERSION
 JNL=$DIR/blazegraph.jnl
 rm -f $JNL
 
@@ -30,17 +30,16 @@ run_jsonld() {
 }
 
 # HRA-LIT Universe
-run_ndjsonld $DIR/universe-publications.jsonl $HRA_LIT_UNIVERSE
-run_ndjsonld $DIR/universe-pmid-mesh.jsonl $HRA_LIT_UNIVERSE
+# run_ndjsonld $DIR/universe-publications.jsonl $HRA_LIT_UNIVERSE
+# run_ndjsonld $DIR/universe-pmid-mesh.jsonl $HRA_LIT_UNIVERSE
 
-# HRA-LIT World  
-run_ndjsonld $DIR/hralit-articles.jsonl  $HRA_LIT
-#run_ndjsonld $DIR/hralit-journals.jsonl  $HRA_LIT
-run_ndjsonld $DIR/hralit-organizations.jsonl  $HRA_LIT
-run_ndjsonld $DIR/hralit-persons.jsonl  $HRA_LIT
+# HRA-LIT World
+ndjsonld canonize -c context.jsonld $DIR/hralit-articles.jsonl $DIR/hra-lit.nq
+ndjsonld canonize --unsafe -c context.jsonld $DIR/hralit-journals.jsonl - >> $DIR/hra-lit.nq # FIXME: Relative @id reference found. https://purl.humanatlas.io/graph/hra-lit/v0.6#421031_114_4%20SupplÂ 1 
+ndjsonld canonize -c context.jsonld $DIR/hralit-organizations.jsonl - >> $DIR/hra-lit.nq
+ndjsonld canonize -c context.jsonld $DIR/hralit-persons.jsonl - >> $DIR/hra-lit.nq
 
-# Precomputed Atlas distances and similarities
-#blazegraph-runner load --journal=$JNL "--graph=${HRA_POP}#distances" $DIR/euclidean-distances.ttl
+blazegraph-runner load --journal=$JNL "--graph=${HRA_LIT}" $DIR/hra-lit.nq
 
 # Import CCF.OWL
 curl -s $CCF -H "Accept: application/rdf+xml" > $DIR/ccf.owl

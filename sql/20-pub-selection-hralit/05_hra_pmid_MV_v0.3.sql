@@ -1,8 +1,8 @@
--- View: public.hra_pmid
+-- View: hra_pmid
 
-DROP MATERIALIZED VIEW IF EXISTS public.hra_pmid CASCADE;
+DROP MATERIALIZED VIEW IF EXISTS hra_pmid CASCADE;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS public.hra_pmid
+CREATE MATERIALIZED VIEW IF NOT EXISTS hra_pmid
 TABLESPACE pg_default
 AS
  

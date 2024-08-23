@@ -1,7 +1,7 @@
--- View: public.hra_author_affiliations
-DROP MATERIALIZED VIEW IF EXISTS public.hra_author_affiliations CASCADE;
+-- View: hra_author_affiliations
+DROP MATERIALIZED VIEW IF EXISTS hra_author_affiliations CASCADE;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS public.hra_author_affiliations
+CREATE MATERIALIZED VIEW IF NOT EXISTS hra_author_affiliations
 TABLESPACE pg_default
 AS
  SELECT hra.pmid,

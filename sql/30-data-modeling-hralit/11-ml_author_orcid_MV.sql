@@ -1,7 +1,7 @@
--- View: public.ml_author_orcid
-DROP MATERIALIZED VIEW IF EXISTS public.ml_author_orcid CASCADE;
+-- View: ml_author_orcid
+DROP MATERIALIZED VIEW IF EXISTS ml_author_orcid CASCADE;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS public.ml_author_orcid
+CREATE MATERIALIZED VIEW IF NOT EXISTS ml_author_orcid
 TABLESPACE pg_default
 AS
  WITH gp36 AS (

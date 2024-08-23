@@ -1,7 +1,7 @@
--- View: public.hra_mesh_all
-DROP MATERIALIZED VIEW IF EXISTS public.hra_mesh_all CASCADE;
+-- View: hra_mesh_all
+DROP MATERIALIZED VIEW IF EXISTS hra_mesh_all CASCADE;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS public.hra_mesh_all
+CREATE MATERIALIZED VIEW IF NOT EXISTS hra_mesh_all
 TABLESPACE pg_default
 AS
  SELECT pml.pmid,

@@ -1,8 +1,8 @@
--- View: public.hra_author_names
+-- View: hra_author_names
 
-DROP MATERIALIZED VIEW IF EXISTS public.hra_author_names CASCADE;
+DROP MATERIALIZED VIEW IF EXISTS hra_author_names CASCADE;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS public.hra_author_names
+CREATE MATERIALIZED VIEW IF NOT EXISTS hra_author_names
 TABLESPACE pg_default
 AS
  SELECT hra.pmid,

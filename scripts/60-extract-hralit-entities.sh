@@ -3,7 +3,7 @@ source constants.sh
 shopt -s extglob
 set -e
 
-DIR=$RAW_DIR/$VERSION
+DIR=$RAW_DIR/$DATASET/$VERSION
 SQL=sql/60-extract-hralit-entities
 
 # Export data to jsonld format

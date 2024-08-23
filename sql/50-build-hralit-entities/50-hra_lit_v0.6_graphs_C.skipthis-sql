@@ -1,7 +1,7 @@
--- View: public.hrap - person graph
-DROP MATERIALIZED VIEW IF EXISTS public.hrap;
+-- View: hrap - person graph
+DROP MATERIALIZED VIEW IF EXISTS hrap;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS public.hrap
+CREATE MATERIALIZED VIEW IF NOT EXISTS hrap
 TABLESPACE pg_default
 AS
  SELECT DISTINCT ON (a.ident) a.ident AS "@id",
@@ -20,21 +20,21 @@ AS
   GROUP BY a.ident, a.name, a.initials, a.fore_name, a.last_name, a.suffix, a.author_type, a.orcid
 WITH DATA
 
--- view: public.hrao - organization graph
-DROP MATERIALIZED VIEW IF EXISTS public.hrao;
+-- view: hrao - organization graph
+DROP MATERIALIZED VIEW IF EXISTS hrao;
 
-CREATE MATERIALIZED VIEW public.hrao AS
+CREATE MATERIALIZED VIEW hrao AS
 SELECT DISTINCT ON (ident)
     a.ident AS "@id",
     a.name AS "name",
     a.author_type AS "@type"
-FROM public.hra_authors AS a
+FROM hra_authors AS a
 WHERE a.author_type = 'Organization';
 
--- View: public.hraj - journal graph
-DROP MATERIALIZED VIEW IF EXISTS public.hraj;
+-- View: hraj - journal graph
+DROP MATERIALIZED VIEW IF EXISTS hraj;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS public.hraj
+CREATE MATERIALIZED VIEW IF NOT EXISTS hraj
 TABLESPACE pg_default
 AS
  SELECT hra_journals."@id",
@@ -90,10 +90,10 @@ UNION
   ORDER BY 3
 WITH DATA;
 
--- view: public.hraa - article graph
-DROP MATERIALIZED VIEW IF EXISTS public.hraa;
+-- view: hraa - article graph
+DROP MATERIALIZED VIEW IF EXISTS hraa;
 
-CREATE MATERIALIZED VIEW public.hraa AS
+CREATE MATERIALIZED VIEW hraa AS
 SELECT DISTINCT
 	'https://identifiers.org/pubmed:'||pml.pmid AS "@id",
 	'ScholarlyArticle' as "@type",
@@ -106,24 +106,24 @@ SELECT DISTINCT
 	a.pagination AS "pagination",
 	ei.doi AS "sameAs",
 	mh.about AS "about"
-FROM public.hra_pmid AS pml
-LEFT JOIN public.medline_publicationtype AS pt
+FROM hra_pmid AS pml
+LEFT JOIN medline_publicationtype AS pt
 	ON (pml.pmid = pt.pmid)
-LEFT JOIN public.medline_master AS a 
+LEFT JOIN medline_master AS a 
 	ON (pml.pmid = a.pmid)
-LEFT JOIN public.hra_titles AS att
+LEFT JOIN hra_titles AS att
 	ON (pml.pmid = att.pmid)	
-LEFT JOIN public.hra_dates AS ad 
+LEFT JOIN hra_dates AS ad 
 	ON (pml.pmid = ad.pmid)
-LEFT JOIN public.hra_abs AS ab
+LEFT JOIN hra_abs AS ab
 	ON (pml.pmid = ab.pmid)
-LEFT JOIN public.hra_authors AS au
+LEFT JOIN hra_authors AS au
 	ON (pml.pmid = au.pmid)
-LEFT JOIN public.hra_jid AS jid
+LEFT JOIN hra_jid AS jid
 	ON (pml.pmid = jid.pmid)
-LEFT JOIN public.hra_doi AS ei
+LEFT JOIN hra_doi AS ei
 	ON (pml.pmid= ei.pmid)
-LEFT JOIN public.hra_mesh_all AS mh
+LEFT JOIN hra_mesh_all AS mh
 	ON (pml.pmid = mh.pmid)
 WHERE pml.pmid = a.pmid
   AND pt.publicationtype = 'Journal Article'

@@ -1,7 +1,7 @@
--- View: public.hrao
-DROP MATERIALIZED VIEW IF EXISTS public.hrao; 
+-- View: hrao
+DROP MATERIALIZED VIEW IF EXISTS hrao; 
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS public.hrao
+CREATE MATERIALIZED VIEW IF NOT EXISTS hrao
 TABLESPACE pg_default
 AS
  SELECT DISTINCT ON (a.ident) a.ident AS "@id",
