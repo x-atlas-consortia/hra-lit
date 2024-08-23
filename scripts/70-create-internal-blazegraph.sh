@@ -42,6 +42,9 @@ cat $DIR/hralit-articles.jsonl \
 
 blazegraph-runner load --journal=$JNL "--graph=${HRA_LIT}" $DIR/hra-lit.nq
 
+# Dump HRA-LIT back out to turtle format
+blazegraph-runner dump --journal=$JNL "--graph=${HRA_LIT}" $DIR/hra-lit.ttl
+
 # Import CCF.OWL
 curl -s $CCF -H "Accept: application/rdf+xml" > $DIR/ccf.owl
 blazegraph-runner load --journal=$JNL "--graph=${CCF}" $DIR/ccf.owl
