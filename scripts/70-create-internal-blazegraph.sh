@@ -34,10 +34,11 @@ run_jsonld() {
 # run_ndjsonld $DIR/universe-pmid-mesh.jsonl $HRA_LIT_UNIVERSE
 
 # HRA-LIT World
-ndjsonld canonize -c context.jsonld $DIR/hralit-articles.jsonl $DIR/hra-lit.nq
-ndjsonld canonize -c context.jsonld $DIR/hralit-journals.jsonl - >> $DIR/hra-lit.nq
-ndjsonld canonize -c context.jsonld $DIR/hralit-organizations.jsonl - >> $DIR/hra-lit.nq
-ndjsonld canonize -c context.jsonld $DIR/hralit-persons.jsonl - >> $DIR/hra-lit.nq
+cat $DIR/hralit-articles.jsonl \
+  $DIR/hralit-journals.jsonl \
+  $DIR/hralit-organizations.jsonl \
+  $DIR/hralit-persons.jsonl | \
+  ndjsonld canonize -c context.jsonld - $DIR/hra-lit.nq
 
 blazegraph-runner load --journal=$JNL "--graph=${HRA_LIT}" $DIR/hra-lit.nq
 
