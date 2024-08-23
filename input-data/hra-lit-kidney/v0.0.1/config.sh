@@ -1,4 +1,4 @@
-SCHEMA="hralit_kidney"
+SCHEMA="${USER}_hralit_kidney"
 DATASET="hra-lit-kidney"
 VERSION="v0.0.1"
 
