@@ -1,0 +1,18 @@
+PREFIX schema: <http://schema.org/>
+PREFIX meshv: <http://id.nlm.nih.gov/mesh/vocab#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX MESH: <http://id.nlm.nih.gov/mesh/>
+PREFIX HRAlit: <https://purl.humanatlas.io/graph/hra-lit>
+
+SELECT ?mesh (SAMPLE(?label) as ?label) (COUNT(DISTINCT(?publication)) as ?publication_count)
+WHERE {
+  GRAPH HRAlit: {
+    ?publication a schema:ScholarlyArticle ;
+      schema:about ?mesh .
+  }
+  GRAPH MESH: {
+    ?mesh rdfs:label ?label
+  }
+}
+GROUP BY ?mesh
+ORDER BY DESC(?publication_count)

@@ -1,0 +1,13 @@
+PREFIX schema: <http://schema.org/>
+PREFIX meshv: <http://id.nlm.nih.gov/mesh/vocab#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX MESH: <http://id.nlm.nih.gov/mesh/>
+PREFIX HRAlit: <https://purl.humanatlas.io/graph/hra-lit>
+
+SELECT ?class (COUNT(*) as ?count)
+FROM HRAlit:
+WHERE {
+  [] a ?class .
+}
+GROUP BY ?class
+ORDER BY ?class
