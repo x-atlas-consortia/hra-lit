@@ -1,12 +1,13 @@
+DEFAULT_CONFIG=input-data/hra-lit/v0.7.0/config.sh
 
 INPUT_DIR="./input-data"
 OUTPUT_DIR="./output-data"
 RAW_DIR="./raw-data"
 
 export PATH=./node_modules/.bin:${PATH}
+CONFIG=${CONFIG:=$DEFAULT_CONFIG}
 
-# source input-data/hra-lit/v0.7.0/config.sh
-source input-data/hra-lit-kidney/v0.0.1/config.sh
+source $CONFIG
 
 mkdir -p $RAW_DIR/$DATASET/$VERSION
 mkdir -p $INPUT_DIR/$DATASET/$VERSION
