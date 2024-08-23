@@ -9,7 +9,7 @@ const FILTER = process.argv.length === 5 ? process.argv[4] : undefined;
 
 async function runQueries() {
   // Go through each query in queries, run them, and save out the csv report to ../data/reports/
-  for (const queryFile of globSync('queries/*/*.rq').sort()) {
+  for (const queryFile of globSync('reports/*/*.rq').sort()) {
     const reportName = basename(queryFile, '.rq');
     if (FILTER && !reportName.includes(FILTER)) {
       continue;
