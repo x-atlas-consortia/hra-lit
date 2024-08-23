@@ -35,7 +35,7 @@ run_jsonld() {
 
 # HRA-LIT World
 ndjsonld canonize -c context.jsonld $DIR/hralit-articles.jsonl $DIR/hra-lit.nq
-ndjsonld canonize --unsafe -c context.jsonld $DIR/hralit-journals.jsonl - >> $DIR/hra-lit.nq # FIXME: Relative @id reference found. https://purl.humanatlas.io/graph/hra-lit/v0.6#421031_114_4%20SupplÂ 1 
+ndjsonld canonize -c context.jsonld $DIR/hralit-journals.jsonl - >> $DIR/hra-lit.nq
 ndjsonld canonize -c context.jsonld $DIR/hralit-organizations.jsonl - >> $DIR/hra-lit.nq
 ndjsonld canonize -c context.jsonld $DIR/hralit-persons.jsonl - >> $DIR/hra-lit.nq
 

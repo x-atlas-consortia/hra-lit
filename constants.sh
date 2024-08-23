@@ -5,7 +5,8 @@ RAW_DIR="./raw-data"
 
 export PATH=./node_modules/.bin:${PATH}
 
-source input-data/hra-lit/v0.7.0/config.sh
+# source input-data/hra-lit/v0.7.0/config.sh
+source input-data/hra-lit-kidney/v0.0.1/config.sh
 
 mkdir -p $RAW_DIR/$DATASET/$VERSION
 mkdir -p $INPUT_DIR/$DATASET/$VERSION

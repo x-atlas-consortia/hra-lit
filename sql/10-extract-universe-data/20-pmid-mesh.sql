@@ -1,10 +1,16 @@
-WITH CTE AS (
-  SELECT 
-    'https://identifiers.org/pubmed:' || H.pmid AS "@id",
-    'http://id.nlm.nih.gov/mesh/' || ui AS "about",
-    'ScholarlyArticle' as "@type"
-  FROM medline_mesh_heading H JOIN medline_master M ON (H.pmid = M.pmid)
-  WHERE pub_year::integer > 2009
-)
-SELECT jsonb_strip_nulls(ROW_TO_JSON(ROW)::jsonb) AS json_data
-FROM CTE AS ROW
+WITH
+  CTE AS (
+    SELECT
+      'https://identifiers.org/pubmed:' || H.pmid AS "@id",
+      'http://id.nlm.nih.gov/mesh/' || ui AS "about",
+      'ScholarlyArticle' AS "@type"
+    FROM
+      medline_mesh_heading H
+      JOIN medline_master M ON (H.pmid = M.pmid)
+    WHERE
+      pub_year::INTEGER > 2009
+  )
+SELECT
+  JSONB_STRIP_NULLS(ROW_TO_JSON(ROW)::jsonb) AS json_data
+FROM
+  CTE AS ROW

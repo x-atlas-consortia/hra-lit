@@ -1,18 +1,24 @@
 -- View: hra_author_id
 DROP MATERIALIZED VIEW IF EXISTS hra_author_id CASCADE;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS hra_author_id
-TABLESPACE pg_default
-AS
- SELECT DISTINCT ON (a.name, a.orcid) 'https://purl.humanatlas.io/graph/hra-lit/v0.6#person_'::text || row_number() OVER () AS ident,
-    a.name,
-    a.orcid
-   FROM hra_author_names a
-  WHERE a.author_type::text = 'Person'::text
+CREATE MATERIALIZED VIEW IF NOT EXISTS
+  hra_author_id TABLESPACE pg_default AS
+SELECT DISTINCT
+  ON (a.name, a.orcid) '#person_'::TEXT || ROW_NUMBER() OVER () AS ident,
+  a.name,
+  a.orcid
+FROM
+  hra_author_names a
+WHERE
+  a.author_type::TEXT = 'Person'::TEXT
 UNION
- SELECT DISTINCT ON (a.name, a.orcid) 'https://purl.humanatlas.io/graph/hra-lit/v0.6#organization_'::text || row_number() OVER () AS ident,
-    a.name,
-    a.orcid
-   FROM hra_author_names a
-  WHERE a.author_type::text = 'Organization'::text
-WITH DATA;
+SELECT DISTINCT
+  ON (a.name, a.orcid) '#organization_'::TEXT || ROW_NUMBER() OVER () AS ident,
+  a.name,
+  a.orcid
+FROM
+  hra_author_names a
+WHERE
+  a.author_type::TEXT = 'Organization'::TEXT
+WITH
+  DATA;
