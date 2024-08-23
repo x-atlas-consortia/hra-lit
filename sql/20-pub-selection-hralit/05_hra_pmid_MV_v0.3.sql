@@ -26,3 +26,5 @@ ORDER BY
   dat.article_year DESC
 WITH
   DATA;
+
+CREATE INDEX ON hra_pmid ((pmid::TEXT));
