@@ -1,0 +1,125 @@
+Run started on Fri Aug 23 03:34:35 PM EDT 2024...
+
+>> Running scripts/00-setup-environment.sh...
+
+real	0m0.048s
+user	0m0.002s
+sys	0m0.004s
+
+>> Running scripts/05-setup-dataset-schema.sh...
+NOTICE:  drop cascades to 4 other objects
+DETAIL:  drop cascades to function normalize_id(text)
+drop cascades to function normalize_identifier(text)
+drop cascades to materialized view ml_author_orcid
+drop cascades to materialized view ml_author_aff
+CREATE SCHEMA
+>>>> psql -f ./sql/05-setup-dataset-schema/10-normalize-id-function.sql on Fri Aug 23 03:34:38 PM EDT 2024
+CREATE FUNCTION
+CREATE FUNCTION
+
+real	0m0.048s
+user	0m0.014s
+sys	0m0.014s
+>>>> psql -f ./sql/05-setup-dataset-schema/11-ml_author_orcid_MV.sql on Fri Aug 23 03:34:38 PM EDT 2024
+SELECT 9501986
+CREATE INDEX
+
+real	0m31.662s
+user	0m0.031s
+sys	0m0.000s
+>>>> psql -f ./sql/05-setup-dataset-schema/12-ml_author_aff_MV.sql on Fri Aug 23 03:35:10 PM EDT 2024
+psql:./sql/05-setup-dataset-schema/12-ml_author_aff_MV.sql:2: ERROR:  must be owner of materialized view ml_author_aff
+SELECT 101096344
+CREATE INDEX
+
+real	6m8.583s
+user	0m0.019s
+sys	0m0.010s
+
+real	6m43.459s
+user	0m0.116s
+sys	0m0.028s
+
+>> Running scripts/20-pub-selection-hralit.sh...
+>>>> psql -f ./sql/20-pub-selection-hralit/01_hra_mesh_descriptors_T.sql on Fri Aug 23 03:41:19 PM EDT 2024
+psql:./sql/20-pub-selection-hralit/01_hra_mesh_descriptors_T.sql:2: ERROR:  must be owner of table hra_meshd_anatomy
+CREATE TABLE
+psql:./sql/20-pub-selection-hralit/01_hra_mesh_descriptors_T.sql:13: ERROR:  must be owner of table hra_meshd_methods
+CREATE TABLE
+
+real	0m0.202s
+user	0m0.034s
+sys	0m0.000s
+COPY 1103
+>>>> psql -f ./sql/20-pub-selection-hralit/05_hra_pmid_MV_v0.3.sql on Fri Aug 23 03:41:19 PM EDT 2024
+psql:./sql/20-pub-selection-hralit/05_hra_pmid_MV_v0.3.sql:2: ERROR:  must be owner of materialized view hra_pmid
+SELECT 2640562
+CREATE INDEX
+
+real	0m25.521s
+user	0m0.021s
+sys	0m0.011s
+
+real	0m25.959s
+user	0m0.093s
+sys	0m0.029s
+
+>> Running scripts/30-data-modeling-hralit.sh...
+>>>> psql -f ./sql/30-data-modeling-hralit/21-hra_jparts_MV.sql on Fri Aug 23 03:41:45 PM EDT 2024
+psql:./sql/30-data-modeling-hralit/21-hra_jparts_MV.sql:2: ERROR:  must be owner of materialized view hra_jparts
+SELECT 5001
+
+real	0m33.824s
+user	0m0.031s
+sys	0m0.009s
+>>>> psql -f ./sql/30-data-modeling-hralit/22-hra_journals_MV.sql on Fri Aug 23 03:42:19 PM EDT 2024
+psql:./sql/30-data-modeling-hralit/22-hra_journals_MV.sql:2: ERROR:  must be owner of materialized view hra_journals
+SELECT 5027
+
+real	1m45.572s
+user	0m0.015s
+sys	0m0.014s
+>>>> psql -f ./sql/30-data-modeling-hralit/23-hra_vparts_MV.sql on Fri Aug 23 03:44:04 PM EDT 2024
+psql:./sql/30-data-modeling-hralit/23-hra_vparts_MV.sql:2: ERROR:  must be owner of materialized view hra_vparts
+SELECT 62607
+
+real	0m33.997s
+user	0m0.022s
+sys	0m0.007s
+>>>> psql -f ./sql/30-data-modeling-hralit/24-hra_jvol_MV.sql on Fri Aug 23 03:44:38 PM EDT 2024
+psql:./sql/30-data-modeling-hralit/24-hra_jvol_MV.sql:2: ERROR:  must be owner of materialized view hra_jvol
+SELECT 104879
+
+real	0m38.385s
+user	0m0.031s
+sys	0m0.000s
+>>>> psql -f ./sql/30-data-modeling-hralit/25-hra_jiss_MV.sql on Fri Aug 23 03:45:17 PM EDT 2024
+psql:./sql/30-data-modeling-hralit/25-hra_jiss_MV.sql:2: ERROR:  must be owner of materialized view hra_jiss
+SELECT 331994
+
+real	0m33.302s
+user	0m0.034s
+sys	0m0.000s
+>>>> psql -f ./sql/30-data-modeling-hralit/31-hra_author_names_MV.sql on Fri Aug 23 03:45:50 PM EDT 2024
+psql:./sql/30-data-modeling-hralit/31-hra_author_names_MV.sql:2: ERROR:  must be owner of materialized view hra_author_names
+SELECT 17282429
+
+real	1m31.866s
+user	0m0.030s
+sys	0m0.000s
+>>>> psql -f ./sql/30-data-modeling-hralit/32-hra_author_id_MV.sql on Fri Aug 23 03:47:22 PM EDT 2024
+psql:./sql/30-data-modeling-hralit/32-hra_author_id_MV.sql:2: ERROR:  must be owner of materialized view hra_author_id
+SELECT 5086095
+
+real	0m29.112s
+user	0m0.032s
+sys	0m0.000s
+>>>> psql -f ./sql/30-data-modeling-hralit/33-hra_authors_MV.sql on Fri Aug 23 03:47:51 PM EDT 2024
+psql:./sql/30-data-modeling-hralit/33-hra_authors_MV.sql:2: ERROR:  must be owner of materialized view hra_authors
+SELECT 17283780
+
+real	0m35.517s
+user	0m0.024s
+sys	0m0.008s
+>>>> psql -f ./sql/30-data-modeling-hralit/34-hra_author_affiliations_MV.sql on Fri Aug 23 03:48:27 PM EDT 2024
+psql:./sql/30-data-modeling-hralit/34-hra_author_affiliations_MV.sql:2: ERROR:  must be owner of materialized view hra_author_affiliations
