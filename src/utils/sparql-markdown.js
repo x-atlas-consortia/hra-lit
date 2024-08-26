@@ -50,8 +50,8 @@ ${sparql.query}
     md += `
 #### Results ([View CSV File](${csv?.path}))
 
-| ${csv?.columns.join(' | ')} |
-| ${csv?.columns.map((_c) => ':---').join(' | ')} |
+| ${csv?.columns?.join(' | ')} |
+| ${csv?.columns?.map((_c) => ':---').join(' | ')} |
 ${csv?.preview.map((row) => '| ' + row.join(' | ') + ' |').join('\n')}
 
 `;
