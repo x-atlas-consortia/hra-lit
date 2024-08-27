@@ -9,9 +9,7 @@ WHERE {
   GRAPH HRAlit: {
     ?publication a schema:ScholarlyArticle ;
       schema:about ?mesh .
-  }
-  GRAPH MESH: {
-    ?mesh rdfs:label ?label
+    ?mesh schema:name ?label .
   }
 }
 GROUP BY ?mesh

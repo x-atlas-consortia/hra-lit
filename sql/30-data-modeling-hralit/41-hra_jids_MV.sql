@@ -7,7 +7,7 @@ WITH
   jid AS (
     SELECT DISTINCT
       a.pmid,
-      normalize_id (a.journal_nlmuniqueid::TEXT) AS id,
+      normalize_id ('J-'::TEXT || a.journal_nlmuniqueid::TEXT) AS id,
       'Periodical'::TEXT AS
     TYPE,
     a.journal_nlmuniqueid AS identifier
@@ -17,20 +17,20 @@ WITH
     UNION
     SELECT DISTINCT
       a.pmid,
-      normalize_id (a.journal_nlmuniqueid::TEXT || '_'::TEXT || a.volume::TEXT) AS id,
+      normalize_id ('JV-'::TEXT || a.journal_nlmuniqueid::TEXT || '_'::TEXT || a.volume::TEXT) AS id,
       'PublicationVolume'::TEXT AS
     TYPE,
-    normalize_identifier (a.journal_nlmuniqueid::TEXT || '_'::TEXT || a.volume::TEXT) AS identifier
+    normalize_identifier ('JV-'::TEXT || a.journal_nlmuniqueid::TEXT || '_'::TEXT || a.volume::TEXT) AS identifier
     FROM
       medline_master a
       RIGHT JOIN hra_pmid hra ON a.pmid::TEXT = hra.pmid::TEXT
     UNION
     SELECT DISTINCT
       a.pmid,
-      normalize_id (a.journal_nlmuniqueid::TEXT || '_'::TEXT || a.volume::TEXT || '_'::TEXT || a.issue::TEXT) AS id,
+      normalize_id ('JVI-'::TEXT || a.journal_nlmuniqueid::TEXT || '_'::TEXT || a.volume::TEXT || '_'::TEXT || a.issue::TEXT) AS id,
       'PublicationIssue'::TEXT AS
     TYPE,
-    normalize_identifier (a.journal_nlmuniqueid::TEXT || '_'::TEXT || a.volume::TEXT || '_'::TEXT || a.issue::TEXT) AS identifier
+    normalize_identifier ('JVI-'::TEXT || a.journal_nlmuniqueid::TEXT || '_'::TEXT || a.volume::TEXT || '_'::TEXT || a.issue::TEXT) AS identifier
     FROM
       medline_master a
       RIGHT JOIN hra_pmid hra ON a.pmid::TEXT = hra.pmid::TEXT

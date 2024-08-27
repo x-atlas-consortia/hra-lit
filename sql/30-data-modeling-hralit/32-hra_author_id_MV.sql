@@ -4,7 +4,7 @@ DROP MATERIALIZED VIEW IF EXISTS hra_author_id CASCADE;
 CREATE MATERIALIZED VIEW IF NOT EXISTS
   hra_author_id TABLESPACE pg_default AS
 SELECT DISTINCT
-  ON (a.name, a.orcid) '#person_'::TEXT || ROW_NUMBER() OVER () AS ident,
+  ON (a.name, a.orcid) '#p-'::TEXT || ROW_NUMBER() OVER () AS ident,
   a.name,
   a.orcid
 FROM
@@ -13,7 +13,7 @@ WHERE
   a.author_type::TEXT = 'Person'::TEXT
 UNION
 SELECT DISTINCT
-  ON (a.name, a.orcid) '#organization_'::TEXT || ROW_NUMBER() OVER () AS ident,
+  ON (a.name, a.orcid) '#o-'::TEXT || ROW_NUMBER() OVER () AS ident,
   a.name,
   a.orcid
 FROM

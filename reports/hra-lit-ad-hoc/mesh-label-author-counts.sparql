@@ -4,7 +4,7 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX MESH: <http://id.nlm.nih.gov/mesh/>
 PREFIX HRAlit: <https://purl.humanatlas.io/graph/hra-lit>
 
-SELECT DISTINCT ?mesh ?label ?person
+SELECT ?mesh (SAMPLE(?label) as ?label) (COUNT(DISTINCT(?person)) as ?author_count)
 FROM HRAlit:
 WHERE {
   [] a schema:ScholarlyArticle ;
@@ -12,3 +12,5 @@ WHERE {
     schema:author ?person .
   ?mesh schema:name ?label .
 }
+GROUP BY ?mesh
+ORDER BY DESC(?author_count)

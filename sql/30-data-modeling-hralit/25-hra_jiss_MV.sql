@@ -4,9 +4,9 @@ DROP MATERIALIZED VIEW IF EXISTS hra_jiss CASCADE;
 CREATE MATERIALIZED VIEW IF NOT EXISTS
   hra_jiss TABLESPACE pg_default AS
 SELECT DISTINCT
-  normalize_id (a.journal_nlmuniqueid::TEXT || '_'::TEXT || a.volume::TEXT || '_'::TEXT || a.issue::TEXT) AS "@id",
+  normalize_id ('JVI-'::TEXT || a.journal_nlmuniqueid::TEXT || '_'::TEXT || a.volume::TEXT || '_'::TEXT || a.issue::TEXT) AS "@id",
   'PublicationIssue'::TEXT AS "@type",
-  normalize_identifier (a.journal_nlmuniqueid::TEXT || '_'::TEXT || a.volume::TEXT || '_'::TEXT || a.issue::TEXT) AS identifier,
+  normalize_identifier ('JVI-'::TEXT || a.journal_nlmuniqueid::TEXT || '_'::TEXT || a.volume::TEXT || '_'::TEXT || a.issue::TEXT) AS identifier,
   NULL::CHARACTER VARYING AS NAME,
   NULL::CHARACTER VARYING AS "alternateName",
   NULL::CHARACTER VARYING AS country,
@@ -17,7 +17,7 @@ SELECT DISTINCT
   a.issue AS "issueNumber",
   NULL::CHARACTER VARYING AS "pageStart",
   NULL::CHARACTER VARYING AS "pageEnd",
-  normalize_id (a.journal_nlmuniqueid::TEXT || '_'::TEXT || a.volume::TEXT) AS "isPartOf",
+  normalize_id ('JV-'::TEXT || a.journal_nlmuniqueid::TEXT || '_'::TEXT || a.volume::TEXT) AS "isPartOf",
   NULL::TEXT[] AS "hasPart"
 FROM
   medline_master a
@@ -25,6 +25,6 @@ FROM
 WHERE
   a.issue IS NOT NULL
 ORDER BY
-  normalize_id (a.journal_nlmuniqueid::TEXT || '_'::TEXT || a.volume::TEXT)
+  normalize_id ('JV-'::TEXT || a.journal_nlmuniqueid::TEXT || '_'::TEXT || a.volume::TEXT)
 WITH
   DATA;

@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from 'fs';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { globSync } from 'glob';
 import { basename, dirname, join } from 'path';
 import sh from 'shelljs';
@@ -26,14 +26,21 @@ async function runQueries() {
     writeFileSync(`${reportCsv}.rq`, query);
 
     const result = sh.exec(
-      `blazegraph-runner --journal=${JOURNAL} select --outformat=json ${reportCsv}.rq ${reportCsv}.json`,
+      `blazegraph-runner --journal=${JOURNAL} select --outformat=json ${reportCsv}.rq /dev/stdout | tail -n +52 | gzip > ${reportCsv}.json.gz`,
       { silent: true }
     );
     if (result.code) {
       console.log('[ERROR]', result.stderr);
     }
-    sh.exec(`./src/sparql-json2csv.js ${reportCsv}.json ${reportCsv}`);
-    sh.exec(`rm -f ${reportCsv}.json  ${reportCsv}.rq`);
+
+    // If a post-processing SQL file is provided, run it to update the report
+    if (existsSync(queryFile.replace('.rq', '.sql'))) {
+      const sqlFile = queryFile.replace('.rq', '.sql');
+      sh.exec(`zcat ${reportCsv}.json.gz | ./src/sparql-json2csv.js /dev/stdin /dev/stdout | ./src/sql-select.sh ${sqlFile} /dev/stdin ${reportCsv}`);
+    } else {
+      sh.exec(`zcat ${reportCsv}.json.gz | ./src/sparql-json2csv.js /dev/stdin ${reportCsv}`);
+    }
+    sh.exec(`rm -f ${reportCsv}.json.gz  ${reportCsv}.rq`);
   }
 }
 

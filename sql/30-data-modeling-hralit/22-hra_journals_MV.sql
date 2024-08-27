@@ -25,7 +25,7 @@ WITH
       1
   )
 SELECT DISTINCT
-  normalize_id (a.journal_nlmuniqueid::TEXT) AS "@id",
+  normalize_id ('J-'::TEXT || a.journal_nlmuniqueid::TEXT) AS "@id",
   'Periodical'::TEXT AS "@type",
   a.journal_nlmuniqueid AS identifier,
   a.journal_title AS NAME,
