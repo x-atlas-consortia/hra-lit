@@ -1,8 +1,8 @@
--- View: ml_author_aff
-DROP MATERIALIZED VIEW IF EXISTS ml_author_aff CASCADE;
+-- View: hra_author_aff
+DROP MATERIALIZED VIEW IF EXISTS hra_author_aff CASCADE;
 
 CREATE MATERIALIZED VIEW IF NOT EXISTS
-  ml_author_aff TABLESPACE pg_default AS
+  hra_author_aff TABLESPACE pg_default AS
 SELECT
   c.pmid,
   ROW (c.pmid, c.author_ctr)::TEXT AS auth_id,
@@ -12,6 +12,7 @@ SELECT
   g.identifier
 FROM
   medline_author_affiliation c
+  INNER JOIN hra_pmid hra ON c.pmid::TEXT = hra.pmid::TEXT
   LEFT JOIN medline_author_affiliation_identifier g ON ROW (c.pmid, c.author_ctr, c.affiliation_ctr)::TEXT = ROW (g.pmid, g.author_ctr, g.affiliation_ctr)::TEXT
 WHERE
   (
@@ -21,4 +22,4 @@ WHERE
 WITH
   DATA;
 
-CREATE INDEX ON ml_author_aff ((pmid::TEXT));
+CREATE INDEX ON hra_author_aff ((pmid::TEXT));

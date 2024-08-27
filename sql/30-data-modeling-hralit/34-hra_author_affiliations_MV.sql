@@ -10,7 +10,7 @@ SELECT
   f.source,
   'isni:'::TEXT || f.identifier::TEXT AS identifier
 FROM
-  ml_author_aff f
+  hra_author_aff f
   RIGHT JOIN hra_pmid hra ON hra.pmid::TEXT = f.pmid::TEXT
 WHERE
   f.source::TEXT = 'ISNI'::TEXT
@@ -22,7 +22,7 @@ SELECT
   h.source,
   h.identifier
 FROM
-  ml_author_aff h
+  hra_author_aff h
   RIGHT JOIN hra_pmid hra ON hra.pmid::TEXT = h.pmid::TEXT
 WHERE
   h.source::TEXT <> 'ISNI'::TEXT
@@ -34,7 +34,7 @@ SELECT
   h.source,
   h.identifier
 FROM
-  ml_author_aff h
+  hra_author_aff h
   RIGHT JOIN hra_pmid hra ON hra.pmid::TEXT = h.pmid::TEXT
 WHERE
   h.source::TEXT IS NULL
