@@ -5,8 +5,5 @@ set -e
 sql=$1
 out=$2
 
-echo ">>>> Extracting data from SQL Script:" $sql on $(date)
-echo
+echo ">>>> psql -f" $sql to $(basename $out) on $(date)
 time psql -t -A -f $sql > $out
-echo
-echo "<<<< Finished SQL Script:" $sql on $(date)
