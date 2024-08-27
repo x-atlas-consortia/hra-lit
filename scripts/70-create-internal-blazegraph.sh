@@ -37,10 +37,12 @@ run_jsonld() {
 cat $DIR/hralit-articles.jsonl \
   $DIR/hralit-journals.jsonl \
   $DIR/hralit-organizations.jsonl \
-  $DIR/hralit-persons.jsonl | \
+  $DIR/hralit-persons.jsonl \
+  $DIR/hralit-mesh-terms.jsonl | \
   ndjsonld canonize -c context.jsonld - $DIR/hra-lit.nq
 
 blazegraph-runner load --journal=$JNL "--graph=${HRA_LIT}" $DIR/hra-lit.nq
+rm -f $DIR/hra-lit.nq
 
 # Dump HRA-LIT back out to turtle format
 blazegraph-runner dump --journal=$JNL "--graph=${HRA_LIT}" $DIR/hra-lit.ttl
@@ -48,11 +50,14 @@ blazegraph-runner dump --journal=$JNL "--graph=${HRA_LIT}" $DIR/hra-lit.ttl
 # Import CCF.OWL
 curl -s $CCF -H "Accept: application/rdf+xml" > $DIR/ccf.owl
 blazegraph-runner load --journal=$JNL "--graph=${CCF}" $DIR/ccf.owl
+rm -f $DIR/ccf.owl
 
 # Import UBERON
 curl -s $UBERON -H "Accept: application/rdf+xml" > $DIR/uberon.owl
 blazegraph-runner load --journal=$JNL "--graph=${UBERON}" $DIR/uberon.owl
+rm -f $DIR/uberon.owl
 
 # Import MESH
 curl $MESH_DL | zcat > $DIR/mesh.nt
 blazegraph-runner load --journal=$JNL "--graph=${MESH}" $DIR/mesh.nt
+rm -f $DIR/mesh.nt
