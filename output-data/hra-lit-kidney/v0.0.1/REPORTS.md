@@ -41,7 +41,9 @@ ORDER BY ?graph
 | graph | triples |
 | :--- | :--- |
 | http://id.nlm.nih.gov/mesh/ | 18334034 |
-| https://purl.humanatlas.io/graph/hra-lit | 3996482 |
+| https://purl.humanatlas.io/graph/ccf | 557125 |
+| https://purl.humanatlas.io/graph/hra-lit | 3608171 |
+| https://purl.humanatlas.io/vocab/uberon | 1111228 |
 
 ## ad-hoc
 
@@ -76,6 +78,7 @@ ORDER BY ?class
 
 | class | count |
 | :--- | :--- |
+| http://id.nlm.nih.gov/mesh/vocab#TopicalDescriptor | 17264 |
 | http://schema.org/Organization | 913 |
 | http://schema.org/Periodical | 2896 |
 | http://schema.org/Person | 300130 |
@@ -116,11 +119,11 @@ ORDER BY DESC(?count)
 
 | mesh | count |
 | :--- | :--- |
-| http://id.nlm.nih.gov/mesh/D007668 | 68623 |
-| http://id.nlm.nih.gov/mesh/D006801 | 41859 |
-| http://id.nlm.nih.gov/mesh/D000818 | 37535 |
-| http://id.nlm.nih.gov/mesh/D008297 | 32360 |
-| http://id.nlm.nih.gov/mesh/D005260 | 22656 |
+| http://id.nlm.nih.gov/mesh/D007668 | 42536 |
+| http://id.nlm.nih.gov/mesh/D006801 | 27791 |
+| http://id.nlm.nih.gov/mesh/D000818 | 20758 |
+| http://id.nlm.nih.gov/mesh/D008297 | 19280 |
+| http://id.nlm.nih.gov/mesh/D005260 | 13810 |
 | ... | ... |
 
 
@@ -138,32 +141,14 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX MESH: <http://id.nlm.nih.gov/mesh/>
 PREFIX HRAlit: <https://purl.humanatlas.io/graph/hra-lit>
 
-SELECT ?mesh (SAMPLE(?label) as ?label) (COUNT(DISTINCT(?person)) as ?author_count)
-
-WITH {
-  SELECT ?mesh (COUNT(*) as ?count)
-  WHERE {
-    GRAPH HRAlit: { [] schema:about ?mesh . }
-  }
-  GROUP BY ?mesh
-  ORDER BY DESC(?count)
-  LIMIT 100
-} AS %topmesh
-
+SELECT DISTINCT ?mesh ?label ?person
+FROM HRAlit:
 WHERE {
-  GRAPH HRAlit: {
-    INCLUDE %topmesh
-    [] a schema:ScholarlyArticle ;
-      schema:about ?mesh ;
-      schema:author ?person .
-  }
-  GRAPH MESH: {
-    INCLUDE %topmesh
-    ?mesh rdfs:label ?label
-  }
+  [] a schema:ScholarlyArticle ;
+    schema:about ?mesh ;
+    schema:author ?person .
+  ?mesh schema:name ?label .
 }
-GROUP BY ?mesh
-ORDER BY DESC(?author_count)
 
 ```
 
@@ -174,11 +159,11 @@ ORDER BY DESC(?author_count)
 
 | mesh | label | author_count |
 | :--- | :--- | :--- |
-| http://id.nlm.nih.gov/mesh/D007668 | Kidney | 295321 |
-| http://id.nlm.nih.gov/mesh/D006801 | Humans | 198887 |
-| http://id.nlm.nih.gov/mesh/D000818 | Animals | 164453 |
-| http://id.nlm.nih.gov/mesh/D008297 | Male | 162697 |
-| http://id.nlm.nih.gov/mesh/D005260 | Female | 125224 |
+| http://id.nlm.nih.gov/mesh/D007668 | Kidney | 205420 |
+| http://id.nlm.nih.gov/mesh/D006801 | Humans | 143411 |
+| http://id.nlm.nih.gov/mesh/D008297 | Male | 110660 |
+| http://id.nlm.nih.gov/mesh/D000818 | Animals | 104832 |
+| http://id.nlm.nih.gov/mesh/D005260 | Female | 85319 |
 | ... | ... | ... |
 
 
@@ -201,9 +186,7 @@ WHERE {
   GRAPH HRAlit: {
     ?publication a schema:ScholarlyArticle ;
       schema:about ?mesh .
-  }
-  GRAPH MESH: {
-    ?mesh rdfs:label ?label
+    ?mesh schema:name ?label .
   }
 }
 GROUP BY ?mesh
@@ -218,11 +201,11 @@ ORDER BY DESC(?publication_count)
 
 | mesh | label | publication_count |
 | :--- | :--- | :--- |
-| http://id.nlm.nih.gov/mesh/D007668 | Kidney | 68623 |
-| http://id.nlm.nih.gov/mesh/D006801 | Humans | 41859 |
-| http://id.nlm.nih.gov/mesh/D000818 | Animals | 37535 |
-| http://id.nlm.nih.gov/mesh/D008297 | Male | 32360 |
-| http://id.nlm.nih.gov/mesh/D005260 | Female | 22656 |
+| http://id.nlm.nih.gov/mesh/D007668 | Kidney | 42536 |
+| http://id.nlm.nih.gov/mesh/D006801 | Humans | 27791 |
+| http://id.nlm.nih.gov/mesh/D000818 | Animals | 20758 |
+| http://id.nlm.nih.gov/mesh/D008297 | Male | 19280 |
+| http://id.nlm.nih.gov/mesh/D005260 | Female | 13810 |
 | ... | ... | ... |
 
 
