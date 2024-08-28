@@ -159,11 +159,11 @@ WHERE {
 
 | mesh | label | author_count |
 | :--- | :--- | :--- |
-| http://id.nlm.nih.gov/mesh/D006801 | Humans | 296958 |
-| http://id.nlm.nih.gov/mesh/D008297 | Male | 242965 |
-| http://id.nlm.nih.gov/mesh/D005260 | Female | 220200 |
-| http://id.nlm.nih.gov/mesh/D000818 | Animals | 211431 |
-| http://id.nlm.nih.gov/mesh/D008875 | Middle Aged | 117179 |
+| http://id.nlm.nih.gov/mesh/D006801 | Humans | 3074565 |
+| http://id.nlm.nih.gov/mesh/D008297 | Male | 2082281 |
+| http://id.nlm.nih.gov/mesh/D005260 | Female | 2009807 |
+| http://id.nlm.nih.gov/mesh/D000818 | Animals | 1846550 |
+| http://id.nlm.nih.gov/mesh/D000328 | Adult | 1115339 |
 | ... | ... | ... |
 
 
