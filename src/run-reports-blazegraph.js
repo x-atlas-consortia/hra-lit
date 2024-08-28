@@ -26,7 +26,7 @@ async function runQueries() {
     writeFileSync(`${reportCsv}.rq`, query);
 
     const result = sh.exec(
-      `blazegraph-runner --journal=${JOURNAL} select --outformat=json ${reportCsv}.rq /dev/stdout | tail -n +52 | gzip > ${reportCsv}.json.gz`,
+      `blazegraph-runner --journal=${JOURNAL} select --outformat=tsv ${reportCsv}.rq /dev/stdout | tail -n +52 | gzip -9 > ${reportCsv}.tsv.gz`,
       { silent: true }
     );
     if (result.code) {
@@ -36,11 +36,11 @@ async function runQueries() {
     // If a post-processing SQL file is provided, run it to update the report
     if (existsSync(queryFile.replace('.rq', '.sql'))) {
       const sqlFile = queryFile.replace('.rq', '.sql');
-      sh.exec(`zcat ${reportCsv}.json.gz | ./src/sparql-json2csv.js /dev/stdin /dev/stdout | ./src/sql-select.sh ${sqlFile} /dev/stdin ${reportCsv}`);
+      sh.exec(`zcat ${reportCsv}.tsv.gz | ./src/sparql-tsv2csv.js - - | ./src/sql-select.sh ${sqlFile} /dev/stdin ${reportCsv}`);
     } else {
-      sh.exec(`zcat ${reportCsv}.json.gz | ./src/sparql-json2csv.js /dev/stdin ${reportCsv}`);
+      sh.exec(`zcat ${reportCsv}.tsv.gz | ./src/sparql-tsv2csv.js - ${reportCsv}`);
     }
-    sh.exec(`rm -f ${reportCsv}.json.gz  ${reportCsv}.rq`);
+    sh.exec(`rm -f ${reportCsv}.tsv.gz  ${reportCsv}.rq`);
   }
 }
 

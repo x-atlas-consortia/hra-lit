@@ -12,22 +12,31 @@ function resultsStreamToCsvStream(jsonStream, csvStream) {
 
   return new Promise((resolve, _reject) => {
     let results = [];
-    let header;
+    let unparseOptions;
     stream.on('variables', (variables) => {
-      header = variables.map((v) => v.value);
+      const header = variables.map((v) => v.value);
+      unparseOptions = { header: false, columns: header };
       csvStream.write(Papa.unparse([header]) + '\n');
     });
     stream.on('data', (bindings) => {
-      const result = Object.keys(bindings).reduce((acc, key) => ((acc[key] = bindings[key]?.value), acc), {});
-      results.push(result);
-      if (header) {
-        csvStream.write(Papa.unparse(results, { header: false, columns: header }) + '\n');
+      if (results.length > 0 && unparseOptions) {
+        csvStream.write(Papa.unparse(results, unparseOptions) + '\n');
         results = [];
+      }
+
+      for (const key of Object.keys(bindings)) {
+        bindings[key] = bindings[key]?.value ?? undefined;
+      }
+
+      if (unparseOptions) {
+        csvStream.write(Papa.unparse([bindings], unparseOptions) + '\n');
+      } else {
+        results.push(bindings);
       }
     });
     stream.on('end', () => {
-      if (header && results.length > 0) {
-        csvStream.write(Papa.unparse(results, { header: false, columns: header }) + '\n');
+      if (unparseOptions && results.length > 0) {
+        csvStream.write(Papa.unparse(results, unparseOptions) + '\n');
       }
       csvStream.close();
       resolve();
@@ -35,7 +44,7 @@ function resultsStreamToCsvStream(jsonStream, csvStream) {
   });
 }
 
-const inStream = IN_JSON === '-' ? process.stdin : createReadStream(IN_JSON);
-const outStream = OUT_CSV === '-' ? process.stdout : createWriteStream(OUT_CSV);
+const inStream = IN_JSON === '-' ? process.stdin : createReadStream(IN_JSON, { flush: true, highWaterMark: 65536 });
+const outStream = OUT_CSV === '-' ? process.stdout : createWriteStream(OUT_CSV, { flush: true, highWaterMark: 65536 });
 
 await resultsStreamToCsvStream(inStream, outStream);

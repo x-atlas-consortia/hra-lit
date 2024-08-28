@@ -14,6 +14,7 @@ mkdir -p $INPUT_DIR/$DATASET/$VERSION
 mkdir -p $OUTPUT_DIR/$DATASET/$VERSION
 
 JAVA_OPTS="-Xms2g -Xmx64g"
+export NODE_OPTIONS="--max-old-space-size=60480"
 
 export PGOPTIONS="--search_path=${SCHEMA},public"
 source db-config.sh
