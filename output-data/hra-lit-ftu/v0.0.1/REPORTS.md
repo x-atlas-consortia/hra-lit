@@ -42,7 +42,7 @@ ORDER BY ?graph
 | :--- | :--- |
 | http://id.nlm.nih.gov/mesh/ | 18334034 |
 | https://purl.humanatlas.io/graph/ccf | 557125 |
-| https://purl.humanatlas.io/graph/hra-lit | 3608171 |
+| https://purl.humanatlas.io/graph/hra-lit | 9512118 |
 | https://purl.humanatlas.io/vocab/uberon | 1111228 |
 
 ## ad-hoc
@@ -78,13 +78,12 @@ ORDER BY ?class
 
 | class | count |
 | :--- | :--- |
-| http://id.nlm.nih.gov/mesh/vocab#TopicalDescriptor | 17264 |
-| http://schema.org/Organization | 913 |
-| http://schema.org/Periodical | 2896 |
-| http://schema.org/Person | 300130 |
-| http://schema.org/PublicationIssue | 36532 |
-| http://schema.org/PublicationVolume | 22868 |
-| http://schema.org/ScholarlyArticle | 68623 |
+| http://id.nlm.nih.gov/mesh/vocab#TopicalDescriptor | 24772 |
+| http://schema.org/Organization | 3393 |
+| http://schema.org/Periodical | 4127 |
+| http://schema.org/Person | 1464548 |
+| http://schema.org/PublicationIssue | 144252 |
+| http://schema.org/PublicationVolume | 60488 |
 
 ## hra-lit-ad-hoc
 
@@ -119,12 +118,7 @@ ORDER BY DESC(?count)
 
 | mesh | count |
 | :--- | :--- |
-| http://id.nlm.nih.gov/mesh/D007668 | 42536 |
-| http://id.nlm.nih.gov/mesh/D006801 | 27791 |
-| http://id.nlm.nih.gov/mesh/D000818 | 20758 |
-| http://id.nlm.nih.gov/mesh/D008297 | 19280 |
-| http://id.nlm.nih.gov/mesh/D005260 | 13810 |
-| ... | ... |
+
 
 
 ### <a id="mesh-label-author-counts"></a>mesh-label-author-counts
@@ -157,14 +151,9 @@ WHERE {
 
 #### Results ([View CSV File](reports/hra-lit-ad-hoc/mesh-label-author-counts.csv))
 
-| mesh | label | author_count |
-| :--- | :--- | :--- |
-| http://id.nlm.nih.gov/mesh/D007668 | Kidney | 205420 |
-| http://id.nlm.nih.gov/mesh/D006801 | Humans | 143411 |
-| http://id.nlm.nih.gov/mesh/D008297 | Male | 110660 |
-| http://id.nlm.nih.gov/mesh/D000818 | Animals | 104832 |
-| http://id.nlm.nih.gov/mesh/D005260 | Female | 85319 |
-| ... | ... | ... |
+| undefined |
+| undefined |
+
 
 
 ### <a id="mesh-label-publication-counts"></a>mesh-label-publication-counts
@@ -201,12 +190,7 @@ ORDER BY DESC(?publication_count)
 
 | mesh | label | publication_count |
 | :--- | :--- | :--- |
-| http://id.nlm.nih.gov/mesh/D007668 | Kidney | 42536 |
-| http://id.nlm.nih.gov/mesh/D006801 | Humans | 27791 |
-| http://id.nlm.nih.gov/mesh/D000818 | Animals | 20758 |
-| http://id.nlm.nih.gov/mesh/D008297 | Male | 19280 |
-| http://id.nlm.nih.gov/mesh/D005260 | Female | 13810 |
-| ... | ... | ... |
+
 
 
   
