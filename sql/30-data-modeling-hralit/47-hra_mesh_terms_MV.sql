@@ -1,5 +1,5 @@
 -- View: hra_mesh_terms
-DROP MATERIALIZED VIEW IF EXISTS hra_mesh_all CASCADE;
+DROP MATERIALIZED VIEW IF EXISTS hra_mesh_terms CASCADE;
 
 CREATE MATERIALIZED VIEW IF NOT EXISTS
   hra_mesh_terms TABLESPACE pg_default AS
