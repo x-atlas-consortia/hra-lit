@@ -13,6 +13,7 @@ MESH_DL=https://nlmpubs.nlm.nih.gov/projects/mesh/rdf/mesh.nt.gz
 HRA_LIT_UNIVERSE=https://purl.humanatlas.io/graph/hra-lit-universe
 HRA_LIT=https://purl.humanatlas.io/graph/hra-lit
 CCF=https://purl.humanatlas.io/graph/ccf
+HRA=https://purl.humanatlas.io/collection/hra
 UBERON=https://purl.humanatlas.io/vocab/uberon
 
 run_ndjsonld() {
@@ -51,6 +52,10 @@ blazegraph-runner dump --journal=$JNL "--graph=${HRA_LIT}" $DIR/hra-lit.ttl
 curl -s $CCF -H "Accept: application/rdf+xml" > $DIR/ccf.owl
 blazegraph-runner load --journal=$JNL "--graph=${CCF}" $DIR/ccf.owl
 rm -f $DIR/ccf.owl
+
+# Import HRA
+curl -s $HRA -H "Accept: application/rdf+xml" > $DIR/hra.owl
+blazegraph-runner load --journal=$JNL "--graph=${HRA}" $DIR/hra.owl
 
 # Import UBERON
 curl -s $UBERON -H "Accept: application/rdf+xml" > $DIR/uberon.owl
