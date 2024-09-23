@@ -1,5 +1,6 @@
 graph,triples
 http://id.nlm.nih.gov/mesh/,18334034
+https://purl.humanatlas.io/collection/hra,748471
 https://purl.humanatlas.io/graph/ccf,557125
-https://purl.humanatlas.io/graph/hra-lit,9512118
+https://purl.humanatlas.io/graph/hra-lit,22453276
 https://purl.humanatlas.io/vocab/uberon,1111228

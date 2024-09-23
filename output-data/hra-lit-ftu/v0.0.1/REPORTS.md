@@ -41,8 +41,9 @@ ORDER BY ?graph
 | graph | triples |
 | :--- | :--- |
 | http://id.nlm.nih.gov/mesh/ | 18334034 |
+| https://purl.humanatlas.io/collection/hra | 748471 |
 | https://purl.humanatlas.io/graph/ccf | 557125 |
-| https://purl.humanatlas.io/graph/hra-lit | 9512118 |
+| https://purl.humanatlas.io/graph/hra-lit | 22453276 |
 | https://purl.humanatlas.io/vocab/uberon | 1111228 |
 
 ## ad-hoc
@@ -84,6 +85,7 @@ ORDER BY ?class
 | http://schema.org/Person | 1464548 |
 | http://schema.org/PublicationIssue | 144252 |
 | http://schema.org/PublicationVolume | 60488 |
+| http://schema.org/ScholarlyArticle | 424982 |
 
 ## hra-lit-ad-hoc
 
@@ -118,7 +120,12 @@ ORDER BY DESC(?count)
 
 | mesh | count |
 | :--- | :--- |
-
+| http://id.nlm.nih.gov/mesh/D006801 | 260516 |
+| http://id.nlm.nih.gov/mesh/D000818 | 235337 |
+| http://id.nlm.nih.gov/mesh/D008297 | 184303 |
+| http://id.nlm.nih.gov/mesh/D005260 | 131446 |
+| http://id.nlm.nih.gov/mesh/D008099 | 110868 |
+| ... | ... |
 
 
 ### <a id="mesh-label-author-counts"></a>mesh-label-author-counts
@@ -151,9 +158,14 @@ WHERE {
 
 #### Results ([View CSV File](reports/hra-lit-ad-hoc/mesh-label-author-counts.csv))
 
-| undefined |
-| undefined |
-
+| mesh | label | author_count |
+| :--- | :--- | :--- |
+| http://id.nlm.nih.gov/mesh/D006801 | Humans | 1018406 |
+| http://id.nlm.nih.gov/mesh/D000818 | Animals | 833583 |
+| http://id.nlm.nih.gov/mesh/D008297 | Male | 786703 |
+| http://id.nlm.nih.gov/mesh/D005260 | Female | 627181 |
+| http://id.nlm.nih.gov/mesh/D051379 | Mice | 465952 |
+| ... | ... | ... |
 
 
 ### <a id="mesh-label-publication-counts"></a>mesh-label-publication-counts
@@ -190,7 +202,12 @@ ORDER BY DESC(?publication_count)
 
 | mesh | label | publication_count |
 | :--- | :--- | :--- |
-
+| http://id.nlm.nih.gov/mesh/D006801 | Humans | 260516 |
+| http://id.nlm.nih.gov/mesh/D000818 | Animals | 235337 |
+| http://id.nlm.nih.gov/mesh/D008297 | Male | 184303 |
+| http://id.nlm.nih.gov/mesh/D005260 | Female | 131446 |
+| http://id.nlm.nih.gov/mesh/D008099 | Liver | 110868 |
+| ... | ... | ... |
 
 
   

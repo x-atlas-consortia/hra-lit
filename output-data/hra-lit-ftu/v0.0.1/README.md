@@ -1,6 +1,6 @@
 # HRAlit v0.0.1
 
-HRAlit is part of the Human Reference Atlas (HRA) <https://humanatlas.io> and published in the HRA Knowledge Graph (HRA-KG). HRAlit v0.0.1 was generated on Mon Sep 23 12:56:37 EDT 2024. Users should use the data published to the HRA-KG at <https://lod.humanatlas.io/graph/hra-lit/v0.0.1/>.
+HRAlit is part of the Human Reference Atlas (HRA) <https://humanatlas.io> and published in the HRA Knowledge Graph (HRA-KG). HRAlit v0.0.1 was generated on Mon Sep 23 14:22:03 EDT 2024. Users should use the data published to the HRA-KG at <https://lod.humanatlas.io/graph/hra-lit/v0.0.1/>.
 
 Primary outputs which make up the official HRAlit:
 
