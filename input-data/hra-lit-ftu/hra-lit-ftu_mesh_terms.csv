@@ -1,0 +1,36 @@
+Organ,FTU,UBERON ID,mapping,descriptor,ui,label
+kidney,kidney,UBERON:0002113,same_as,http://id.nlm.nih.gov/mesh/D007668,D007668,Kidney
+kidney,nephron,UBERON:0001285,same_as,http://id.nlm.nih.gov/mesh/D009399,D009399,Nephron
+kidney,renal corpuscle,UBERON:0001229,part_of,http://id.nlm.nih.gov/mesh/D009399,D009399,Nephron
+kidney,renal corpuscle,UBERON:0001229,has_part,http://id.nlm.nih.gov/mesh/D007678,D007678,Kidney Glomerulus
+kidney,renal corpuscle,UBERON:0001229,has_part,http://id.nlm.nih.gov/mesh/D050476,D050476,Bowman Capsule
+kidney,inner medullary collecting duct,UBERON:0004205,same_as,http://id.nlm.nih.gov/mesh/D007685,D007685,"Kidney Tubules, Collecting"
+kidney,descending limb of loop of Henle,UBERON:0001289,same_as,http://id.nlm.nih.gov/mesh/D008138,D008138,Loop of Henle
+kidney,loop of Henle ascending limb thin segment,UBERON:0004193,same_as,http://id.nlm.nih.gov/mesh/D008138,D008138,Loop of Henle
+kidney,thick ascending limb of loop of Henle,UBERON:0004193,same_as,http://id.nlm.nih.gov/mesh/D008138,D008138,Loop of Henle
+kidney,outer medullary collecting duct,UBERON:0004204,same_as,http://id.nlm.nih.gov/mesh/D007685,D007685,"Kidney Tubules, Collecting"
+kidney,cortical collecting duct,UBERON:0004203,same_as,http://id.nlm.nih.gov/mesh/D007685,D007685,"Kidney Tubules, Collecting"
+large intestine,large intestine,UBERON:0000059,same_as,http://id.nlm.nih.gov/mesh/D007420,D007420,"Intestine, Large"
+large intestine,crypt of Lieberkuhn,UBERON:0001983,has_part,http://id.nlm.nih.gov/mesh/D007413,D007413,Intestinal Mucosa
+liver,liver,UBERON:0002107,same_as,http://id.nlm.nih.gov/mesh/D008099,D008099,Liver
+liver,liver lobule,UBERON:0004647,part_of,http://id.nlm.nih.gov/mesh/D008099,D008099,Liver
+lung,lung,UBERON:0002048,same_as,http://id.nlm.nih.gov/mesh/D008168,D008168,Lung
+lung,alveolus of lung,UBERON:0002299,same_as,http://id.nlm.nih.gov/mesh/D011650,D011650,Pulmonary Alveoli
+lung,bronchus submucosal gland,UBERON:8410043,part_of,http://id.nlm.nih.gov/mesh/D001980,D001980,Bronchi
+lung,bronchus submucosal gland,UBERON:8410043,part_of,http://id.nlm.nih.gov/mesh/D020545,D020545,Respiratory Mucosa
+pancreas,pancreas,UBERON:0001264,same_as,http://id.nlm.nih.gov/mesh/D010179,D010179,Pancreas
+pancreas,islets of Langerhans,UBERON:0000006,same_as,http://id.nlm.nih.gov/mesh/D007515,D007515,Islets of Langerhans
+pancreas,pancreas acinus,UBERON:0001263,part_of,http://id.nlm.nih.gov/mesh/D046790,D046790,"Pancreas, Exocrine"
+pancreas,intercalated duct of pancreas,UBERON:0014726,part_of,http://id.nlm.nih.gov/mesh/D010183,D010183,Pancreatic Ducts
+prostate gland,prostate gland,UBERON:0002367,same_as,http://id.nlm.nih.gov/mesh/D011467,D011467,Prostate
+prostate gland,prostate glandular acinus,UBERON:0004179,part_of,http://id.nlm.nih.gov/mesh/D011467,D011467,Prostate
+skin,skin of the body,UBERON:0002097,same_as,http://id.nlm.nih.gov/mesh/D012867,D012867,Skin
+skin,dermal papilla,UBERON:0000412,part_of,http://id.nlm.nih.gov/mesh/D020405,D020405,Dermis
+skin,epidermal ridge of digit,UBERON:0013487,part_of,http://id.nlm.nih.gov/mesh/D004817,D004817,Epidermis
+small intestine,small intestine,UBERON:0002108,same_as,http://id.nlm.nih.gov/mesh/D007421,D007421,"Intestine, Small"
+small intestine,villus,UBERON:0001213,has_part,http://id.nlm.nih.gov/mesh/D007413,D007413,Intestinal Mucosa
+spleen,spleen,UBERON:0002106,same_as,http://id.nlm.nih.gov/mesh/D013154,D013154,Spleen
+spleen,red pulp of spleen,UBERON:0001250,part_of,http://id.nlm.nih.gov/mesh/D013154,D013154,Spleen
+spleen,white pulp of spleen,UBERON:0001959,part_of,http://id.nlm.nih.gov/mesh/D013154,D013154,Spleen
+thymus,thymus,UBERON:0002370,same_as,http://id.nlm.nih.gov/mesh/D013950,D013950,Thymus
+thymus,thymus lobule,UBERON:0002125,part_of,http://id.nlm.nih.gov/mesh/D013950,D013950,Thymus
