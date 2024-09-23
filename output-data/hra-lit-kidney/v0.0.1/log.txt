@@ -1,0 +1,917 @@
+Run started on Mon Sep 23 14:31:40 EDT 2024...
+
+>> Running scripts/00-setup-environment.sh...
+
+real	0m0.087s
+user	0m0.005s
+sys	0m0.000s
+
+>> Running scripts/05-setup-dataset-schema.sh...
+NOTICE:  schema "mginda_hralit_kidney" does not exist, skipping
+CREATE SCHEMA
+>>>> psql -f ./sql/05-setup-dataset-schema/10-normalize-id-function.sql on Mon Sep 23 14:31:40 EDT 2024
+CREATE FUNCTION
+CREATE FUNCTION
+
+real	0m0.086s
+user	0m0.014s
+sys	0m0.007s
+
+real	0m0.425s
+user	0m0.045s
+sys	0m0.013s
+
+>> Running scripts/16-permissions-pm24_db.sh...
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+GRANT
+GRANT
+GRANT
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+
+real	0m0.519s
+user	0m0.016s
+sys	0m0.016s
+
+>> Running scripts/20-pub-selection-hralit.sh...
+>>>> psql -f ./sql/20-pub-selection-hralit/01_hra_mesh_descriptors_T.sql on Mon Sep 23 14:31:41 EDT 2024
+psql:./sql/20-pub-selection-hralit/01_hra_mesh_descriptors_T.sql:2: NOTICE:  table "hra_meshd_anatomy" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+psql:./sql/20-pub-selection-hralit/01_hra_mesh_descriptors_T.sql:13: NOTICE:  table "hra_meshd_methods" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+
+real	0m0.078s
+user	0m0.019s
+sys	0m0.000s
+COPY 1
+>>>> psql -f ./sql/20-pub-selection-hralit/05_hra_pmid_MV_v0.3.sql on Mon Sep 23 14:31:41 EDT 2024
+psql:./sql/20-pub-selection-hralit/05_hra_pmid_MV_v0.3.sql:2: NOTICE:  materialized view "hra_pmid" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 73684
+CREATE INDEX
+
+real	0m13.347s
+user	0m0.000s
+sys	0m0.020s
+
+real	0m13.763s
+user	0m0.041s
+sys	0m0.028s
+
+>> Running scripts/30-data-modeling-hralit.sh...
+>>>> psql -f ./sql/30-data-modeling-hralit/11-ml_author_orcid_MV.sql on Mon Sep 23 14:31:55 EDT 2024
+psql:./sql/30-data-modeling-hralit/11-ml_author_orcid_MV.sql:2: NOTICE:  materialized view "ml_author_orcid" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 10357171
+CREATE INDEX
+
+real	0m35.390s
+user	0m0.025s
+sys	0m0.000s
+>>>> psql -f ./sql/30-data-modeling-hralit/12-hra_author_aff_MV.sql on Mon Sep 23 14:32:30 EDT 2024
+psql:./sql/30-data-modeling-hralit/12-hra_author_aff_MV.sql:2: NOTICE:  materialized view "hra_author_aff" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 408334
+CREATE INDEX
+
+real	0m6.484s
+user	0m0.014s
+sys	0m0.007s
+>>>> psql -f ./sql/30-data-modeling-hralit/21-hra_jparts_MV.sql on Mon Sep 23 14:32:37 EDT 2024
+psql:./sql/30-data-modeling-hralit/21-hra_jparts_MV.sql:2: NOTICE:  materialized view "hra_jparts" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 2929
+
+real	0m1.101s
+user	0m0.010s
+sys	0m0.010s
+>>>> psql -f ./sql/30-data-modeling-hralit/22-hra_journals_MV.sql on Mon Sep 23 14:32:38 EDT 2024
+psql:./sql/30-data-modeling-hralit/22-hra_journals_MV.sql:2: NOTICE:  materialized view "hra_journals" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 2940
+
+real	0m22.498s
+user	0m0.019s
+sys	0m0.000s
+>>>> psql -f ./sql/30-data-modeling-hralit/23-hra_vparts_MV.sql on Mon Sep 23 14:33:00 EDT 2024
+psql:./sql/30-data-modeling-hralit/23-hra_vparts_MV.sql:2: NOTICE:  materialized view "hra_vparts" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 17915
+
+real	0m1.220s
+user	0m0.015s
+sys	0m0.007s
+>>>> psql -f ./sql/30-data-modeling-hralit/24-hra_jvol_MV.sql on Mon Sep 23 14:33:02 EDT 2024
+psql:./sql/30-data-modeling-hralit/24-hra_jvol_MV.sql:2: NOTICE:  materialized view "hra_jvol" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 23394
+
+real	0m1.360s
+user	0m0.018s
+sys	0m0.000s
+>>>> psql -f ./sql/30-data-modeling-hralit/25-hra_jiss_MV.sql on Mon Sep 23 14:33:03 EDT 2024
+psql:./sql/30-data-modeling-hralit/25-hra_jiss_MV.sql:2: NOTICE:  materialized view "hra_jiss" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 37374
+
+real	0m1.412s
+user	0m0.020s
+sys	0m0.000s
+>>>> psql -f ./sql/30-data-modeling-hralit/31-hra_author_names_MV.sql on Mon Sep 23 14:33:05 EDT 2024
+psql:./sql/30-data-modeling-hralit/31-hra_author_names_MV.sql:2: NOTICE:  materialized view "hra_author_names" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 512093
+
+real	0m15.615s
+user	0m0.019s
+sys	0m0.000s
+>>>> psql -f ./sql/30-data-modeling-hralit/32-hra_author_id_MV.sql on Mon Sep 23 14:33:20 EDT 2024
+psql:./sql/30-data-modeling-hralit/32-hra_author_id_MV.sql:2: NOTICE:  materialized view "hra_author_id" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 309713
+
+real	0m1.010s
+user	0m0.023s
+sys	0m0.000s
+>>>> psql -f ./sql/30-data-modeling-hralit/33-hra_authors_MV.sql on Mon Sep 23 14:33:22 EDT 2024
+psql:./sql/30-data-modeling-hralit/33-hra_authors_MV.sql:2: NOTICE:  materialized view "hra_authors" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 512090
+
+real	0m1.399s
+user	0m0.010s
+sys	0m0.010s
+>>>> psql -f ./sql/30-data-modeling-hralit/34-hra_author_affiliations_MV.sql on Mon Sep 23 14:33:23 EDT 2024
+psql:./sql/30-data-modeling-hralit/34-hra_author_affiliations_MV.sql:2: NOTICE:  materialized view "hra_author_affiliations" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 409788
+
+real	0m1.080s
+user	0m0.020s
+sys	0m0.000s
+>>>> psql -f ./sql/30-data-modeling-hralit/41-hra_jids_MV.sql on Mon Sep 23 14:33:24 EDT 2024
+psql:./sql/30-data-modeling-hralit/41-hra_jids_MV.sql:2: NOTICE:  materialized view "hra_jid" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 170972
+
+real	0m8.035s
+user	0m0.018s
+sys	0m0.000s
+>>>> psql -f ./sql/30-data-modeling-hralit/42-hra_titles_MV.sql on Mon Sep 23 14:33:32 EDT 2024
+psql:./sql/30-data-modeling-hralit/42-hra_titles_MV.sql:2: NOTICE:  materialized view "hra_titles" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 73684
+
+real	0m0.959s
+user	0m0.017s
+sys	0m0.000s
+>>>> psql -f ./sql/30-data-modeling-hralit/43-hra_abs_MV.sql on Mon Sep 23 14:33:33 EDT 2024
+psql:./sql/30-data-modeling-hralit/43-hra_abs_MV.sql:2: NOTICE:  materialized view "hra_abs" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 73684
+
+real	0m1.601s
+user	0m0.000s
+sys	0m0.019s
+>>>> psql -f ./sql/30-data-modeling-hralit/44-hra_dates_MV.sql on Mon Sep 23 14:33:35 EDT 2024
+psql:./sql/30-data-modeling-hralit/44-hra_dates_MV.sql:2: NOTICE:  materialized view "hra_dates" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 73684
+
+real	0m0.806s
+user	0m0.010s
+sys	0m0.010s
+>>>> psql -f ./sql/30-data-modeling-hralit/45-hra_doi_MV.sql on Mon Sep 23 14:33:36 EDT 2024
+psql:./sql/30-data-modeling-hralit/45-hra_doi_MV.sql:2: NOTICE:  materialized view "hra_doi" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 64452
+
+real	0m5.237s
+user	0m0.019s
+sys	0m0.001s
+>>>> psql -f ./sql/30-data-modeling-hralit/46-hra_mesh_all_MV.sql on Mon Sep 23 14:33:41 EDT 2024
+psql:./sql/30-data-modeling-hralit/46-hra_mesh_all_MV.sql:2: NOTICE:  materialized view "hra_mesh_all" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 73684
+
+real	0m47.740s
+user	0m0.024s
+sys	0m0.000s
+>>>> psql -f ./sql/30-data-modeling-hralit/47-hra_mesh_terms_MV.sql on Mon Sep 23 14:34:29 EDT 2024
+psql:./sql/30-data-modeling-hralit/47-hra_mesh_terms_MV.sql:2: NOTICE:  materialized view "hra_mesh_terms" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 17345
+
+real	0m53.998s
+user	0m0.017s
+sys	0m0.003s
+
+real	3m28.938s
+user	0m0.402s
+sys	0m0.078s
+
+>> Running scripts/50-build-hralit-entities.sh...
+>>>> psql -f ./sql/50-build-hralit-entities/51-hraj_graph.sql on Mon Sep 23 14:35:23 EDT 2024
+psql:./sql/50-build-hralit-entities/51-hraj_graph.sql:2: NOTICE:  materialized view "hraj" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 63708
+
+real	0m0.274s
+user	0m0.007s
+sys	0m0.014s
+>>>> psql -f ./sql/50-build-hralit-entities/52-hrap_graph.sql on Mon Sep 23 14:35:24 EDT 2024
+psql:./sql/50-build-hralit-entities/52-hrap_graph.sql:2: NOTICE:  materialized view "hrap" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 308780
+
+real	0m2.495s
+user	0m0.019s
+sys	0m0.000s
+>>>> psql -f ./sql/50-build-hralit-entities/53-hrao_graph.sql on Mon Sep 23 14:35:26 EDT 2024
+psql:./sql/50-build-hralit-entities/53-hrao_graph.sql:2: NOTICE:  materialized view "hrao" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 930
+
+real	0m0.146s
+user	0m0.016s
+sys	0m0.008s
+>>>> psql -f ./sql/50-build-hralit-entities/54-hraa_graph.sql on Mon Sep 23 14:35:27 EDT 2024
+psql:./sql/50-build-hralit-entities/54-hraa_graph.sql:2: NOTICE:  materialized view "hraa" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 70431
+
+real	0m18.778s
+user	0m0.009s
+sys	0m0.010s
+>>>> psql -f ./sql/50-build-hralit-entities/55-hram_graph.sql on Mon Sep 23 14:35:46 EDT 2024
+psql:./sql/50-build-hralit-entities/55-hram_graph.sql:2: NOTICE:  materialized view "hram" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 17345
+
+real	0m0.116s
+user	0m0.020s
+sys	0m0.000s
+>>>> psql -f ./sql/50-build-hralit-entities/60-db_permissions.sql on Mon Sep 23 14:35:46 EDT 2024
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:3: NOTICE:  relation "hra_meshd_anatomy" does not exist, skipping
+ALTER TABLE
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:4: ERROR:  relation "public.hra_meshd_anatomy" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:5: ERROR:  relation "public.hra_meshd_anatomy" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:6: ERROR:  relation "public.hra_meshd_anatomy" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:9: NOTICE:  relation "hra_meshd_methods" does not exist, skipping
+ALTER TABLE
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:10: ERROR:  relation "public.hra_meshd_methods" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:11: ERROR:  relation "public.hra_meshd_methods" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:12: ERROR:  relation "public.hra_meshd_methods" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:16: NOTICE:  relation "hra_pmid" does not exist, skipping
+ALTER TABLE
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:17: ERROR:  relation "public.hra_pmid" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:18: ERROR:  relation "public.hra_pmid" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:19: ERROR:  relation "public.hra_pmid" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:23: NOTICE:  relation "ml_author_orcid" does not exist, skipping
+ALTER TABLE
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:24: ERROR:  relation "public.ml_author_orcid" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:25: ERROR:  relation "public.ml_author_orcid" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:26: ERROR:  relation "public.ml_author_orcid" does not exist
+ALTER TABLE
+GRANT
+GRANT
+GRANT
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:37: NOTICE:  relation "hra_jparts" does not exist, skipping
+ALTER TABLE
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:38: ERROR:  relation "public.hra_jparts" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:39: ERROR:  relation "public.hra_jparts" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:40: ERROR:  relation "public.hra_jparts" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:44: NOTICE:  relation "hra_journals" does not exist, skipping
+ALTER TABLE
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:45: ERROR:  relation "public.hra_journals" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:46: ERROR:  relation "public.hra_journals" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:47: ERROR:  relation "public.hra_journals" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:51: NOTICE:  relation "hra_vparts" does not exist, skipping
+ALTER TABLE
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:52: ERROR:  relation "public.hra_vparts" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:53: ERROR:  relation "public.hra_vparts" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:54: ERROR:  relation "public.hra_vparts" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:58: NOTICE:  relation "hra_jvol" does not exist, skipping
+ALTER TABLE
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:59: ERROR:  relation "public.hra_jvol" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:60: ERROR:  relation "public.hra_jvol" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:61: ERROR:  relation "public.hra_jvol" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:65: NOTICE:  relation "hra_jiss" does not exist, skipping
+ALTER TABLE
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:66: ERROR:  relation "public.hra_jiss" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:67: ERROR:  relation "public.hra_jiss" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:68: ERROR:  relation "public.hra_jiss" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:72: NOTICE:  relation "hra_author_names" does not exist, skipping
+ALTER TABLE
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:73: ERROR:  relation "public.hra_author_names" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:74: ERROR:  relation "public.hra_author_names" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:75: ERROR:  relation "public.hra_author_names" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:79: NOTICE:  relation "hra_author_id" does not exist, skipping
+ALTER TABLE
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:80: ERROR:  relation "public.hra_author_id" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:81: ERROR:  relation "public.hra_author_id" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:82: ERROR:  relation "public.hra_author_id" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:86: NOTICE:  relation "hra_authors" does not exist, skipping
+ALTER TABLE
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:87: ERROR:  relation "public.hra_authors" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:88: ERROR:  relation "public.hra_authors" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:89: ERROR:  relation "public.hra_authors" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:93: NOTICE:  relation "hra_author_affiliations" does not exist, skipping
+ALTER TABLE
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:94: ERROR:  relation "public.hra_author_affiliations" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:95: ERROR:  relation "public.hra_author_affiliations" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:96: ERROR:  relation "public.hra_author_affiliations" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:100: NOTICE:  relation "hra_jid" does not exist, skipping
+ALTER TABLE
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:101: ERROR:  relation "public.hra_jid" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:102: ERROR:  relation "public.hra_jid" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:103: ERROR:  cross-database references are not implemented: "public.ml_author_afpublic.hra_jid"
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:107: NOTICE:  relation "hra_titles" does not exist, skipping
+ALTER TABLE
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:108: ERROR:  relation "public.hra_titles" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:109: ERROR:  relation "public.hra_titles" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:110: ERROR:  relation "public.hra_titles" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:114: NOTICE:  relation "hra_abs" does not exist, skipping
+ALTER TABLE
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:115: ERROR:  relation "public.hra_abs" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:116: ERROR:  relation "public.hra_abs" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:117: ERROR:  relation "public.hra_abs" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:121: NOTICE:  relation "hra_dates" does not exist, skipping
+ALTER TABLE
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:122: ERROR:  relation "public.hra_dates" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:123: ERROR:  relation "public.hra_dates" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:124: ERROR:  relation "public.hra_dates" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:128: NOTICE:  relation "hra_doi" does not exist, skipping
+ALTER TABLE
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:129: ERROR:  relation "public.hra_doi" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:130: ERROR:  relation "public.hra_doi" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:131: ERROR:  relation "public.hra_doi" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:135: NOTICE:  relation "hra_mesh_all" does not exist, skipping
+ALTER TABLE
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:136: ERROR:  relation "public.hra_mesh_all" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:137: ERROR:  relation "public.hra_mesh_all" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:138: ERROR:  relation "public.hra_mesh_all" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:142: NOTICE:  relation "hrap" does not exist, skipping
+ALTER TABLE
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:143: ERROR:  relation "public.hrap" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:144: ERROR:  relation "public.hrap" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:145: ERROR:  relation "public.hrap" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:149: NOTICE:  relation "hrao" does not exist, skipping
+ALTER TABLE
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:150: ERROR:  relation "public.hrao" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:151: ERROR:  relation "public.hrao" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:152: ERROR:  relation "public.hrao" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:156: NOTICE:  relation "hraj" does not exist, skipping
+ALTER TABLE
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:157: ERROR:  relation "public.hraj" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:158: ERROR:  relation "public.hraj" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:159: ERROR:  relation "public.hraj" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:163: NOTICE:  relation "hraa" does not exist, skipping
+ALTER TABLE
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:164: ERROR:  relation "public.hraa" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:165: ERROR:  relation "public.hraa" does not exist
+psql:./sql/50-build-hralit-entities/60-db_permissions.sql:166: ERROR:  relation "public.hraa" does not exist
+
+real	0m0.364s
+user	0m0.023s
+sys	0m0.000s
+
+real	0m22.820s
+user	0m0.126s
+sys	0m0.039s
+
+>> Running scripts/60-extract-hralit-entities.sh...
+>>>> psql -f sql/60-extract-hralit-entities/61-hraj_graph_jsonld.sql to hralit-journals.jsonl on Mon Sep 23 14:35:46 EDT 2024
+
+real	0m0.537s
+user	0m0.049s
+sys	0m0.000s
+>>>> psql -f sql/60-extract-hralit-entities/62-hrap_graph_jsonld.sql to hralit-persons.jsonl on Mon Sep 23 14:35:47 EDT 2024
+
+real	0m3.474s
+user	0m0.122s
+sys	0m0.085s
+>>>> psql -f sql/60-extract-hralit-entities/63-hrao_graph_jsonld.sql to hralit-organizations.jsonl on Mon Sep 23 14:35:51 EDT 2024
+
+real	0m0.092s
+user	0m0.019s
+sys	0m0.000s
+>>>> psql -f sql/60-extract-hralit-entities/64-hraa_graph_jsonld.sql to hralit-articles.jsonl on Mon Sep 23 14:35:51 EDT 2024
+
+real	0m5.889s
+user	0m0.125s
+sys	0m0.166s
+>>>> psql -f sql/60-extract-hralit-entities/65-hram_graph_jsonld.sql to hralit-mesh-terms.jsonl on Mon Sep 23 14:35:57 EDT 2024
+
+real	0m0.316s
+user	0m0.014s
+sys	0m0.014s
+
+real	0m10.873s
+user	0m0.352s
+sys	0m0.271s
+
+>> Running scripts/70-create-internal-blazegraph.sh...
+
+DIR=$RAW_DIR/$DATASET/$VERSION
+JNL=$DIR/blazegraph.jnl
+rm -f $JNL
+
+MESH=http://id.nlm.nih.gov/mesh/
+MESH_DL=https://nlmpubs.nlm.nih.gov/projects/mesh/rdf/mesh.nt.gz
+
+HRA_LIT_UNIVERSE=https://purl.humanatlas.io/graph/hra-lit-universe
+HRA_LIT=https://purl.humanatlas.io/graph/hra-lit
+CCF=https://purl.humanatlas.io/graph/ccf
+HRA=https://purl.humanatlas.io/collection/hra
+UBERON=https://purl.humanatlas.io/vocab/uberon
+
+run_ndjsonld() {
+  QUADS=${1%.jsonld}.nq
+  ndjsonld canonize $1 $QUADS -c context.jsonld 
+  blazegraph-runner load --journal=$JNL "--graph=${2}" $QUADS
+  rm -f $QUADS
+}
+
+run_jsonld() {
+  QUADS=${1%.jsonld}.nq
+  jsonld canonize $1 > $QUADS
+  blazegraph-runner load --journal=$JNL "--graph=${2}" $QUADS
+  rm -f $QUADS
+}
+
+# HRA-LIT Universe
+# run_ndjsonld $DIR/universe-publications.jsonl $HRA_LIT_UNIVERSE
+# run_ndjsonld $DIR/universe-pmid-mesh.jsonl $HRA_LIT_UNIVERSE
+
+# HRA-LIT World
+cat $DIR/hralit-articles.jsonl \
+  $DIR/hralit-journals.jsonl \
+  $DIR/hralit-organizations.jsonl \
+  $DIR/hralit-persons.jsonl \
+  $DIR/hralit-mesh-terms.jsonl | \
+  ndjsonld canonize -c context.jsonld - $DIR/hra-lit.nq
+
+blazegraph-runner load --journal=$JNL "--graph=${HRA_LIT}" $DIR/hra-lit.nq
+log4j:WARN No appenders could be found for logger (com.bigdata.config.Configuration).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+ERROR: com.bigdata.util.config.LogUtil : Could not initialize Log4J logging utility.
+Set system property '-Dlog4j.configuration=file:bigdata/src/resources/logging/log4j.properties'
+  and / or 
+Set system property '-Dlog4j.primary.configuration=file:<installDir>/bigdata/src/resources/logging/log4j.properties'
+
+BlazeGraph(TM) Graph Engine
+
+                   Flexible
+                   Reliable
+                  Affordable
+      Web-Scale Computing for the Enterprise
+
+Copyright SYSTAP, LLC DBA Blazegraph 2006-2016.  All rights reserved.
+
+bl-sice-bkgnhr3.ads.iu.edu
+Mon Sep 23 14:36:14 EDT 2024
+Linux/5.15.153.1-microsoft-standard-WSL2 amd64
+12th Gen Intel(R) Core(TM) i9-12950HX Family 6 Model 151 Stepping 2, GenuineIntel #CPU=24
+Ubuntu 11.0.24
+freeMemory=505484384
+buildVersion=2.1.4
+gitCommit=738d05f08cffd319233a4bfbb0ec2a858e260f9c
+
+Dependency         License                                                                 
+ICU                http://source.icu-project.org/repos/icu/icu/trunk/license.html          
+bigdata-ganglia    http://www.apache.org/licenses/LICENSE-2.0.html                         
+blueprints-core    https://github.com/tinkerpop/blueprints/blob/master/LICENSE.txt         
+colt               http://acs.lbl.gov/software/colt/license.html                           
+commons-codec      http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-fileupload http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-io         http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-logging    http://www.apache.org/licenses/LICENSE-2.0.html                         
+dsiutils           http://www.gnu.org/licenses/lgpl-2.1.html                               
+fastutil           http://www.apache.org/licenses/LICENSE-2.0.html                         
+flot               http://www.opensource.org/licenses/mit-license.php                      
+high-scale-lib     http://creativecommons.org/licenses/publicdomain                        
+httpclient         http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpclient-cache   http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpcore           http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpmime           http://www.apache.org/licenses/LICENSE-2.0.html                         
+jackson-core       http://www.apache.org/licenses/LICENSE-2.0.html                         
+jetty              http://www.apache.org/licenses/LICENSE-2.0.html                         
+jquery             https://github.com/jquery/jquery/blob/master/MIT-LICENSE.txt            
+jsonld             https://raw.githubusercontent.com/jsonld-java/jsonld-java/master/LICENCE
+log4j              http://www.apache.org/licenses/LICENSE-2.0.html                         
+lucene             http://www.apache.org/licenses/LICENSE-2.0.html                         
+nanohttp           http://elonen.iki.fi/code/nanohttpd/#license                            
+rexster-core       https://github.com/tinkerpop/rexster/blob/master/LICENSE.txt            
+river              http://www.apache.org/licenses/LICENSE-2.0.html                         
+semargl            https://github.com/levkhomich/semargl/blob/master/LICENSE               
+servlet-api        http://www.apache.org/licenses/LICENSE-2.0.html                         
+sesame             http://www.openrdf.org/download.jsp                                     
+slf4j              http://www.slf4j.org/license.html                                       
+zookeeper          http://www.apache.org/licenses/LICENSE-2.0.html                         
+
+[36m[1m2024.09.23 14:36:15:735[0m[36m[0m [3mmain[0m [34mINFO[0m [32morg.renci.blazegraph.Load.runUsingConnection:43[0m
+    Loading ./raw-data/hra-lit-kidney/v0.0.1/hra-lit.nq[0m
+[36m[1m2024.09.23 14:37:01:767[0m[36m[0m [3mmain[0m [34mINFO[0m [32morg.renci.blazegraph.Load.runUsingConnection:47[0m
+    4147836 stmts added in 44.988 secs, rate= 92198, commitLatency=970ms, {failSet=0,goodSet=0}[0m
+rm -f $DIR/hra-lit.nq
+
+# Dump HRA-LIT back out to turtle format
+blazegraph-runner dump --journal=$JNL "--graph=${HRA_LIT}" $DIR/hra-lit.ttl
+log4j:WARN No appenders could be found for logger (com.bigdata.config.Configuration).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+ERROR: com.bigdata.util.config.LogUtil : Could not initialize Log4J logging utility.
+Set system property '-Dlog4j.configuration=file:bigdata/src/resources/logging/log4j.properties'
+  and / or 
+Set system property '-Dlog4j.primary.configuration=file:<installDir>/bigdata/src/resources/logging/log4j.properties'
+
+BlazeGraph(TM) Graph Engine
+
+                   Flexible
+                   Reliable
+                  Affordable
+      Web-Scale Computing for the Enterprise
+
+Copyright SYSTAP, LLC DBA Blazegraph 2006-2016.  All rights reserved.
+
+bl-sice-bkgnhr3.ads.iu.edu
+Mon Sep 23 14:37:02 EDT 2024
+Linux/5.15.153.1-microsoft-standard-WSL2 amd64
+12th Gen Intel(R) Core(TM) i9-12950HX Family 6 Model 151 Stepping 2, GenuineIntel #CPU=24
+Ubuntu 11.0.24
+freeMemory=505460272
+buildVersion=2.1.4
+gitCommit=738d05f08cffd319233a4bfbb0ec2a858e260f9c
+
+Dependency         License                                                                 
+ICU                http://source.icu-project.org/repos/icu/icu/trunk/license.html          
+bigdata-ganglia    http://www.apache.org/licenses/LICENSE-2.0.html                         
+blueprints-core    https://github.com/tinkerpop/blueprints/blob/master/LICENSE.txt         
+colt               http://acs.lbl.gov/software/colt/license.html                           
+commons-codec      http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-fileupload http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-io         http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-logging    http://www.apache.org/licenses/LICENSE-2.0.html                         
+dsiutils           http://www.gnu.org/licenses/lgpl-2.1.html                               
+fastutil           http://www.apache.org/licenses/LICENSE-2.0.html                         
+flot               http://www.opensource.org/licenses/mit-license.php                      
+high-scale-lib     http://creativecommons.org/licenses/publicdomain                        
+httpclient         http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpclient-cache   http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpcore           http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpmime           http://www.apache.org/licenses/LICENSE-2.0.html                         
+jackson-core       http://www.apache.org/licenses/LICENSE-2.0.html                         
+jetty              http://www.apache.org/licenses/LICENSE-2.0.html                         
+jquery             https://github.com/jquery/jquery/blob/master/MIT-LICENSE.txt            
+jsonld             https://raw.githubusercontent.com/jsonld-java/jsonld-java/master/LICENCE
+log4j              http://www.apache.org/licenses/LICENSE-2.0.html                         
+lucene             http://www.apache.org/licenses/LICENSE-2.0.html                         
+nanohttp           http://elonen.iki.fi/code/nanohttpd/#license                            
+rexster-core       https://github.com/tinkerpop/rexster/blob/master/LICENSE.txt            
+river              http://www.apache.org/licenses/LICENSE-2.0.html                         
+semargl            https://github.com/levkhomich/semargl/blob/master/LICENSE               
+servlet-api        http://www.apache.org/licenses/LICENSE-2.0.html                         
+sesame             http://www.openrdf.org/download.jsp                                     
+slf4j              http://www.slf4j.org/license.html                                       
+zookeeper          http://www.apache.org/licenses/LICENSE-2.0.html                         
+
+
+# Import CCF.OWL
+curl -s $CCF -H "Accept: application/rdf+xml" > $DIR/ccf.owl
+blazegraph-runner load --journal=$JNL "--graph=${CCF}" $DIR/ccf.owl
+log4j:WARN No appenders could be found for logger (com.bigdata.config.Configuration).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+ERROR: com.bigdata.util.config.LogUtil : Could not initialize Log4J logging utility.
+Set system property '-Dlog4j.configuration=file:bigdata/src/resources/logging/log4j.properties'
+  and / or 
+Set system property '-Dlog4j.primary.configuration=file:<installDir>/bigdata/src/resources/logging/log4j.properties'
+
+BlazeGraph(TM) Graph Engine
+
+                   Flexible
+                   Reliable
+                  Affordable
+      Web-Scale Computing for the Enterprise
+
+Copyright SYSTAP, LLC DBA Blazegraph 2006-2016.  All rights reserved.
+
+bl-sice-bkgnhr3.ads.iu.edu
+Mon Sep 23 14:37:14 EDT 2024
+Linux/5.15.153.1-microsoft-standard-WSL2 amd64
+12th Gen Intel(R) Core(TM) i9-12950HX Family 6 Model 151 Stepping 2, GenuineIntel #CPU=24
+Ubuntu 11.0.24
+freeMemory=505445136
+buildVersion=2.1.4
+gitCommit=738d05f08cffd319233a4bfbb0ec2a858e260f9c
+
+Dependency         License                                                                 
+ICU                http://source.icu-project.org/repos/icu/icu/trunk/license.html          
+bigdata-ganglia    http://www.apache.org/licenses/LICENSE-2.0.html                         
+blueprints-core    https://github.com/tinkerpop/blueprints/blob/master/LICENSE.txt         
+colt               http://acs.lbl.gov/software/colt/license.html                           
+commons-codec      http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-fileupload http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-io         http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-logging    http://www.apache.org/licenses/LICENSE-2.0.html                         
+dsiutils           http://www.gnu.org/licenses/lgpl-2.1.html                               
+fastutil           http://www.apache.org/licenses/LICENSE-2.0.html                         
+flot               http://www.opensource.org/licenses/mit-license.php                      
+high-scale-lib     http://creativecommons.org/licenses/publicdomain                        
+httpclient         http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpclient-cache   http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpcore           http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpmime           http://www.apache.org/licenses/LICENSE-2.0.html                         
+jackson-core       http://www.apache.org/licenses/LICENSE-2.0.html                         
+jetty              http://www.apache.org/licenses/LICENSE-2.0.html                         
+jquery             https://github.com/jquery/jquery/blob/master/MIT-LICENSE.txt            
+jsonld             https://raw.githubusercontent.com/jsonld-java/jsonld-java/master/LICENCE
+log4j              http://www.apache.org/licenses/LICENSE-2.0.html                         
+lucene             http://www.apache.org/licenses/LICENSE-2.0.html                         
+nanohttp           http://elonen.iki.fi/code/nanohttpd/#license                            
+rexster-core       https://github.com/tinkerpop/rexster/blob/master/LICENSE.txt            
+river              http://www.apache.org/licenses/LICENSE-2.0.html                         
+semargl            https://github.com/levkhomich/semargl/blob/master/LICENSE               
+servlet-api        http://www.apache.org/licenses/LICENSE-2.0.html                         
+sesame             http://www.openrdf.org/download.jsp                                     
+slf4j              http://www.slf4j.org/license.html                                       
+zookeeper          http://www.apache.org/licenses/LICENSE-2.0.html                         
+
+[36m[1m2024.09.23 14:37:14:909[0m[36m[0m [3mmain[0m [34mINFO[0m [32morg.renci.blazegraph.Load.runUsingConnection:43[0m
+    Loading ./raw-data/hra-lit-kidney/v0.0.1/ccf.owl[0m
+[36m[1m2024.09.23 14:37:20:827[0m[36m[0m [3mmain[0m [34mINFO[0m [32morg.renci.blazegraph.Load.runUsingConnection:47[0m
+    557129 stmts added in 5.465 secs, rate= 101944, commitLatency=394ms, {failSet=0,goodSet=0}[0m
+rm -f $DIR/ccf.owl
+
+# Import HRA
+curl -s $HRA -H "Accept: application/rdf+xml" > $DIR/hra.owl
+blazegraph-runner load --journal=$JNL "--graph=${HRA}" $DIR/hra.owl
+log4j:WARN No appenders could be found for logger (com.bigdata.config.Configuration).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+ERROR: com.bigdata.util.config.LogUtil : Could not initialize Log4J logging utility.
+Set system property '-Dlog4j.configuration=file:bigdata/src/resources/logging/log4j.properties'
+  and / or 
+Set system property '-Dlog4j.primary.configuration=file:<installDir>/bigdata/src/resources/logging/log4j.properties'
+
+BlazeGraph(TM) Graph Engine
+
+                   Flexible
+                   Reliable
+                  Affordable
+      Web-Scale Computing for the Enterprise
+
+Copyright SYSTAP, LLC DBA Blazegraph 2006-2016.  All rights reserved.
+
+bl-sice-bkgnhr3.ads.iu.edu
+Mon Sep 23 14:37:23 EDT 2024
+Linux/5.15.153.1-microsoft-standard-WSL2 amd64
+12th Gen Intel(R) Core(TM) i9-12950HX Family 6 Model 151 Stepping 2, GenuineIntel #CPU=24
+Ubuntu 11.0.24
+freeMemory=505284872
+buildVersion=2.1.4
+gitCommit=738d05f08cffd319233a4bfbb0ec2a858e260f9c
+
+Dependency         License                                                                 
+ICU                http://source.icu-project.org/repos/icu/icu/trunk/license.html          
+bigdata-ganglia    http://www.apache.org/licenses/LICENSE-2.0.html                         
+blueprints-core    https://github.com/tinkerpop/blueprints/blob/master/LICENSE.txt         
+colt               http://acs.lbl.gov/software/colt/license.html                           
+commons-codec      http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-fileupload http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-io         http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-logging    http://www.apache.org/licenses/LICENSE-2.0.html                         
+dsiutils           http://www.gnu.org/licenses/lgpl-2.1.html                               
+fastutil           http://www.apache.org/licenses/LICENSE-2.0.html                         
+flot               http://www.opensource.org/licenses/mit-license.php                      
+high-scale-lib     http://creativecommons.org/licenses/publicdomain                        
+httpclient         http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpclient-cache   http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpcore           http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpmime           http://www.apache.org/licenses/LICENSE-2.0.html                         
+jackson-core       http://www.apache.org/licenses/LICENSE-2.0.html                         
+jetty              http://www.apache.org/licenses/LICENSE-2.0.html                         
+jquery             https://github.com/jquery/jquery/blob/master/MIT-LICENSE.txt            
+jsonld             https://raw.githubusercontent.com/jsonld-java/jsonld-java/master/LICENCE
+log4j              http://www.apache.org/licenses/LICENSE-2.0.html                         
+lucene             http://www.apache.org/licenses/LICENSE-2.0.html                         
+nanohttp           http://elonen.iki.fi/code/nanohttpd/#license                            
+rexster-core       https://github.com/tinkerpop/rexster/blob/master/LICENSE.txt            
+river              http://www.apache.org/licenses/LICENSE-2.0.html                         
+semargl            https://github.com/levkhomich/semargl/blob/master/LICENSE               
+servlet-api        http://www.apache.org/licenses/LICENSE-2.0.html                         
+sesame             http://www.openrdf.org/download.jsp                                     
+slf4j              http://www.slf4j.org/license.html                                       
+zookeeper          http://www.apache.org/licenses/LICENSE-2.0.html                         
+
+[36m[1m2024.09.23 14:37:24:049[0m[36m[0m [3mmain[0m [34mINFO[0m [32morg.renci.blazegraph.Load.runUsingConnection:43[0m
+    Loading ./raw-data/hra-lit-kidney/v0.0.1/hra.owl[0m
+[36m[1m2024.09.23 14:37:30:538[0m[36m[0m [3mmain[0m [34mINFO[0m [32morg.renci.blazegraph.Load.runUsingConnection:47[0m
+    748494 stmts added in 5.955 secs, rate= 125691, commitLatency=473ms, {failSet=0,goodSet=0}[0m
+
+# Import UBERON
+curl -s $UBERON -H "Accept: application/rdf+xml" > $DIR/uberon.owl
+blazegraph-runner load --journal=$JNL "--graph=${UBERON}" $DIR/uberon.owl
+log4j:WARN No appenders could be found for logger (com.bigdata.config.Configuration).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+ERROR: com.bigdata.util.config.LogUtil : Could not initialize Log4J logging utility.
+Set system property '-Dlog4j.configuration=file:bigdata/src/resources/logging/log4j.properties'
+  and / or 
+Set system property '-Dlog4j.primary.configuration=file:<installDir>/bigdata/src/resources/logging/log4j.properties'
+
+BlazeGraph(TM) Graph Engine
+
+                   Flexible
+                   Reliable
+                  Affordable
+      Web-Scale Computing for the Enterprise
+
+Copyright SYSTAP, LLC DBA Blazegraph 2006-2016.  All rights reserved.
+
+bl-sice-bkgnhr3.ads.iu.edu
+Mon Sep 23 14:37:34 EDT 2024
+Linux/5.15.153.1-microsoft-standard-WSL2 amd64
+12th Gen Intel(R) Core(TM) i9-12950HX Family 6 Model 151 Stepping 2, GenuineIntel #CPU=24
+Ubuntu 11.0.24
+freeMemory=505291432
+buildVersion=2.1.4
+gitCommit=738d05f08cffd319233a4bfbb0ec2a858e260f9c
+
+Dependency         License                                                                 
+ICU                http://source.icu-project.org/repos/icu/icu/trunk/license.html          
+bigdata-ganglia    http://www.apache.org/licenses/LICENSE-2.0.html                         
+blueprints-core    https://github.com/tinkerpop/blueprints/blob/master/LICENSE.txt         
+colt               http://acs.lbl.gov/software/colt/license.html                           
+commons-codec      http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-fileupload http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-io         http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-logging    http://www.apache.org/licenses/LICENSE-2.0.html                         
+dsiutils           http://www.gnu.org/licenses/lgpl-2.1.html                               
+fastutil           http://www.apache.org/licenses/LICENSE-2.0.html                         
+flot               http://www.opensource.org/licenses/mit-license.php                      
+high-scale-lib     http://creativecommons.org/licenses/publicdomain                        
+httpclient         http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpclient-cache   http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpcore           http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpmime           http://www.apache.org/licenses/LICENSE-2.0.html                         
+jackson-core       http://www.apache.org/licenses/LICENSE-2.0.html                         
+jetty              http://www.apache.org/licenses/LICENSE-2.0.html                         
+jquery             https://github.com/jquery/jquery/blob/master/MIT-LICENSE.txt            
+jsonld             https://raw.githubusercontent.com/jsonld-java/jsonld-java/master/LICENCE
+log4j              http://www.apache.org/licenses/LICENSE-2.0.html                         
+lucene             http://www.apache.org/licenses/LICENSE-2.0.html                         
+nanohttp           http://elonen.iki.fi/code/nanohttpd/#license                            
+rexster-core       https://github.com/tinkerpop/rexster/blob/master/LICENSE.txt            
+river              http://www.apache.org/licenses/LICENSE-2.0.html                         
+semargl            https://github.com/levkhomich/semargl/blob/master/LICENSE               
+servlet-api        http://www.apache.org/licenses/LICENSE-2.0.html                         
+sesame             http://www.openrdf.org/download.jsp                                     
+slf4j              http://www.slf4j.org/license.html                                       
+zookeeper          http://www.apache.org/licenses/LICENSE-2.0.html                         
+
+[36m[1m2024.09.23 14:37:35:109[0m[36m[0m [3mmain[0m [34mINFO[0m [32morg.renci.blazegraph.Load.runUsingConnection:43[0m
+    Loading ./raw-data/hra-lit-kidney/v0.0.1/uberon.owl[0m
+[36m[1m2024.09.23 14:37:46:055[0m[36m[0m [3mmain[0m [34mINFO[0m [32morg.renci.blazegraph.Load.runUsingConnection:47[0m
+    1111228 stmts added in 10.161 secs, rate= 109362, commitLatency=723ms, {failSet=0,goodSet=0}[0m
+rm -f $DIR/uberon.owl
+
+# Import MESH
+curl $MESH_DL | zcat > $DIR/mesh.nt
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0  129M    0  992k    0     0  3107k      0  0:00:42 --:--:--  0:00:42 3100k 18  129M   18 23.5M    0     0  17.8M      0  0:00:07  0:00:01  0:00:06 17.8M 34  129M   34 44.5M    0     0  19.1M      0  0:00:06  0:00:02  0:00:04 19.1M 47  129M   47 61.0M    0     0  18.3M      0  0:00:07  0:00:03  0:00:04 18.3M 64  129M   64 83.8M    0     0  19.3M      0  0:00:06  0:00:04  0:00:02 19.3M 80  129M   80  104M    0     0  19.5M      0  0:00:06  0:00:05  0:00:01 20.5M 95  129M   95  123M    0     0  19.4M      0  0:00:06  0:00:06 --:--:-- 19.9M100  129M  100  129M    0     0  19.4M      0  0:00:06  0:00:06 --:--:-- 19.6M
+blazegraph-runner load --journal=$JNL "--graph=${MESH}" $DIR/mesh.nt
+log4j:WARN No appenders could be found for logger (com.bigdata.config.Configuration).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+ERROR: com.bigdata.util.config.LogUtil : Could not initialize Log4J logging utility.
+Set system property '-Dlog4j.configuration=file:bigdata/src/resources/logging/log4j.properties'
+  and / or 
+Set system property '-Dlog4j.primary.configuration=file:<installDir>/bigdata/src/resources/logging/log4j.properties'
+
+BlazeGraph(TM) Graph Engine
+
+                   Flexible
+                   Reliable
+                  Affordable
+      Web-Scale Computing for the Enterprise
+
+Copyright SYSTAP, LLC DBA Blazegraph 2006-2016.  All rights reserved.
+
+bl-sice-bkgnhr3.ads.iu.edu
+Mon Sep 23 14:37:53 EDT 2024
+Linux/5.15.153.1-microsoft-standard-WSL2 amd64
+12th Gen Intel(R) Core(TM) i9-12950HX Family 6 Model 151 Stepping 2, GenuineIntel #CPU=24
+Ubuntu 11.0.24
+freeMemory=505364064
+buildVersion=2.1.4
+gitCommit=738d05f08cffd319233a4bfbb0ec2a858e260f9c
+
+Dependency         License                                                                 
+ICU                http://source.icu-project.org/repos/icu/icu/trunk/license.html          
+bigdata-ganglia    http://www.apache.org/licenses/LICENSE-2.0.html                         
+blueprints-core    https://github.com/tinkerpop/blueprints/blob/master/LICENSE.txt         
+colt               http://acs.lbl.gov/software/colt/license.html                           
+commons-codec      http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-fileupload http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-io         http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-logging    http://www.apache.org/licenses/LICENSE-2.0.html                         
+dsiutils           http://www.gnu.org/licenses/lgpl-2.1.html                               
+fastutil           http://www.apache.org/licenses/LICENSE-2.0.html                         
+flot               http://www.opensource.org/licenses/mit-license.php                      
+high-scale-lib     http://creativecommons.org/licenses/publicdomain                        
+httpclient         http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpclient-cache   http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpcore           http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpmime           http://www.apache.org/licenses/LICENSE-2.0.html                         
+jackson-core       http://www.apache.org/licenses/LICENSE-2.0.html                         
+jetty              http://www.apache.org/licenses/LICENSE-2.0.html                         
+jquery             https://github.com/jquery/jquery/blob/master/MIT-LICENSE.txt            
+jsonld             https://raw.githubusercontent.com/jsonld-java/jsonld-java/master/LICENCE
+log4j              http://www.apache.org/licenses/LICENSE-2.0.html                         
+lucene             http://www.apache.org/licenses/LICENSE-2.0.html                         
+nanohttp           http://elonen.iki.fi/code/nanohttpd/#license                            
+rexster-core       https://github.com/tinkerpop/rexster/blob/master/LICENSE.txt            
+river              http://www.apache.org/licenses/LICENSE-2.0.html                         
+semargl            https://github.com/levkhomich/semargl/blob/master/LICENSE               
+servlet-api        http://www.apache.org/licenses/LICENSE-2.0.html                         
+sesame             http://www.openrdf.org/download.jsp                                     
+slf4j              http://www.slf4j.org/license.html                                       
+zookeeper          http://www.apache.org/licenses/LICENSE-2.0.html                         
+
+[36m[1m2024.09.23 14:37:53:487[0m[36m[0m [3mmain[0m [34mINFO[0m [32morg.renci.blazegraph.Load.runUsingConnection:43[0m
+    Loading ./raw-data/hra-lit-kidney/v0.0.1/mesh.nt[0m
+[36m[1m2024.09.23 14:39:47:597[0m[36m[0m [3mmain[0m [34mINFO[0m [32morg.renci.blazegraph.Load.runUsingConnection:47[0m
+    18334034 stmts added in 112.758 secs, rate= 162596, commitLatency=1296ms, {failSet=0,goodSet=0}[0m
+rm -f $DIR/mesh.nt
+
+real	3m50.247s
+user	12m54.157s
+sys	0m32.092s
+
+>> Running scripts/75-run-reports.sh...
+Creating report: named-graphs
+Creating report: class-counts
+Creating report: mesh-counts
+Creating report: mesh-label-author-counts
+Creating report: mesh-label-publication-counts
+
+real	0m32.420s
+user	2m13.253s
+sys	0m20.040s
+
+>> Running scripts/80-publish-results.sh...
+
+DIR=$RAW_DIR/$DATASET/$VERSION
+OUT=$OUTPUT_DIR/$DATASET/$VERSION
+
+mkdir -p $OUT
+
+# cp $DIR/atlas-enriched-dataset-graph.jsonld $OUT
+
+cp -r $DIR/reports $OUT
+
+node src/gen-report-markdown.js $OUT/REPORTS.md reports $OUT/reports
+
+for file in `find $OUT -name "*.*" -size +95M`; do
+  zip -j ${file}.zip $file
+  rm $file
+done
+
+CREATION_DATE=$(date)
+echo "$CREATION_DATE" > $OUT/CREATION_DATE
+
+node src/gen-readme.js $VERSION "$CREATION_DATE" $OUT/README.md
+
+real	0m0.262s
+user	0m0.139s
+sys	0m0.047s
+
+
+Run finished on Mon Sep 23 14:40:20 EDT 2024
