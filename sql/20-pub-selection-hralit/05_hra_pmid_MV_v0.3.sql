@@ -15,15 +15,13 @@ WITH
   )
 SELECT DISTINCT
   pm1.pmid,
-  dat.article_year
+  COALESCE(dat.article_year, mas.pub_year)::INTEGER AS article_year
 FROM
   pm1 AS pm1
+  INNER JOIN medline_master AS mas ON pm1.pmid = mas.pmid
   LEFT JOIN medline_article_date AS dat ON pm1.pmid = dat.pmid
-WHERE
-  dat.article_year::INTEGER > 1899
-  -- AND dat. -- KEEP ONLY RESEARCH ARTICLES --
 ORDER BY
-  dat.article_year DESC
+  article_year DESC
 WITH
   DATA;
 

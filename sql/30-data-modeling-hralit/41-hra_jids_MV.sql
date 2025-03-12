@@ -42,9 +42,7 @@ SELECT
   jid.identifier
 FROM
   jid
-  LEFT JOIN medline_article_date ad ON jid.pmid::TEXT = ad.pmid::TEXT
 WHERE
-  ad.article_year::INTEGER > 2009
-  AND jid.identifier IS NOT NULL
+  jid.identifier IS NOT NULL
 WITH
   DATA;

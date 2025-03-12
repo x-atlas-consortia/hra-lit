@@ -8,8 +8,6 @@ WITH
       pub_year::INTEGER AS "datePublished"
     FROM
       medline_master
-    WHERE
-      pub_year::INTEGER > 2009
     ORDER BY
       pub_year DESC
   )
