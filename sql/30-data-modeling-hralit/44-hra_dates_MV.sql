@@ -11,7 +11,7 @@ SELECT
   ) AS "date_published"
 FROM
   hra_pmid AS pml
-  INNER JOIN medline_master AS mas ON (pm1.pmid = mas.pmid)
+  INNER JOIN medline_master AS mas ON (pml.pmid = mas.pmid)
   LEFT JOIN medline_article_date AS ad ON (pml.pmid = ad.pmid)
 WITH
   DATA;
