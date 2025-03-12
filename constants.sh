@@ -1,4 +1,4 @@
-DEFAULT_CONFIG=input-data/hra-lit/v0.7.0/config.sh
+DEFAULT_CONFIG=input-data/hra-lit/v0.7.1/config.sh
 
 INPUT_DIR="./input-data"
 OUTPUT_DIR="./output-data"
