@@ -4,7 +4,7 @@ DROP MATERIALIZED VIEW IF EXISTS hra_pmid CASCADE;
 CREATE MATERIALIZED VIEW IF NOT EXISTS
   hra_pmid TABLESPACE pg_default AS
 WITH
-  pm1 AS (
+  pml AS (
     SELECT DISTINCT
       mh.pmid
     FROM
@@ -14,12 +14,27 @@ WITH
       mh.pmid IS NOT NULL
   )
 SELECT DISTINCT
-  pm1.pmid,
+  pml.pmid,
   COALESCE(dat.article_year, mas.pub_year)::INTEGER AS article_year
 FROM
-  pm1 AS pm1
-  INNER JOIN medline_master AS mas ON pm1.pmid = mas.pmid
-  LEFT JOIN medline_article_date AS dat ON pm1.pmid = dat.pmid
+  pml AS pml
+  INNER JOIN medline_master AS mas ON pml.pmid = mas.pmid
+  LEFT JOIN medline_article_date AS dat ON pml.pmid = dat.pmid
+  LEFT JOIN medline_publicationtype pt ON pml.pmid::TEXT = pt.pmid::TEXT
+WHERE
+  pt.publicationtype::TEXT = 'Journal Article'::TEXT
+  AND (
+    pt.publicationtype::TEXT <> ALL (
+      ARRAY[
+        'Published Erratum'::CHARACTER VARYING,
+        'Retraction of Publication'::CHARACTER VARYING,
+        'Editorial'::CHARACTER VARYING,
+        'News'::CHARACTER VARYING,
+        'Newspaper Article'::CHARACTER VARYING,
+        'Comment'::CHARACTER VARYING
+      ]::TEXT[]
+    )
+  )
 ORDER BY
   article_year DESC
 WITH

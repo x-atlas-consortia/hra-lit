@@ -26,21 +26,6 @@ FROM
   LEFT JOIN hra_jid jid ON pml.pmid::TEXT = jid.pmid::TEXT
   LEFT JOIN hra_doi ei ON pml.pmid::TEXT = ei.pmid::TEXT
   LEFT JOIN hra_mesh_all mh ON pml.pmid::TEXT = mh.pmid::TEXT
-WHERE
-  pml.pmid::TEXT = a.pmid::TEXT
-  AND pt.publicationtype::TEXT = 'Journal Article'::TEXT
-  AND (
-    pt.publicationtype::TEXT <> ALL (
-      ARRAY[
-        'Published Erratum'::CHARACTER VARYING,
-        'Retraction of Publication'::CHARACTER VARYING,
-        'Editorial'::CHARACTER VARYING,
-        'News'::CHARACTER VARYING,
-        'Newspaper Article'::CHARACTER VARYING,
-        'Comment'::CHARACTER VARYING
-      ]::TEXT[]
-    )
-  )
 GROUP BY
   pml.pmid,
   att.title,
