@@ -1,0 +1,735 @@
+Run started on Thu Mar 13 13:24:19 EDT 2025...
+
+>> Running scripts/00-setup-environment.sh...
+
+real	0m0.021s
+user	0m0.006s
+sys	0m0.006s
+
+>> Running scripts/05-setup-dataset-schema.sh...
+NOTICE:  drop cascades to 4 other objects
+DETAIL:  drop cascades to function normalize_id(text)
+drop cascades to function normalize_identifier(text)
+drop cascades to table hra_meshd_anatomy
+drop cascades to table hra_meshd_methods
+CREATE SCHEMA
+>>>> psql -f ./sql/05-setup-dataset-schema/10-normalize-id-function.sql on Thu Mar 13 13:24:19 EDT 2025
+CREATE FUNCTION
+CREATE FUNCTION
+
+real	0m0.017s
+user	0m0.001s
+sys	0m0.004s
+
+real	0m0.164s
+user	0m0.010s
+sys	0m0.031s
+
+>> Running scripts/20-pub-selection-hralit.sh...
+>>>> psql -f ./sql/20-pub-selection-hralit/01_hra_mesh_descriptors_T.sql on Thu Mar 13 13:24:19 EDT 2025
+psql:./sql/20-pub-selection-hralit/01_hra_mesh_descriptors_T.sql:2: NOTICE:  table "hra_meshd_anatomy" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+psql:./sql/20-pub-selection-hralit/01_hra_mesh_descriptors_T.sql:13: NOTICE:  table "hra_meshd_methods" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+
+real	0m0.023s
+user	0m0.000s
+sys	0m0.006s
+COPY 1104
+>>>> psql -f ./sql/20-pub-selection-hralit/05_hra_pmid_MV_v0.3.sql on Thu Mar 13 13:24:19 EDT 2025
+psql:./sql/20-pub-selection-hralit/05_hra_pmid_MV_v0.3.sql:2: NOTICE:  materialized view "hra_pmid" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 8780250
+CREATE INDEX
+
+real	1m51.662s
+user	0m0.002s
+sys	0m0.004s
+
+real	1m51.769s
+user	0m0.010s
+sys	0m0.049s
+
+>> Running scripts/30-data-modeling-hralit.sh...
+>>>> psql -f ./sql/30-data-modeling-hralit/11-ml_author_orcid_MV.sql on Thu Mar 13 13:26:11 EDT 2025
+psql:./sql/30-data-modeling-hralit/11-ml_author_orcid_MV.sql:2: NOTICE:  materialized view "ml_author_orcid" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 11431823
+CREATE INDEX
+
+real	0m38.024s
+user	0m0.003s
+sys	0m0.004s
+>>>> psql -f ./sql/30-data-modeling-hralit/12-hra_author_aff_MV.sql on Thu Mar 13 13:26:49 EDT 2025
+psql:./sql/30-data-modeling-hralit/12-hra_author_aff_MV.sql:2: NOTICE:  materialized view "hra_author_aff" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 20769783
+CREATE INDEX
+
+real	1m39.899s
+user	0m0.003s
+sys	0m0.003s
+>>>> psql -f ./sql/30-data-modeling-hralit/21-hra_jparts_MV.sql on Thu Mar 13 13:28:29 EDT 2025
+psql:./sql/30-data-modeling-hralit/21-hra_jparts_MV.sql:2: NOTICE:  materialized view "hra_jparts" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 13962
+
+real	0m46.050s
+user	0m0.001s
+sys	0m0.006s
+>>>> psql -f ./sql/30-data-modeling-hralit/22-hra_journals_MV.sql on Thu Mar 13 13:29:15 EDT 2025
+psql:./sql/30-data-modeling-hralit/22-hra_journals_MV.sql:2: NOTICE:  materialized view "hra_journals" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 14023
+
+real	5m47.596s
+user	0m0.002s
+sys	0m0.004s
+>>>> psql -f ./sql/30-data-modeling-hralit/23-hra_vparts_MV.sql on Thu Mar 13 13:35:03 EDT 2025
+psql:./sql/30-data-modeling-hralit/23-hra_vparts_MV.sql:2: NOTICE:  materialized view "hra_vparts" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 251203
+
+real	1m0.675s
+user	0m0.000s
+sys	0m0.007s
+>>>> psql -f ./sql/30-data-modeling-hralit/24-hra_jvol_MV.sql on Thu Mar 13 13:36:04 EDT 2025
+psql:./sql/30-data-modeling-hralit/24-hra_jvol_MV.sql:2: NOTICE:  materialized view "hra_jvol" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 343886
+
+real	1m28.022s
+user	0m0.002s
+sys	0m0.005s
+>>>> psql -f ./sql/30-data-modeling-hralit/25-hra_jiss_MV.sql on Thu Mar 13 13:37:32 EDT 2025
+psql:./sql/30-data-modeling-hralit/25-hra_jiss_MV.sql:2: NOTICE:  materialized view "hra_jiss" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 1289937
+
+real	1m22.533s
+user	0m0.000s
+sys	0m0.007s
+>>>> psql -f ./sql/30-data-modeling-hralit/31-hra_author_names_MV.sql on Thu Mar 13 13:38:54 EDT 2025
+psql:./sql/30-data-modeling-hralit/31-hra_author_names_MV.sql:2: NOTICE:  materialized view "hra_author_names" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 41278753
+
+real	2m43.917s
+user	0m0.001s
+sys	0m0.005s
+>>>> psql -f ./sql/30-data-modeling-hralit/32-hra_author_id_MV.sql on Thu Mar 13 13:41:38 EDT 2025
+psql:./sql/30-data-modeling-hralit/32-hra_author_id_MV.sql:2: NOTICE:  materialized view "hra_author_id" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 8730911
+
+real	1m13.164s
+user	0m0.004s
+sys	0m0.002s
+>>>> psql -f ./sql/30-data-modeling-hralit/33-hra_authors_MV.sql on Thu Mar 13 13:42:51 EDT 2025
+psql:./sql/30-data-modeling-hralit/33-hra_authors_MV.sql:2: NOTICE:  materialized view "hra_authors" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 41281204
+
+real	1m36.390s
+user	0m0.002s
+sys	0m0.002s
+>>>> psql -f ./sql/30-data-modeling-hralit/34-hra_author_affiliations_MV.sql on Thu Mar 13 13:44:28 EDT 2025
+psql:./sql/30-data-modeling-hralit/34-hra_author_affiliations_MV.sql:2: NOTICE:  materialized view "hra_author_affiliations" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 23498944
+
+real	0m56.563s
+user	0m0.002s
+sys	0m0.005s
+>>>> psql -f ./sql/30-data-modeling-hralit/41-hra_jids_MV.sql on Thu Mar 13 13:45:24 EDT 2025
+psql:./sql/30-data-modeling-hralit/41-hra_jids_MV.sql:2: NOTICE:  materialized view "hra_jid" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 25130937
+
+real	3m31.331s
+user	0m0.000s
+sys	0m0.006s
+>>>> psql -f ./sql/30-data-modeling-hralit/42-hra_titles_MV.sql on Thu Mar 13 13:48:56 EDT 2025
+psql:./sql/30-data-modeling-hralit/42-hra_titles_MV.sql:2: NOTICE:  materialized view "hra_titles" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 8780237
+
+real	0m27.353s
+user	0m0.001s
+sys	0m0.004s
+>>>> psql -f ./sql/30-data-modeling-hralit/43-hra_abs_MV.sql on Thu Mar 13 13:49:23 EDT 2025
+psql:./sql/30-data-modeling-hralit/43-hra_abs_MV.sql:2: NOTICE:  materialized view "hra_abs" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 8780250
+
+real	3m1.578s
+user	0m0.003s
+sys	0m0.000s
+>>>> psql -f ./sql/30-data-modeling-hralit/44-hra_dates_MV.sql on Thu Mar 13 13:52:25 EDT 2025
+psql:./sql/30-data-modeling-hralit/44-hra_dates_MV.sql:2: NOTICE:  materialized view "hra_dates" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 8780250
+
+real	0m8.301s
+user	0m0.000s
+sys	0m0.003s
+>>>> psql -f ./sql/30-data-modeling-hralit/45-hra_doi_MV.sql on Thu Mar 13 13:52:33 EDT 2025
+psql:./sql/30-data-modeling-hralit/45-hra_doi_MV.sql:2: NOTICE:  materialized view "hra_doi" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 3166446
+
+real	0m13.525s
+user	0m0.000s
+sys	0m0.003s
+>>>> psql -f ./sql/30-data-modeling-hralit/46-hra_mesh_all_MV.sql on Thu Mar 13 13:52:47 EDT 2025
+psql:./sql/30-data-modeling-hralit/46-hra_mesh_all_MV.sql:2: NOTICE:  materialized view "hra_mesh_all" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 8780250
+
+real	4m24.237s
+user	0m0.001s
+sys	0m0.002s
+>>>> psql -f ./sql/30-data-modeling-hralit/47-hra_mesh_terms_MV.sql on Thu Mar 13 13:57:11 EDT 2025
+psql:./sql/30-data-modeling-hralit/47-hra_mesh_terms_MV.sql:2: NOTICE:  materialized view "hra_mesh_terms" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 29784
+
+real	3m16.494s
+user	0m0.001s
+sys	0m0.003s
+
+real	34m16.301s
+user	0m0.089s
+sys	0m0.252s
+
+>> Running scripts/50-build-hralit-entities.sh...
+>>>> psql -f ./sql/50-build-hralit-entities/51-hraj_graph.sql on Thu Mar 13 14:00:27 EDT 2025
+psql:./sql/50-build-hralit-entities/51-hraj_graph.sql:2: NOTICE:  materialized view "hraj" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 1647846
+
+real	0m4.864s
+user	0m0.002s
+sys	0m0.001s
+>>>> psql -f ./sql/50-build-hralit-entities/52-hrap_graph.sql on Thu Mar 13 14:00:32 EDT 2025
+psql:./sql/50-build-hralit-entities/52-hrap_graph.sql:2: NOTICE:  materialized view "hrap" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 8706647
+
+real	3m27.701s
+user	0m0.000s
+sys	0m0.003s
+>>>> psql -f ./sql/50-build-hralit-entities/53-hrao_graph.sql on Thu Mar 13 14:04:00 EDT 2025
+psql:./sql/50-build-hralit-entities/53-hrao_graph.sql:2: NOTICE:  materialized view "hrao" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 24214
+
+real	0m1.638s
+user	0m0.002s
+sys	0m0.004s
+>>>> psql -f ./sql/50-build-hralit-entities/54-hraa_graph.sql on Thu Mar 13 14:04:02 EDT 2025
+psql:./sql/50-build-hralit-entities/54-hraa_graph.sql:2: NOTICE:  materialized view "hraa" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 8780250
+
+real	37m43.896s
+user	0m0.002s
+sys	0m0.003s
+>>>> psql -f ./sql/50-build-hralit-entities/55-hram_graph.sql on Thu Mar 13 14:41:46 EDT 2025
+psql:./sql/50-build-hralit-entities/55-hram_graph.sql:2: NOTICE:  materialized view "hram" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 29784
+
+real	0m0.096s
+user	0m0.002s
+sys	0m0.002s
+
+real	41m18.375s
+user	0m0.027s
+sys	0m0.046s
+
+>> Running scripts/60-extract-hralit-entities.sh...
+>>>> psql -f sql/60-extract-hralit-entities/61-hraj_graph_jsonld.sql to hralit-journals.jsonl on Thu Mar 13 14:41:46 EDT 2025
+
+real	0m13.593s
+user	0m0.529s
+sys	0m0.979s
+>>>> psql -f sql/60-extract-hralit-entities/62-hrap_graph_jsonld.sql to hralit-persons.jsonl on Thu Mar 13 14:41:59 EDT 2025
+
+real	2m16.654s
+user	0m4.620s
+sys	0m13.172s
+>>>> psql -f sql/60-extract-hralit-entities/63-hrao_graph_jsonld.sql to hralit-organizations.jsonl on Thu Mar 13 14:44:16 EDT 2025
+
+real	0m0.128s
+user	0m0.007s
+sys	0m0.015s
+>>>> psql -f sql/60-extract-hralit-entities/64-hraa_graph_jsonld.sql to hralit-articles.jsonl on Thu Mar 13 14:44:16 EDT 2025
+
+real	7m55.216s
+user	0m10.092s
+sys	0m42.048s
+>>>> psql -f sql/60-extract-hralit-entities/65-hram_graph_jsonld.sql to hralit-mesh-terms.jsonl on Thu Mar 13 14:52:12 EDT 2025
+
+real	0m0.239s
+user	0m0.009s
+sys	0m0.012s
+
+real	10m25.986s
+user	0m15.274s
+sys	0m56.262s
+
+>> Running scripts/70-create-internal-blazegraph.sh...
+
+DIR=$RAW_DIR/$DATASET/$VERSION
+JNL=$DIR/blazegraph.jnl
+rm -f $JNL
+
+MESH=http://id.nlm.nih.gov/mesh/
+MESH_DL=https://nlmpubs.nlm.nih.gov/projects/mesh/rdf/mesh.nt.gz
+
+HRA_LIT_UNIVERSE=https://purl.humanatlas.io/graph/hra-lit-universe
+HRA_LIT=https://purl.humanatlas.io/graph/hra-lit
+CCF=https://purl.humanatlas.io/graph/ccf
+HRA=https://purl.humanatlas.io/collection/hra
+UBERON=https://purl.humanatlas.io/vocab/uberon
+
+run_ndjsonld() {
+  QUADS=${1%.jsonld}.nq
+  ndjsonld canonize $1 $QUADS -c context.jsonld 
+  blazegraph-runner load --journal=$JNL "--graph=${2}" $QUADS
+  rm -f $QUADS
+}
+
+run_jsonld() {
+  QUADS=${1%.jsonld}.nq
+  jsonld canonize $1 > $QUADS
+  blazegraph-runner load --journal=$JNL "--graph=${2}" $QUADS
+  rm -f $QUADS
+}
+
+# HRA-LIT Universe
+# run_ndjsonld $DIR/universe-publications.jsonl $HRA_LIT_UNIVERSE
+# run_ndjsonld $DIR/universe-pmid-mesh.jsonl $HRA_LIT_UNIVERSE
+
+# HRA-LIT World
+cat $DIR/hralit-articles.jsonl \
+  $DIR/hralit-journals.jsonl \
+  $DIR/hralit-organizations.jsonl \
+  $DIR/hralit-persons.jsonl \
+  $DIR/hralit-mesh-terms.jsonl | \
+  node ../ndjsonld/cli.js canonize -p 0 -c context.jsonld - $DIR/hra-lit.nq
+
+blazegraph-runner load --journal=$JNL "--graph=${HRA_LIT}" $DIR/hra-lit.nq
+log4j:WARN No appenders could be found for logger (com.bigdata.config.Configuration).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+ERROR: com.bigdata.util.config.LogUtil : Could not initialize Log4J logging utility.
+Set system property '-Dlog4j.configuration=file:bigdata/src/resources/logging/log4j.properties'
+  and / or 
+Set system property '-Dlog4j.primary.configuration=file:<installDir>/bigdata/src/resources/logging/log4j.properties'
+
+BlazeGraph(TM) Graph Engine
+
+                   Flexible
+                   Reliable
+                  Affordable
+      Web-Scale Computing for the Enterprise
+
+Copyright SYSTAP, LLC DBA Blazegraph 2006-2016.  All rights reserved.
+
+johnson.cns.iu.edu
+Thu Mar 13 15:14:40 EDT 2025
+Linux/6.8.0-52-generic amd64
+Intel(R) Core(TM) i9-10900X CPU @ 3.70GHz Family 6 Model 85 Stepping 7, GenuineIntel #CPU=20
+Ubuntu 11.0.26
+freeMemory=2111092736
+buildVersion=2.1.4
+gitCommit=738d05f08cffd319233a4bfbb0ec2a858e260f9c
+
+Dependency         License                                                                 
+ICU                http://source.icu-project.org/repos/icu/icu/trunk/license.html          
+bigdata-ganglia    http://www.apache.org/licenses/LICENSE-2.0.html                         
+blueprints-core    https://github.com/tinkerpop/blueprints/blob/master/LICENSE.txt         
+colt               http://acs.lbl.gov/software/colt/license.html                           
+commons-codec      http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-fileupload http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-io         http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-logging    http://www.apache.org/licenses/LICENSE-2.0.html                         
+dsiutils           http://www.gnu.org/licenses/lgpl-2.1.html                               
+fastutil           http://www.apache.org/licenses/LICENSE-2.0.html                         
+flot               http://www.opensource.org/licenses/mit-license.php                      
+high-scale-lib     http://creativecommons.org/licenses/publicdomain                        
+httpclient         http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpclient-cache   http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpcore           http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpmime           http://www.apache.org/licenses/LICENSE-2.0.html                         
+jackson-core       http://www.apache.org/licenses/LICENSE-2.0.html                         
+jetty              http://www.apache.org/licenses/LICENSE-2.0.html                         
+jquery             https://github.com/jquery/jquery/blob/master/MIT-LICENSE.txt            
+jsonld             https://raw.githubusercontent.com/jsonld-java/jsonld-java/master/LICENCE
+log4j              http://www.apache.org/licenses/LICENSE-2.0.html                         
+lucene             http://www.apache.org/licenses/LICENSE-2.0.html                         
+nanohttp           http://elonen.iki.fi/code/nanohttpd/#license                            
+rexster-core       https://github.com/tinkerpop/rexster/blob/master/LICENSE.txt            
+river              http://www.apache.org/licenses/LICENSE-2.0.html                         
+semargl            https://github.com/levkhomich/semargl/blob/master/LICENSE               
+servlet-api        http://www.apache.org/licenses/LICENSE-2.0.html                         
+sesame             http://www.openrdf.org/download.jsp                                     
+slf4j              http://www.slf4j.org/license.html                                       
+zookeeper          http://www.apache.org/licenses/LICENSE-2.0.html                         
+
+[36m[1m2025.03.13 15:14:41:159[0m[36m[0m [3mmain[0m [34mINFO[0m [32morg.renci.blazegraph.Load.runUsingConnection:43[0m
+    Loading ./raw-data/hra-lit/v0.7.1/hra-lit.nq[0m
+loading: 289426853 stmts added in 45253.798 secs, rate= 6395, commitLatency=0ms, {failSet=0,goodSet=0}
+[36m[1m2025.03.14 03:49:05:884[0m[36m[0m [3mmain[0m [34mINFO[0m [32morg.renci.blazegraph.Load.runUsingConnection:47[0m
+    289426853 stmts added in 45253.798 secs, rate= 6395, commitLatency=10833ms, {failSet=0,goodSet=0}[0m
+rm -f $DIR/hra-lit.nq
+
+# Dump HRA-LIT back out to turtle format
+blazegraph-runner dump --journal=$JNL "--graph=${HRA_LIT}" $DIR/hra-lit.ttl
+log4j:WARN No appenders could be found for logger (com.bigdata.config.Configuration).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+ERROR: com.bigdata.util.config.LogUtil : Could not initialize Log4J logging utility.
+Set system property '-Dlog4j.configuration=file:bigdata/src/resources/logging/log4j.properties'
+  and / or 
+Set system property '-Dlog4j.primary.configuration=file:<installDir>/bigdata/src/resources/logging/log4j.properties'
+
+BlazeGraph(TM) Graph Engine
+
+                   Flexible
+                   Reliable
+                  Affordable
+      Web-Scale Computing for the Enterprise
+
+Copyright SYSTAP, LLC DBA Blazegraph 2006-2016.  All rights reserved.
+
+johnson.cns.iu.edu
+Fri Mar 14 03:49:11 EDT 2025
+Linux/6.8.0-52-generic amd64
+Intel(R) Core(TM) i9-10900X CPU @ 3.70GHz Family 6 Model 85 Stepping 7, GenuineIntel #CPU=20
+Ubuntu 11.0.26
+freeMemory=2111092736
+buildVersion=2.1.4
+gitCommit=738d05f08cffd319233a4bfbb0ec2a858e260f9c
+
+Dependency         License                                                                 
+ICU                http://source.icu-project.org/repos/icu/icu/trunk/license.html          
+bigdata-ganglia    http://www.apache.org/licenses/LICENSE-2.0.html                         
+blueprints-core    https://github.com/tinkerpop/blueprints/blob/master/LICENSE.txt         
+colt               http://acs.lbl.gov/software/colt/license.html                           
+commons-codec      http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-fileupload http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-io         http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-logging    http://www.apache.org/licenses/LICENSE-2.0.html                         
+dsiutils           http://www.gnu.org/licenses/lgpl-2.1.html                               
+fastutil           http://www.apache.org/licenses/LICENSE-2.0.html                         
+flot               http://www.opensource.org/licenses/mit-license.php                      
+high-scale-lib     http://creativecommons.org/licenses/publicdomain                        
+httpclient         http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpclient-cache   http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpcore           http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpmime           http://www.apache.org/licenses/LICENSE-2.0.html                         
+jackson-core       http://www.apache.org/licenses/LICENSE-2.0.html                         
+jetty              http://www.apache.org/licenses/LICENSE-2.0.html                         
+jquery             https://github.com/jquery/jquery/blob/master/MIT-LICENSE.txt            
+jsonld             https://raw.githubusercontent.com/jsonld-java/jsonld-java/master/LICENCE
+log4j              http://www.apache.org/licenses/LICENSE-2.0.html                         
+lucene             http://www.apache.org/licenses/LICENSE-2.0.html                         
+nanohttp           http://elonen.iki.fi/code/nanohttpd/#license                            
+rexster-core       https://github.com/tinkerpop/rexster/blob/master/LICENSE.txt            
+river              http://www.apache.org/licenses/LICENSE-2.0.html                         
+semargl            https://github.com/levkhomich/semargl/blob/master/LICENSE               
+servlet-api        http://www.apache.org/licenses/LICENSE-2.0.html                         
+sesame             http://www.openrdf.org/download.jsp                                     
+slf4j              http://www.slf4j.org/license.html                                       
+zookeeper          http://www.apache.org/licenses/LICENSE-2.0.html                         
+
+
+# Import CCF.OWL
+curl -s $CCF -H "Accept: application/rdf+xml" > $DIR/ccf.owl
+blazegraph-runner load --journal=$JNL "--graph=${CCF}" $DIR/ccf.owl
+log4j:WARN No appenders could be found for logger (com.bigdata.config.Configuration).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+ERROR: com.bigdata.util.config.LogUtil : Could not initialize Log4J logging utility.
+Set system property '-Dlog4j.configuration=file:bigdata/src/resources/logging/log4j.properties'
+  and / or 
+Set system property '-Dlog4j.primary.configuration=file:<installDir>/bigdata/src/resources/logging/log4j.properties'
+
+BlazeGraph(TM) Graph Engine
+
+                   Flexible
+                   Reliable
+                  Affordable
+      Web-Scale Computing for the Enterprise
+
+Copyright SYSTAP, LLC DBA Blazegraph 2006-2016.  All rights reserved.
+
+johnson.cns.iu.edu
+Fri Mar 14 07:09:17 EDT 2025
+Linux/6.8.0-52-generic amd64
+Intel(R) Core(TM) i9-10900X CPU @ 3.70GHz Family 6 Model 85 Stepping 7, GenuineIntel #CPU=20
+Ubuntu 11.0.26
+freeMemory=2111086576
+buildVersion=2.1.4
+gitCommit=738d05f08cffd319233a4bfbb0ec2a858e260f9c
+
+Dependency         License                                                                 
+ICU                http://source.icu-project.org/repos/icu/icu/trunk/license.html          
+bigdata-ganglia    http://www.apache.org/licenses/LICENSE-2.0.html                         
+blueprints-core    https://github.com/tinkerpop/blueprints/blob/master/LICENSE.txt         
+colt               http://acs.lbl.gov/software/colt/license.html                           
+commons-codec      http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-fileupload http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-io         http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-logging    http://www.apache.org/licenses/LICENSE-2.0.html                         
+dsiutils           http://www.gnu.org/licenses/lgpl-2.1.html                               
+fastutil           http://www.apache.org/licenses/LICENSE-2.0.html                         
+flot               http://www.opensource.org/licenses/mit-license.php                      
+high-scale-lib     http://creativecommons.org/licenses/publicdomain                        
+httpclient         http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpclient-cache   http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpcore           http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpmime           http://www.apache.org/licenses/LICENSE-2.0.html                         
+jackson-core       http://www.apache.org/licenses/LICENSE-2.0.html                         
+jetty              http://www.apache.org/licenses/LICENSE-2.0.html                         
+jquery             https://github.com/jquery/jquery/blob/master/MIT-LICENSE.txt            
+jsonld             https://raw.githubusercontent.com/jsonld-java/jsonld-java/master/LICENCE
+log4j              http://www.apache.org/licenses/LICENSE-2.0.html                         
+lucene             http://www.apache.org/licenses/LICENSE-2.0.html                         
+nanohttp           http://elonen.iki.fi/code/nanohttpd/#license                            
+rexster-core       https://github.com/tinkerpop/rexster/blob/master/LICENSE.txt            
+river              http://www.apache.org/licenses/LICENSE-2.0.html                         
+semargl            https://github.com/levkhomich/semargl/blob/master/LICENSE               
+servlet-api        http://www.apache.org/licenses/LICENSE-2.0.html                         
+sesame             http://www.openrdf.org/download.jsp                                     
+slf4j              http://www.slf4j.org/license.html                                       
+zookeeper          http://www.apache.org/licenses/LICENSE-2.0.html                         
+
+[36m[1m2025.03.14 07:09:18:866[0m[36m[0m [3mmain[0m [34mINFO[0m [32morg.renci.blazegraph.Load.runUsingConnection:43[0m
+    Loading ./raw-data/hra-lit/v0.7.1/ccf.owl[0m
+loading: 557235 stmts added in 1019.381 secs, rate= 546, commitLatency=0ms, {failSet=0,goodSet=0}
+[36m[1m2025.03.14 07:26:21:124[0m[36m[0m [3mmain[0m [34mINFO[0m [32morg.renci.blazegraph.Load.runUsingConnection:47[0m
+    557235 stmts added in 1019.381 secs, rate= 546, commitLatency=2752ms, {failSet=0,goodSet=0}[0m
+rm -f $DIR/ccf.owl
+
+# Import HRA
+curl -s $HRA -H "Accept: application/rdf+xml" > $DIR/hra.owl
+blazegraph-runner load --journal=$JNL "--graph=${HRA}" $DIR/hra.owl
+log4j:WARN No appenders could be found for logger (com.bigdata.config.Configuration).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+ERROR: com.bigdata.util.config.LogUtil : Could not initialize Log4J logging utility.
+Set system property '-Dlog4j.configuration=file:bigdata/src/resources/logging/log4j.properties'
+  and / or 
+Set system property '-Dlog4j.primary.configuration=file:<installDir>/bigdata/src/resources/logging/log4j.properties'
+
+BlazeGraph(TM) Graph Engine
+
+                   Flexible
+                   Reliable
+                  Affordable
+      Web-Scale Computing for the Enterprise
+
+Copyright SYSTAP, LLC DBA Blazegraph 2006-2016.  All rights reserved.
+
+johnson.cns.iu.edu
+Fri Mar 14 07:26:26 EDT 2025
+Linux/6.8.0-52-generic amd64
+Intel(R) Core(TM) i9-10900X CPU @ 3.70GHz Family 6 Model 85 Stepping 7, GenuineIntel #CPU=20
+Ubuntu 11.0.26
+freeMemory=2111092736
+buildVersion=2.1.4
+gitCommit=738d05f08cffd319233a4bfbb0ec2a858e260f9c
+
+Dependency         License                                                                 
+ICU                http://source.icu-project.org/repos/icu/icu/trunk/license.html          
+bigdata-ganglia    http://www.apache.org/licenses/LICENSE-2.0.html                         
+blueprints-core    https://github.com/tinkerpop/blueprints/blob/master/LICENSE.txt         
+colt               http://acs.lbl.gov/software/colt/license.html                           
+commons-codec      http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-fileupload http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-io         http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-logging    http://www.apache.org/licenses/LICENSE-2.0.html                         
+dsiutils           http://www.gnu.org/licenses/lgpl-2.1.html                               
+fastutil           http://www.apache.org/licenses/LICENSE-2.0.html                         
+flot               http://www.opensource.org/licenses/mit-license.php                      
+high-scale-lib     http://creativecommons.org/licenses/publicdomain                        
+httpclient         http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpclient-cache   http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpcore           http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpmime           http://www.apache.org/licenses/LICENSE-2.0.html                         
+jackson-core       http://www.apache.org/licenses/LICENSE-2.0.html                         
+jetty              http://www.apache.org/licenses/LICENSE-2.0.html                         
+jquery             https://github.com/jquery/jquery/blob/master/MIT-LICENSE.txt            
+jsonld             https://raw.githubusercontent.com/jsonld-java/jsonld-java/master/LICENCE
+log4j              http://www.apache.org/licenses/LICENSE-2.0.html                         
+lucene             http://www.apache.org/licenses/LICENSE-2.0.html                         
+nanohttp           http://elonen.iki.fi/code/nanohttpd/#license                            
+rexster-core       https://github.com/tinkerpop/rexster/blob/master/LICENSE.txt            
+river              http://www.apache.org/licenses/LICENSE-2.0.html                         
+semargl            https://github.com/levkhomich/semargl/blob/master/LICENSE               
+servlet-api        http://www.apache.org/licenses/LICENSE-2.0.html                         
+sesame             http://www.openrdf.org/download.jsp                                     
+slf4j              http://www.slf4j.org/license.html                                       
+zookeeper          http://www.apache.org/licenses/LICENSE-2.0.html                         
+
+[36m[1m2025.03.14 07:26:27:202[0m[36m[0m [3mmain[0m [34mINFO[0m [32morg.renci.blazegraph.Load.runUsingConnection:43[0m
+    Loading ./raw-data/hra-lit/v0.7.1/hra.owl[0m
+[36m[1m2025.03.14 07:33:23:836[0m[36m[0m [3mmain[0m [34mINFO[0m [32morg.renci.blazegraph.Load.runUsingConnection:47[0m
+    1920764 stmts added in 412.431 secs, rate= 4657, commitLatency=4100ms, {failSet=0,goodSet=0}[0m
+rm -f $DIR/hra.owl
+
+# Import UBERON
+curl -s $UBERON -H "Accept: application/rdf+xml" > $DIR/uberon.owl
+blazegraph-runner load --journal=$JNL "--graph=${UBERON}" $DIR/uberon.owl
+log4j:WARN No appenders could be found for logger (com.bigdata.config.Configuration).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+ERROR: com.bigdata.util.config.LogUtil : Could not initialize Log4J logging utility.
+Set system property '-Dlog4j.configuration=file:bigdata/src/resources/logging/log4j.properties'
+  and / or 
+Set system property '-Dlog4j.primary.configuration=file:<installDir>/bigdata/src/resources/logging/log4j.properties'
+
+BlazeGraph(TM) Graph Engine
+
+                   Flexible
+                   Reliable
+                  Affordable
+      Web-Scale Computing for the Enterprise
+
+Copyright SYSTAP, LLC DBA Blazegraph 2006-2016.  All rights reserved.
+
+johnson.cns.iu.edu
+Fri Mar 14 07:33:27 EDT 2025
+Linux/6.8.0-52-generic amd64
+Intel(R) Core(TM) i9-10900X CPU @ 3.70GHz Family 6 Model 85 Stepping 7, GenuineIntel #CPU=20
+Ubuntu 11.0.26
+freeMemory=2111092736
+buildVersion=2.1.4
+gitCommit=738d05f08cffd319233a4bfbb0ec2a858e260f9c
+
+Dependency         License                                                                 
+ICU                http://source.icu-project.org/repos/icu/icu/trunk/license.html          
+bigdata-ganglia    http://www.apache.org/licenses/LICENSE-2.0.html                         
+blueprints-core    https://github.com/tinkerpop/blueprints/blob/master/LICENSE.txt         
+colt               http://acs.lbl.gov/software/colt/license.html                           
+commons-codec      http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-fileupload http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-io         http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-logging    http://www.apache.org/licenses/LICENSE-2.0.html                         
+dsiutils           http://www.gnu.org/licenses/lgpl-2.1.html                               
+fastutil           http://www.apache.org/licenses/LICENSE-2.0.html                         
+flot               http://www.opensource.org/licenses/mit-license.php                      
+high-scale-lib     http://creativecommons.org/licenses/publicdomain                        
+httpclient         http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpclient-cache   http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpcore           http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpmime           http://www.apache.org/licenses/LICENSE-2.0.html                         
+jackson-core       http://www.apache.org/licenses/LICENSE-2.0.html                         
+jetty              http://www.apache.org/licenses/LICENSE-2.0.html                         
+jquery             https://github.com/jquery/jquery/blob/master/MIT-LICENSE.txt            
+jsonld             https://raw.githubusercontent.com/jsonld-java/jsonld-java/master/LICENCE
+log4j              http://www.apache.org/licenses/LICENSE-2.0.html                         
+lucene             http://www.apache.org/licenses/LICENSE-2.0.html                         
+nanohttp           http://elonen.iki.fi/code/nanohttpd/#license                            
+rexster-core       https://github.com/tinkerpop/rexster/blob/master/LICENSE.txt            
+river              http://www.apache.org/licenses/LICENSE-2.0.html                         
+semargl            https://github.com/levkhomich/semargl/blob/master/LICENSE               
+servlet-api        http://www.apache.org/licenses/LICENSE-2.0.html                         
+sesame             http://www.openrdf.org/download.jsp                                     
+slf4j              http://www.slf4j.org/license.html                                       
+zookeeper          http://www.apache.org/licenses/LICENSE-2.0.html                         
+
+[36m[1m2025.03.14 07:33:28:655[0m[36m[0m [3mmain[0m [34mINFO[0m [32morg.renci.blazegraph.Load.runUsingConnection:43[0m
+    Loading ./raw-data/hra-lit/v0.7.1/uberon.owl[0m
+loading: 1152410 stmts added in 1172.127 secs, rate= 983, commitLatency=0ms, {failSet=0,goodSet=0}
+[36m[1m2025.03.14 07:53:04:288[0m[36m[0m [3mmain[0m [34mINFO[0m [32morg.renci.blazegraph.Load.runUsingConnection:47[0m
+    1152410 stmts added in 1172.127 secs, rate= 983, commitLatency=3386ms, {failSet=0,goodSet=0}[0m
+rm -f $DIR/uberon.owl
+
+# Import MESH
+curl $MESH_DL | zcat > $DIR/mesh.nt
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  5  129M    5 7242k    0     0  8887k      0  0:00:14 --:--:--  0:00:14 8885k 12  129M   12 15.7M    0     0  8957k      0  0:00:14  0:00:01  0:00:13 8956k 20  129M   20 26.0M    0     0  9509k      0  0:00:13  0:00:02  0:00:11 9507k 26  129M   26 33.7M    0     0  9083k      0  0:00:14  0:00:03  0:00:11 9081k 32  129M   32 42.3M    0     0  9018k      0  0:00:14  0:00:04  0:00:10 9018k 41  129M   41 53.0M    0     0  9357k      0  0:00:14  0:00:05  0:00:09 9433k 46  129M   46 60.5M    0     0  9104k      0  0:00:14  0:00:06  0:00:08 9157k 53  129M   53 69.2M    0     0  9096k      0  0:00:14  0:00:07  0:00:07 8862k 62  129M   62 80.5M    0     0  9370k      0  0:00:14  0:00:08  0:00:06 9590k 69  129M   69 89.3M    0     0  9327k      0  0:00:14  0:00:09  0:00:05 9623k 76  129M   76 98.8M    0     0  9369k      0  0:00:14  0:00:10  0:00:04 9380k 83  129M   83  107M    0     0  9310k      0  0:00:14  0:00:11  0:00:03 9591k 88  129M   88  114M    0     0  9186k      0  0:00:14  0:00:12  0:00:02 9326k 96  129M   96  124M    0     0  9261k      0  0:00:14  0:00:13  0:00:01 9068k100  129M  100  129M    0     0  9307k      0  0:00:14  0:00:14 --:--:-- 9263k
+blazegraph-runner load --journal=$JNL "--graph=${MESH}" $DIR/mesh.nt
+log4j:WARN No appenders could be found for logger (com.bigdata.config.Configuration).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+ERROR: com.bigdata.util.config.LogUtil : Could not initialize Log4J logging utility.
+Set system property '-Dlog4j.configuration=file:bigdata/src/resources/logging/log4j.properties'
+  and / or 
+Set system property '-Dlog4j.primary.configuration=file:<installDir>/bigdata/src/resources/logging/log4j.properties'
+
+BlazeGraph(TM) Graph Engine
+
+                   Flexible
+                   Reliable
+                  Affordable
+      Web-Scale Computing for the Enterprise
+
+Copyright SYSTAP, LLC DBA Blazegraph 2006-2016.  All rights reserved.
+
+johnson.cns.iu.edu
+Fri Mar 14 07:53:59 EDT 2025
+Linux/6.8.0-52-generic amd64
+Intel(R) Core(TM) i9-10900X CPU @ 3.70GHz Family 6 Model 85 Stepping 7, GenuineIntel #CPU=20
+Ubuntu 11.0.26
+freeMemory=2111092736
+buildVersion=2.1.4
+gitCommit=738d05f08cffd319233a4bfbb0ec2a858e260f9c
+
+Dependency         License                                                                 
+ICU                http://source.icu-project.org/repos/icu/icu/trunk/license.html          
+bigdata-ganglia    http://www.apache.org/licenses/LICENSE-2.0.html                         
+blueprints-core    https://github.com/tinkerpop/blueprints/blob/master/LICENSE.txt         
+colt               http://acs.lbl.gov/software/colt/license.html                           
+commons-codec      http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-fileupload http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-io         http://www.apache.org/licenses/LICENSE-2.0.html                         
+commons-logging    http://www.apache.org/licenses/LICENSE-2.0.html                         
+dsiutils           http://www.gnu.org/licenses/lgpl-2.1.html                               
+fastutil           http://www.apache.org/licenses/LICENSE-2.0.html                         
+flot               http://www.opensource.org/licenses/mit-license.php                      
+high-scale-lib     http://creativecommons.org/licenses/publicdomain                        
+httpclient         http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpclient-cache   http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpcore           http://www.apache.org/licenses/LICENSE-2.0.html                         
+httpmime           http://www.apache.org/licenses/LICENSE-2.0.html                         
+jackson-core       http://www.apache.org/licenses/LICENSE-2.0.html                         
+jetty              http://www.apache.org/licenses/LICENSE-2.0.html                         
+jquery             https://github.com/jquery/jquery/blob/master/MIT-LICENSE.txt            
+jsonld             https://raw.githubusercontent.com/jsonld-java/jsonld-java/master/LICENCE
+log4j              http://www.apache.org/licenses/LICENSE-2.0.html                         
+lucene             http://www.apache.org/licenses/LICENSE-2.0.html                         
+nanohttp           http://elonen.iki.fi/code/nanohttpd/#license                            
+rexster-core       https://github.com/tinkerpop/rexster/blob/master/LICENSE.txt            
+river              http://www.apache.org/licenses/LICENSE-2.0.html                         
+semargl            https://github.com/levkhomich/semargl/blob/master/LICENSE               
+servlet-api        http://www.apache.org/licenses/LICENSE-2.0.html                         
+sesame             http://www.openrdf.org/download.jsp                                     
+slf4j              http://www.slf4j.org/license.html                                       
+zookeeper          http://www.apache.org/licenses/LICENSE-2.0.html                         
+
+[36m[1m2025.03.14 07:54:00:774[0m[36m[0m [3mmain[0m [34mINFO[0m [32morg.renci.blazegraph.Load.runUsingConnection:43[0m
+    Loading ./raw-data/hra-lit/v0.7.1/mesh.nt[0m
+loading: 18334034 stmts added in 3528.351 secs, rate= 5196, commitLatency=0ms, {failSet=0,goodSet=0}
+[36m[1m2025.03.14 08:53:03:268[0m[36m[0m [3mmain[0m [34mINFO[0m [32morg.renci.blazegraph.Load.runUsingConnection:47[0m
+    18334034 stmts added in 3528.351 secs, rate= 5196, commitLatency=14038ms, {failSet=0,goodSet=0}[0m
+rm -f $DIR/mesh.nt
+
+real	1080m52.162s
+user	1024m21.632s
+sys	89m10.007s
+
+>> Running scripts/75-run-reports.sh...
+Creating report: named-graphs
+Creating report: class-counts
+Creating report: mesh-counts
+Creating report: mesh-label-author-counts
+Creating report: mesh-label-publication-counts
