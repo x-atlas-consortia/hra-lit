@@ -12,9 +12,18 @@ MESH_DL=https://nlmpubs.nlm.nih.gov/projects/mesh/rdf/mesh.nt.gz
 
 HRA_LIT_UNIVERSE=https://purl.humanatlas.io/graph/hra-lit-universe
 HRA_LIT=https://purl.humanatlas.io/graph/hra-lit
+
+# Digital Objects to import into the Blazegraph Journal
 CCF=https://purl.humanatlas.io/graph/ccf
 HRA=https://purl.humanatlas.io/collection/hra
+HRA_API=https://purl.humanatlas.io/collection/hra-api
+DSGRAPHS=https://purl.humanatlas.io/collection/ds-graphs
+DSGRAPHS_ENRICHMENTS=https://purl.humanatlas.io/graph/ds-graphs-enrichments
 UBERON=https://purl.humanatlas.io/vocab/uberon
+MAPPING=https://purl.humanatlas.io/graph/mesh-uberon-cl-human-mapping
+MAPPING2=https://purl.humanatlas.io/graph/pubmed-uberon-cl-mapping
+
+DOs_TO_IMPORT="$CCF $HRA $HRA_API $DSGRAPHS $DSGRAPHS_ENRICHMENTS $UBERON $MAPPING $MAPPING2"
 
 run_ndjsonld() {
   QUADS=${1%.jsonld}.nq
@@ -45,22 +54,16 @@ cat $DIR/hralit-articles.jsonl \
 blazegraph-runner load --journal=$JNL "--graph=${HRA_LIT}" $DIR/hra-lit.nq
 rm -f $DIR/hra-lit.nq
 
-# Dump HRA-LIT back out to turtle format
+# Dump HRA-LIT back out to turtle format for publishing
 blazegraph-runner dump --journal=$JNL "--graph=${HRA_LIT}" $DIR/hra-lit.ttl
 
-# Import CCF.OWL
-curl -s $CCF -H "Accept: application/rdf+xml" > $DIR/ccf.owl
-blazegraph-runner load --journal=$JNL "--graph=${CCF}" $DIR/ccf.owl
-rm -f $DIR/ccf.owl
-
-# Import HRA
-curl -s $HRA -H "Accept: application/rdf+xml" > $DIR/hra.owl
-blazegraph-runner load --journal=$JNL "--graph=${HRA}" $DIR/hra.owl
-
-# Import UBERON
-curl -s $UBERON -H "Accept: application/rdf+xml" > $DIR/uberon.owl
-blazegraph-runner load --journal=$JNL "--graph=${UBERON}" $DIR/uberon.owl
-rm -f $DIR/uberon.owl
+# Import digital objects from HRA KG to use for querying
+for DO in $DOs_TO_IMPORT; do
+  # Import the Digital Object
+  curl -s $DO -H "Accept: application/rdf+xml" > $DIR/digital-object.owl
+  blazegraph-runner load --journal=$JNL "--graph=${DO}" $DIR/digital-object.owl
+  rm -f $DIR/digital-object.owl
+done
 
 # Import MESH
 curl $MESH_DL | zcat > $DIR/mesh.nt
