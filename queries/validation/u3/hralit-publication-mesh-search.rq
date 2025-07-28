@@ -8,45 +8,63 @@ PREFIX cl: <http://purl.obolibrary.org/obo/cl#>
 PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX HRAlit: <https://purl.humanatlas.io/graph/hra-lit>
+PREFIX hint: <http://www.bigdata.com/queryHints#>
 
 SELECT ?pmid
        ?title 
        ?datePublished 
        ?journal_title 
-	   (GROUP_CONCAT(DISTINCT ?abs; separator=" ") AS ?abstact)
-	   (GROUP_CONCAT(DISTINCT ?authorName; separator =", ") AS ?authors)
-       (GROUP_CONCAT(DISTINCT ?volNum; separator =" ") AS ?vol)
-       (GROUP_CONCAT(DISTINCT ?issNum; separator=" ") AS ?iss)
-       (GROUP_CONCAT(DISTINCT ?subjects; separator=" ") AS ?subjectHeadings)
-
+	     (SAMPLE(COALESCE(?abs, " ")) AS ?abstact)
+	     (SAMPLE(COALESCE(?authorName, " ")) AS ?authors)
+       (SAMPLE(COALESCE(?volNum, " ")) AS ?vol)
+       (SAMPLE(COALESCE(?issNum, " ")) AS ?iss)
+       (SAMPLE(COALESCE(?subjects, " ")) AS ?subjectHeadings)
+       (SAMPLE(COALESCE(?doc_id, " ")) AS ?doi)
+FROM HRAlit:
+FROM NAMED <http://id.nlm.nih.gov/mesh/>
 WHERE {
-	# Heart Atria
-	?descriptor ?p mesh:D006325 .
+  # hint:Query hint:analytic "true" .
+
+  # VALUES (?descriptor) {
+  #   (mesh:D006325)
+  # }
+  
+  # Article metadata
 	?article schema:about ?descriptor ;
-			 a schema:ScholarlyArticle ;
-			 schema:identifier ?pmid ;
-			 schema:name ?title ;
-			 schema:datePublished ?datePublished ;
-             schema:about ?desc ;
-             schema:author ?author ;
-			 schema:isPartOf ?journal ;
-			 schema:isPartOf ?volume ;
-			 schema:isPartOf ?issue .
-  	?author schema:name ?authorName .
-	?journal a schema:Periodical ;
-			 schema:name ?journal_title .
-  	?desc rdfs:label ?subjects
+    a schema:ScholarlyArticle ;
+    schema:identifier ?pmid ;
+    schema:name ?title ;
+    schema:datePublished ?datePublished ;
+    schema:about ?desc ;
+    schema:author ?author ;
+    schema:isPartOf ?journal .
+    
+    # Author names
+    ?author schema:name ?authorName .
+    # Journal Title
+	  ?journal a schema:Periodical ;
+    schema:name ?journal_title .
+
+    GRAPH <http://id.nlm.nih.gov/mesh/> {
+      ?desc rdfs:label ?subjects .
+    }
+  	
     OPTIONAL {
-        ?article schema:abstract ?abs ;
-                 schema:isPartOf ?volume ;
-                 schema:isPartOf ?issue .
-        ?volume a schema:PublicationVolume ;
-                schema:volumeNumber ?volNum .
-        ?issue a schema:PublicationIssue ;
-               schema:issueNumber ?issNum .
-        } 
+      ?article schema:abstract ?abs ;
+               schema:sameAs ?doi ; 
+               schema:isPartOf ?volume ;
+               schema:isPartOf ?issue .
+      ?volume a schema:PublicationVolume ;
+              schema:volumeNumber ?volNum .
+      ?issue a schema:PublicationIssue ;
+              schema:issueNumber ?issNum .
+    }
+
+  # Heart Atria
+  FILTER(?descriptor = mesh:D006325)
 }
 
 GROUP BY ?pmid ?datePublished ?title ?journal_title
 ORDER BY DESC(?datePublished)
-LIMIT 200
+# LIMIT 200

@@ -1,0 +1,33 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+PREFIX mesh: <http://id.nlm.nih.gov/mesh/>
+PREFIX meshv: <http://id.nlm.nih.gov/mesh/vocab#>
+PREFIX uberon: <http://purl.obolibrary.org/obo/uberon#>
+PREFIX cl: <http://purl.obolibrary.org/obo/cl#>
+PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX HRAlit: <https://purl.humanatlas.io/graph/hra-lit>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT ?meshDescriptor (SAMPLE(?label) as ?label) (COUNT(DISTINCT ?article) as ?articleCount)
+WHERE {
+  # Get SSSOM concepts
+  GRAPH <https://purl.humanatlas.io/graph/mesh-uberon-cl-human-mapping> {
+    ?oldConcept skos:exactMatch [] .
+  }
+
+  # Get current MeSH structure
+  GRAPH <http://id.nlm.nih.gov/mesh/> {
+    ?meshDescriptor
+      rdfs:label ?label ;
+      meshv:preferredConcept ?oldConcept .
+  }
+
+  GRAPH HRAlit: {
+    ?article schema:about ?meshDescriptor .
+  }
+}
+GROUP BY ?meshDescriptor
+ORDER BY DESC(?articleCount)
