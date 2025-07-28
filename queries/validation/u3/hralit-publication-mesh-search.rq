@@ -1,0 +1,52 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+PREFIX mesh: <http://id.nlm.nih.gov/mesh/>
+PREFIX meshv: <http://id.nlm.nih.gov/mesh/vocab#>
+PREFIX uberon: <http://purl.obolibrary.org/obo/uberon#>
+PREFIX cl: <http://purl.obolibrary.org/obo/cl#>
+PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT ?pmid
+       ?title 
+       ?datePublished 
+       ?journal_title 
+	   (GROUP_CONCAT(DISTINCT ?abs; separator=" ") AS ?abstact)
+	   (GROUP_CONCAT(DISTINCT ?authorName; separator =", ") AS ?authors)
+       (GROUP_CONCAT(DISTINCT ?volNum; separator =" ") AS ?vol)
+       (GROUP_CONCAT(DISTINCT ?issNum; separator=" ") AS ?iss)
+       (GROUP_CONCAT(DISTINCT ?subjects; separator=" ") AS ?subjectHeadings)
+
+WHERE {
+	# Heart Atria
+	?descriptor ?p mesh:D006325 .
+	?article schema:about ?descriptor ;
+			 a schema:ScholarlyArticle ;
+			 schema:identifier ?pmid ;
+			 schema:name ?title ;
+			 schema:datePublished ?datePublished ;
+             schema:about ?desc ;
+             schema:author ?author ;
+			 schema:isPartOf ?journal ;
+			 schema:isPartOf ?volume ;
+			 schema:isPartOf ?issue .
+  	?author schema:name ?authorName .
+	?journal a schema:Periodical ;
+			 schema:name ?journal_title .
+  	?desc rdfs:label ?subjects
+    OPTIONAL {
+        ?article schema:abstract ?abs ;
+                 schema:isPartOf ?volume ;
+                 schema:isPartOf ?issue .
+        ?volume a schema:PublicationVolume ;
+                schema:volumeNumber ?volNum .
+        ?issue a schema:PublicationIssue ;
+               schema:issueNumber ?issNum .
+        } 
+}
+
+GROUP BY ?pmid ?datePublished ?title ?journal_title
+ORDER BY DESC(?datePublished)
+LIMIT 200

@@ -1,0 +1,23 @@
+SELECT ?namespace (COUNT(DISTINCT ?predicate) as ?uniquePredicates) (SUM(?usageCount) as ?totalUsage)
+WHERE {
+  {
+    SELECT ?predicate (COUNT(*) as ?usageCount)
+    WHERE {
+      GRAPH ?g {
+        ?subject ?predicate ?object .
+      }
+    }
+    GROUP BY ?predicate
+  }
+  
+  BIND(
+    IF(STRSTARTS(STR(?predicate), "http://schema.org/"), "Schema.org",
+    IF(STRSTARTS(STR(?predicate), "http://id.nlm.nih.gov/mesh/"), "MeSH",
+    IF(STRSTARTS(STR(?predicate), "http://purl.obolibrary.org/obo/"), "OBO",
+    IF(STRSTARTS(STR(?predicate), "http://www.w3.org/2004/02/skos/core#"), "SKOS",
+    IF(STRSTARTS(STR(?predicate), "http://www.w3.org/1999/02/22-rdf-syntax-ns#"), "RDF",
+    IF(STRSTARTS(STR(?predicate), "http://www.w3.org/2000/01/rdf-schema#"), "RDFS",
+    IF(STRSTARTS(STR(?predicate), "http://purl.org/dc/terms/"), "Dublin Core",
+    "Other"))))))) as ?namespace
+  )
+}

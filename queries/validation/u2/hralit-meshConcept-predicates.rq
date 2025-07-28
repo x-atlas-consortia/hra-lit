@@ -1,0 +1,37 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+PREFIX mesh: <http://id.nlm.nih.gov/mesh/>
+PREFIX meshv: <http://id.nlm.nih.gov/mesh/vocab#>
+PREFIX uberon: <http://purl.obolibrary.org/obo/uberon#>
+PREFIX cl: <http://purl.obolibrary.org/obo/cl#>
+PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT ?predicate (COUNT(*) AS ?frequency) WHERE {
+    {
+        ?concept a meshv:TopicalDescriptor .
+        ?concept ?predicate ?object .
+    } UNION {
+        ?concept ?predicate ?article .
+        ?concept a meshv:TopicalDescriptor .
+    }
+}
+GROUP BY ?predicate
+ORDER BY DESC(?frequency)
+
+#Alternate form:
+#SELECT ?predicate ?entity (COUNT(*) AS ?frequency) WHERE {
+#    {
+        ?concept a meshv:TopicalDescriptor .
+        ?concept ?predicate ?object .
+#        ?object a ?entity .
+#    } UNION {
+        ?concept ?predicate ?article .
+        ?concept a meshv:TopicalDescriptor .
+#        ?subject a ?entity .
+#    }
+#}
+#GROUP BY ?predicate ?entity
+#ORDER BY DESC(?frequency)

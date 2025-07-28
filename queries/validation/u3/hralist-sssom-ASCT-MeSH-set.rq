@@ -1,0 +1,14 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX meshv: <http://idm.nih.gov/mesh/vocab#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT DISTINCT ?meshDescriptor ?mappedEntity
+WHERE {
+  GRAPH <https://purl.humanatlas.io/graph/mesh-uberon-cl-human-mapping> {
+    ?axiom a owl:Axiom ;
+           owl:annotatedSource ?meshDescriptor ;
+           owl:annotatedProperty skos:exactMatch .
+  }
+}
+ORDER BY ?meshDescriptor

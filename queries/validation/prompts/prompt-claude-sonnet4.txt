@@ -1,0 +1,120 @@
+My research team has developed a knowledge graph, which we call HRALIT, that represents publication citation records from PubMed database that can connect to other knowledge graphs we manage and to external ontologies and subject headings knowledge graphs, specifically OBO Foundaries UBERON Ontology of Human anatomy, Cell Ontology, and Medical Subject Headings (MeSH).
+
+My current work is to develop a set of SPARQL queries for a knowledge graph of scientific publications related to biomedical entities, specifically anatomical structures, cell types, and genetic biomarkers. The knowledge graph will support identification of recent literature related to human anatomy, allow for scientimetric analysis of biomedical literature including analysis of human and organizational authorship, identify potential collabortors that may be able to provide data sets and expertise related to anatomical structures of interest to our research partners and teams.
+
+Background information:
+I am using Blazegraph to query the HRALIT knowledge graph.
+
+The HRA LIT incorprates a variety of ontologies to represent data. These ontologies include:
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+PREFIX ccf: <http://purl.org/ccf/>
+PREFIX CCF: <https://purl.humanatlas.io/graph/ccf>
+PREFIX mesh: <http://id.nlm.nih.gov/mesh/>
+PREFIX meshv: <http://id.nlm.nih.gov/mesh/vocab#>
+PREFIX uberon: <http://purl.obolibrary.org/obo/uberon#>
+PREFIX cl: <http://purl.obolibrary.org/obo/cl#>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
+
+The HRA LIT knowledge graph can be respresented as a Mermaid Diagram:
+
+erDiagram
+    "schema:Periodical" {
+        string id
+        string type
+        string identifier
+        string name
+        string alternateName
+        string countyt
+        string issn
+    }
+    "schema:PublicationVolume" {
+        string id
+        string type
+        string identifier
+        string volumeNumber
+    }
+    "schema:PublicationIssue" {
+        string id
+        string type
+        string identifier
+        string issueNumber
+        date   publicationDate 
+    }
+    "schema:ScholarlyArticle" {
+        string id
+        string type
+        string name
+        date   datePublished
+        string abstract
+        string author
+        string pagination
+        string sameAs
+    }
+    "schema:Organization" {
+        string id
+        string type
+        string name
+    }
+    "schema:Person" {
+        string id
+        string type
+        string identifier
+        string name
+        string givenName
+        string familyName
+        string honorificSuffix
+        string url
+        string affiliation
+        string affiliationIdentifier
+    }
+    "schema:Collection" {
+        string id
+        string type
+        string name
+        string description
+        date dateCreated
+        date dateUpdated
+        integer collectionSize
+        string author
+        string maintainer
+    }
+    "mesh:TopicalDescriptor" {
+        string id
+        string type
+        string name
+        string OTHER
+    }
+    "uberon:AnatomicalStructure" {
+        string id
+        string type
+        string name
+        string OTHER
+    }
+    "cl:Cell" {
+        string id
+        string type
+        string name
+        string OTHER
+    }
+    "schema:Periodical" ||--o{ "schema:PublicationVolume" : "schema:hasPart schema:isPart"
+    "schema:Periodical" }o--|{ "schema:ScholarlyArticle" : "schema:isPart"
+    "schema:PublicationVolume" |o--|{ "schema:PublicationIssue" : "schema:hasPart schema:isPart"
+    "schema:PublicationVolume" |o--|{ "schema:ScholarlyArticle" : "schema:isPart"
+    "schema:PublicationIssue" |o--|{ "schema:ScholarlyArticle" : "schema:isPart"
+    "schema:ScholarlyArticle" }|--o{ "schema:Collection" : "schema:hasPart"
+    "schema:ScholarlyArticle" }|--o{ "mesh:TopicalDescriptor" : "schema:about"
+    "schema:ScholarlyArticle" }|--o{ "uberon:AnatomicalStructure" : "skos:relatedMatch"
+    "mesh:TopicalDescriptor" }|--o| "cl:Cell" : "skos:exatchMatch"
+    "schema:ScholarlyArticle" }|--o{ "cl:Cell" : "skos:relatedMatch"
+    "schema:Person" }|--|{ "schema:ScholarlyArticle" : "schema:author"
+    "schema:Organization" }|--|{ "schema:ScholarlyArticle" : "schema:author"
+    "mesh:TopicalDescriptor" }|--o| "uberon:AnatomicalStructure" : "skos:exatchMatch"
+    "uberon:AnatomicalStructure" }|--o{ "schema:Collection" : "schema:hasPart"
+    "mesh:TopicalDescriptor" }|--o{ "schema:Collection" : "schema:hasPart"
+    "cl:Cell" }|--o{ "schema:Collection" : "schema:hasPart"
+
+Use Case:
+I am currently developing SPARQL queries of the knowledge graph to develop documentation for potential users. I already have a set of SPARQL queries that identify the major classes and entities, and the frequency of their appearance in the knowledge graph. The next step for our project, I'd like help developing SPARQL queries that document the different predicate relationships between entities in the knowledge graph, count the frequency of their usage, and examples of how to leverage a given predicate to search and return relevant publication records. Additionally, the queries should be as efficient as possible.

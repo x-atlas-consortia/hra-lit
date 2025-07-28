@@ -1,0 +1,7 @@
+SELECT ?namedGraph (COUNT(DISTINCT ?entity) as ?totalEntities) (COUNT(DISTINCT ?entityType) as ?uniqueTypes)
+WHERE {
+  GRAPH ?namedGraph {
+    ?entity rdf:type ?entityType .
+  }
+}
+GROUP BY ?namedGraph
