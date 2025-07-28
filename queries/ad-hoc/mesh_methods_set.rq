@@ -51,11 +51,11 @@ WHERE {
 
 ORDER BY ?descriptor
 
-D059010	Single-Cell Analysis
-D000092386	Single-Cell Gene Expression Analysis
-D000081246	
-D066251	Subtractive Hybridization Techniques
-D055432	Metabolomics
-D000081362	Lipidomics
-D040901	Proteomics
-D000071696	Proteogenomics
+# D059010	Single-Cell Analysis
+# D000092386	Single-Cell Gene Expression Analysis
+# D000081246	
+# D066251	Subtractive Hybridization Techniques
+# D055432	Metabolomics
+# D000081362	Lipidomics
+# D040901	Proteomics
+# D000071696	Proteogenomics

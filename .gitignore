@@ -137,3 +137,6 @@ dist
 # sql permissions
 *-db_permissions.sql
 *-permissions-pm24_db.sh
+
+# sif file
+blazegraph_latest.sif
