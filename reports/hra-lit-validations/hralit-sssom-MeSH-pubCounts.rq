@@ -12,13 +12,23 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX HRAlit: <https://purl.humanatlas.io/graph/hra-lit>
 PREFIX hint: <http://www.bigdata.com/queryHints#>
 
-SELECT DISTINCT ?meshDescriptor ?label (COUNT(?pmid) AS ?count)
+SELECT ?meshDescriptor (SAMPLE(?label) as ?label) (COUNT(DISTINCT ?article) as ?articleCount)
 WHERE {
+  # Get SSSOM concepts
+  GRAPH <https://purl.humanatlas.io/graph/mesh-uberon-cl-human-mapping> {
+    ?oldConcept skos:exactMatch [] .
+  }
 
-    ?article schema:about ?meshDescriptor ;
-             schema:identifier ?pmid .
-    ?meshDescriptor rdfs:label ?label .
+  # Get current MeSH structure
+  GRAPH <http://id.nlm.nih.gov/mesh/> {
+    ?meshDescriptor
+      rdfs:label ?label ;
+      meshv:preferredConcept ?oldConcept .
+  }
 
-  FILTER(STRSTARTS(STR(?meshDescriptor), "http://id.nlm.nih.gov/mesh/"))
+  GRAPH HRAlit: {
+    ?article schema:about ?meshDescriptor .
+  }
 }
-GROUP BY ?meshDescriptor ?label
+GROUP BY ?meshDescriptor
+ORDER BY DESC(?articleCount)

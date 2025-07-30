@@ -8,8 +8,9 @@ PREFIX cl: <http://purl.obolibrary.org/obo/cl#>
 PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
-PREFIX HRAlit: <https://purl.humanatlas.io/graph/hra-lit>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX hint: <http://www.bigdata.com/queryHints#>
+PREFIX HRAlit: <https://purl.humanatlas.io/graph/hra-lit>
 
 SELECT ?meshDescriptor (SAMPLE(?label) as ?label) (COUNT(DISTINCT ?article) as ?articleCount)
 WHERE {
