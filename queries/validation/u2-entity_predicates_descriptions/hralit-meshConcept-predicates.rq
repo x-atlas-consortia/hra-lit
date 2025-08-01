@@ -7,7 +7,10 @@ PREFIX uberon: <http://purl.obolibrary.org/obo/uberon#>
 PREFIX cl: <http://purl.obolibrary.org/obo/cl#>
 PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX HRAlit: <https://purl.humanatlas.io/graph/hra-lit>
+PREFIX hint: <http://www.bigdata.com/queryHints#>
 
 SELECT ?predicate (COUNT(*) AS ?frequency) WHERE {
     {
@@ -24,12 +27,12 @@ ORDER BY DESC(?frequency)
 #Alternate form:
 #SELECT ?predicate ?entity (COUNT(*) AS ?frequency) WHERE {
 #    {
-        ?concept a meshv:TopicalDescriptor .
-        ?concept ?predicate ?object .
+#        ?concept a meshv:TopicalDescriptor .
+#        ?concept ?predicate ?object .
 #        ?object a ?entity .
 #    } UNION {
-        ?concept ?predicate ?article .
-        ?concept a meshv:TopicalDescriptor .
+#        ?concept ?predicate ?article .
+#        ?concept a meshv:TopicalDescriptor .
 #        ?subject a ?entity .
 #    }
 #}

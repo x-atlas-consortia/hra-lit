@@ -13,29 +13,19 @@ PREFIX HRAlit: <https://purl.humanatlas.io/graph/hra-lit>
 PREFIX hint: <http://www.bigdata.com/queryHints#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-SELECT ?predicate (COUNT(*) AS ?frequency) WHERE {
-    {
-        ?org a schema:Organization .
-        ?org ?predicate ?object .
-    } UNION {
-        ?subject ?predicate ?org .
-        ?org a schema:Organization .
-    }
+SELECT ?subject ?subject_label (COUNT(?article) as ?publications)
+WHERE {
+  ?article skos:relatedMatch ?subject .
+  ?subject rdfs:label ?subject_label .
+  
+  # Filter examples
+  #FILTER(
+  #  ?subject = uberon:0000426 ||                    # extravillous trophoblast
+  #  ?subject = cl:0000066 ||                        # epithelial cell (example)
+  #  ?subject IN (uberon:0000426, cl:0000066)        # Alternative syntax
+  #)
+  # FILTER(?subject_label = "extravillous trophoblast")
+  # FILTER(CONTAINS(STR(?usubjectber), "0000426"))
 }
-GROUP BY ?predicate
-ORDER BY DESC(?frequency)
-
-# Alternative form
-#SELECT ?predicate ?entity (COUNT(*) AS ?frequency) WHERE {
-#    {
-#        ?org a schema:Organization .
-#        ?org ?predicate ?object .
-#        ?object a ?entity .
-#    } UNION {
-#        ?subject ?predicate ?org .
-#        ?org a schema:Organization .
-#        ?subject a ?entity .
-#    }
-#}
-#GROUP BY ?predicate ?entity
-#ORDER BY DESC(?frequency)
+GROUP BY ?subject ?subject_label
+ORDER BY desc(?publications)

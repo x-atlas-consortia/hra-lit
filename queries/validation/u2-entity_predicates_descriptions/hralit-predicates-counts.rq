@@ -3,10 +3,15 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX schema: <http://schema.org/>
 PREFIX mesh: <http://id.nlm.nih.gov/mesh/>
 PREFIX meshv: <http://id.nlm.nih.gov/mesh/vocab#>
-PREFIX uberon: <http://purl.obolibrary.org/obo/uberon#>
-PREFIX cl: <http://purl.obolibrary.org/obo/cl#>
+PREFIX uberon: <http://purl.obolibrary.org/obo/UBERON_>
+PREFIX cl: <http://purl.obolibrary.org/obo/CL_>
 PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX HRAlit: <https://purl.humanatlas.io/graph/hra-lit>
+PREFIX hint: <http://www.bigdata.com/queryHints#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 # Query 1: All predicates across all named graphs with usage counts
 SELECT ?predicate (COUNT(*) as ?usageCount)

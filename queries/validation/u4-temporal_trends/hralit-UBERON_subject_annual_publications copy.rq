@@ -3,8 +3,8 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX schema: <http://schema.org/>
 PREFIX mesh: <http://id.nlm.nih.gov/mesh/>
 PREFIX meshv: <http://id.nlm.nih.gov/mesh/vocab#>
-PREFIX uberon: <http://purl.obolibrary.org/obo/uberon#>
-PREFIX cl: <http://purl.obolibrary.org/obo/cl#>
+PREFIX uberon: <http://purl.obolibrary.org/obo/UBERON_>
+PREFIX cl: <http://purl.obolibrary.org/obo/CL_>
 PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
@@ -20,11 +20,10 @@ SELECT ?uberon
        (COUNT(?pmid) AS ?publications)
 
 FROM HRAlit:
-FROM NAMED <https://purl.humanatlas.io/graph/pubmed-uberon-cl-mapping>
-FROM NAMED <https://purl.humanatlas.io/vocab/uberon> 
 WHERE {
   # Article metadata
 	?article a schema:ScholarlyArticle ;
+           skos:relatedMatch ?subject ; # Key for filter
            schema:identifier ?pmid ;
            schema:datePublished ?datePublished .
            #schema:isPartOf ?journal .
@@ -40,16 +39,19 @@ WHERE {
             )  
         ) AS ?year
     )   
-
-  # Skeleton - UBERON
-  ?article skos:relatedMatch ?uberon . # Key for filter.
-  FILTER(?uberon = uberon:0006960)
-
-  GRAPH <http://purl.obolibrary.org/obo/uberon#> {
-     ?uberon rdfs:label ?uberon_label .
-  }
-
+    
+  # Uberon and CL Subject Label
+  ?subject rdfs:label ?subject_label .
   
+  # Filter examples
+  FILTER(
+    ?subject = uberon:0000426 ||                    # extravillous trophoblast
+    ?subject = cl:0000066 ||                        # epithelial cell (example)
+    ?subject IN (uberon:0000426, cl:0000066)        # Alternative syntax
+  )
+  # FILTER(?subject_label = "extravillous trophoblast")
+  # FILTER(CONTAINS(STR(?usubjectber), "0000426"))
+
 }
 
 GROUP BY ?uberon ?uberon_label ?year
