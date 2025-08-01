@@ -35,14 +35,13 @@ WHERE {
   ) 
 
   # Filter examples
-  #FILTER(
-  #  ?subject = uberon:0000426 ||                    # extravillous trophoblast
-  #  ?subject = cl:0000066 ||                        # epithelial cell (example)
-  #  ?subject IN (uberon:0000426, cl:0000066)        # Alternative syntax
-  #)
+  FILTER(
+    ?subject = uberon:0000426 ||                    # extravillous trophoblast
+    ?subject = cl:0000066 ||                        # epithelial cell (example)
+    ?subject IN (uberon:0000426, cl:0000066)        # Alternative syntax
+  )
   # FILTER(?subject_label = "extravillous trophoblast")
   # FILTER(CONTAINS(STR(?subject), "0000426"))
 }
 GROUP BY ?subject ?subject_label ?year
-ORDER BY desc(?year)
-LIMIT 1000
+ORDER BY ?subject_label desc(?year)

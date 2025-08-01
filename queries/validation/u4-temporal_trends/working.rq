@@ -13,36 +13,3 @@ PREFIX HRAlit: <https://purl.humanatlas.io/graph/hra-lit>
 PREFIX hint: <http://www.bigdata.com/queryHints#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-SELECT 
-?subject ?subject_label ?year (COUNT(?article) AS ?article_count)
-WHERE {
-  # Article selection
-  ?article skos:relatedMatch ?subject ;
-           schema:datePublished ?datePublished .
-    
-  # Uberon and CL labels
-  ?subject rdfs:label ?subject_label .
-
-  BIND(xsd:integer(
-        IF(CONTAINS(?datePublished, "-"),
-        STRBEFORE(?datePublished, "-"),
-        IF(STRLEN(STR(?datePublished)) >= 4,
-            SUBSTR(STR(?datePublished), 1, 4),
-            STR(?datePublished)
-            )
-        )  
-    ) AS ?year
-  ) 
-
-  # Filter examples
-  #FILTER(
-  #  ?subject = uberon:0000426 ||                    # extravillous trophoblast
-  #  ?subject = cl:0000066 ||                        # epithelial cell (example)
-  #  ?subject IN (uberon:0000426, cl:0000066)        # Alternative syntax
-  #)
-  # FILTER(?subject_label = "extravillous trophoblast")
-  # FILTER(CONTAINS(STR(?subject), "0000426"))
-}
-GROUP BY ?subject ?subject_label ?year
-ORDER BY desc(?year)
-LIMIT 1000
