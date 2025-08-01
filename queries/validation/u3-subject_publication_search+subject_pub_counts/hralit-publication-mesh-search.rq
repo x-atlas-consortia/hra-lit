@@ -32,13 +32,13 @@ WHERE {
   # }
   # Article metadata
 	?article schema:about ?descriptor ;
-    a schema:ScholarlyArticle ;
-    schema:identifier ?pmid ;
-    schema:name ?title ;
-    schema:datePublished ?datePublished ;
-    schema:about ?desc ;
-    schema:author ?author ;
-    schema:isPartOf ?journal .
+           a schema:ScholarlyArticle ;
+           schema:identifier ?pmid ;
+           schema:name ?title ;
+           schema:datePublished ?datePublished ;
+           schema:about ?desc ;
+           schema:author ?author ;
+           schema:isPartOf ?journal .
   # Extract publication year from datePublished
    BIND(
       IF(CONTAINS(?datePublished, "-"),
@@ -60,16 +60,16 @@ WHERE {
   }
   OPTIONAL {
     ?article schema:abstract ?abs ;
-              schema:sameAs ?doc_id ;
-              schema:isPartOf ?volume ;
-              schema:isPartOf ?issue .
+             schema:sameAs ?doc_id ;
+             schema:isPartOf ?volume ;
+             schema:isPartOf ?issue .
     ?volume a schema:PublicationVolume ;
             schema:volumeNumber ?volNum .
     ?issue a schema:PublicationIssue ;
             schema:issueNumber ?issNum .
   }
 
-  # Merkle Cell
+  # Skeleton Cell
   FILTER(?descriptor = mesh:D012863)
 }
 

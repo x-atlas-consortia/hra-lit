@@ -1,3 +1,4 @@
+# HRA LIT Knowledge Graph - Entity Inventory Queries
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX schema: <http://schema.org/>
@@ -7,25 +8,15 @@ PREFIX uberon: <http://purl.obolibrary.org/obo/uberon#>
 PREFIX cl: <http://purl.obolibrary.org/obo/cl#>
 PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX hint: <http://www.bigdata.com/queryHints#>
+PREFIX HRAlit: <https://purl.humanatlas.io/graph/hra-lit>
 
-SELECT ?pmid
-       ?title 
-       ?datePublished 
-       ?journal_title 
-       ?abstract
+SELECT ?namedGraph (COUNT(DISTINCT ?entity) as ?totalEntities) (COUNT(DISTINCT ?entityType) as ?uniqueTypes)
 WHERE {
-  ?article a schema:ScholarlyArticle ;
-           schema:identifier ?pmid ;
-           schema:name ?title ;
-           schema:abstract ?abstract ;
-           schema:datePublished ?datePublished ;
-           schema:isPartOf ?journal ;
-           schema:about ?descriptor . 
-  ?descriptor ?p mesh:D008099 .
-  ?journal a schema:Periodical ;
-           schema:name ?journal_title .
+  GRAPH ?namedGraph {
+    ?entity rdf:type ?entityType .
+  }
 }
-
-ORDER BY DESC(?datePublished)
-LIMIT 200
+GROUP BY ?namedGraph
