@@ -10,16 +10,17 @@ PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX HRAlit: <https://purl.humanatlas.io/graph/hra-lit>
-PREFIX hint: <http://www.bigdata.com/queryHints#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-SELECT DISTINCT ?meshDescriptor ?label (COUNT(?pmid) AS ?count)
+SELECT DISTINCT ?meshDescriptor ?label (COUNT(?article) AS ?count)
 WHERE {
-
-    ?article schema:about ?meshDescriptor ;
-             schema:identifier ?pmid .
-    ?meshDescriptor rdfs:label ?label .
-
-  FILTER(STRSTARTS(STR(?meshDescriptor), "http://id.nlm.nih.gov/mesh/"))
+    GRAPH HRAlit: {
+      ?article schema:about ?meshDescriptor .
+    }
+    
+    OPTIONAL{
+      GRAPH <http://id.nlm.nih.gov/mesh/> {
+        ?meshDescriptor rdfs:label ?label .
+        }
+    }
 }
 GROUP BY ?meshDescriptor ?label
