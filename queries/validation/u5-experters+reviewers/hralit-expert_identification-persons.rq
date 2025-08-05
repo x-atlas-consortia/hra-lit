@@ -12,20 +12,21 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX HRAlit: <https://purl.humanatlas.io/graph/hra-lit>
 PREFIX hint: <http://www.bigdata.com/queryHints#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
- 
-SELECT ?descriptor
-       ?descriptor_label
-       ?year
-       (COUNT(?pmid) AS ?publications)
 
-FROM HRAlit:
-FROM NAMED <http://id.nlm.nih.gov/mesh/>
+SELECT
+(CONCAT(COALESCE(?lastName, " ") ,", ",COALESCE(?firstName, " ")) AS ?authorName)
+(COUNT(?article) AS ?articles)
+
+FROM HRAlit: 
 WHERE {
-  # Article metadata
-	?article schema:about ?descriptor ; # Key for filter.
-           a schema:ScholarlyArticle ;
-           schema:identifier ?pmid ;
-           schema:datePublished ?datePublished .
+   ?article schema:author ?author ;
+            schema:datePublished ?datePublished .
+   
+   # Author name information
+   ?author a schema:Person ;
+           schema:name ?name ;
+           schema:givenName ?firstName ;
+           schema:familyName ?lastName .
 
    # Extract publication year from datePublished
    BIND(xsd:integer(
@@ -39,12 +40,14 @@ WHERE {
         ) AS ?year
     )   
 
-  # Skeleton - MeSH
-  GRAPH <http://id.nlm.nih.gov/mesh/> {
-    ?descriptor rdfs:label ?descriptor_label .
-  }
-  FILTER(?descriptor = mesh:D012863)
-}
+  #FILTER(?mesh = mesh:D007668)
+  FILTER EXISTS {?article schema:about mesh:D007668}  # Kidney
+  FILTER EXISTS {?article schema:about mesh:D020869}  # Gene Expression Profiling
+  FILTER EXISTS {?article schema:about mesh:D006801}  # Human studies
 
-GROUP BY ?descriptor ?descriptor_label ?year
-ORDER BY DESC(?year)
+  # Year filter
+  FILTER(?year <= 2024)
+
+}
+GROUP BY ?lastName ?firstName
+ORDER BY DESC(?articles)

@@ -26,13 +26,13 @@ SELECT ?pmid
        (SAMPLE(COALESCE(?doc_id, " ")) AS ?doi)
 FROM HRAlit:
 FROM NAMED <http://id.nlm.nih.gov/mesh/>
+
 WHERE {
   # hint:Query hint:analytic "true" .
-  # VALUES (?descriptor) {
-  #   (mesh:D006325)
-  # }
+  #VALUES ?searchDescriptor { mesh:D007668 mesh:D020869 }
+  
   # Article metadata
-	?article schema:about ?descriptor ;
+	?article schema:about ?searchDescriptor ;
            a schema:ScholarlyArticle ;
            schema:identifier ?pmid ;
            schema:name ?title ;
@@ -70,10 +70,12 @@ WHERE {
             schema:issueNumber ?issNum .
   }
 
-  # Skeleton Cell
-  FILTER(?descriptor = mesh:D012863)
+  # MeSH filters
+  FILTER EXISTS { ?article schema:about mesh:D007668 }  # Kidney
+  FILTER EXISTS { ?article schema:about mesh:D020869 }  # Gene Expression Profiling
+
 }
 
 GROUP BY ?pmid ?datePublished ?publicationYear ?title ?journal_title 
 ORDER BY DESC(?datePublished)
-# LIMIT 200
+#LIMIT 200
