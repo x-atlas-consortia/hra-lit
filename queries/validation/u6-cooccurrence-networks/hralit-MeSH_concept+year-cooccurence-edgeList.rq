@@ -1,0 +1,43 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+PREFIX mesh: <http://id.nlm.nih.gov/mesh/>
+PREFIX meshv: <http://id.nlm.nih.gov/mesh/vocab#>
+PREFIX HRAlit: <https://purl.humanatlas.io/graph/hra-lit>
+PREFIX hint: <http://www.bigdata.com/queryHints#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?meshDescriptor1 
+       ?meshDescriptor2
+       ?year
+       (COUNT(?article) as ?articleCount)
+FROM HRAlit: 
+WHERE {
+  # Subquery to find qualifying articles first
+  { SELECT DISTINCT ?article ?year 
+    WHERE {?article schema:about mesh:D007668 ;   # Kidney
+                    schema:about mesh:D020869 ;   # Gene Expression Profiling  
+                    schema:about mesh:D006801 ;   # Human studies
+                    schema:datePublished ?datePublished . 
+           BIND(xsd:integer(
+                    IF(CONTAINS(?datePublished, "-"),
+                        STRBEFORE(?datePublished, "-"),
+                        IF(STRLEN(STR(?datePublished)) >= 4,
+                            SUBSTR(STR(?datePublished), 1, 4),
+                            STR(?datePublished)
+                        )
+                        )  
+                   ) AS ?year
+                )   
+            FILTER(?year <= 2024 && ?year >= 1999)
+           }
+  }
+  # Generate co-occurence network- using an out-star network pattern.
+  ?article schema:about ?meshDescriptor1 .
+  ?article schema:about ?meshDescriptor2 .
+  FILTER (?meshDescriptor1 != ?meshDescriptor2)
+
+}
+GROUP BY ?meshDescriptor1 ?meshDescriptor2 ?year
+HAVING (?articleCount > 0)
+ORDER BY DESC(?articleCount)
