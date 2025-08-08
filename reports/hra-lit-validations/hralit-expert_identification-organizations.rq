@@ -1,0 +1,51 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+PREFIX mesh: <http://id.nlm.nih.gov/mesh/>
+PREFIX meshv: <http://id.nlm.nih.gov/mesh/vocab#>
+PREFIX uberon: <http://purl.obolibrary.org/obo/UBERON_>
+PREFIX cl: <http://purl.obolibrary.org/obo/CL_>
+PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX HRAlit: <https://purl.humanatlas.io/graph/hra-lit>
+PREFIX hint: <http://www.bigdata.com/queryHints#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT
+(?name AS ?groupAuthorName)
+(COUNT(?article) AS ?articles)
+
+FROM HRAlit: 
+WHERE {
+   ?article schema:author ?author ;
+            schema:datePublished ?datePublished .
+   
+   # Author name information
+   ?author a schema:Organization ;
+           schema:name ?name .
+
+   # Extract publication year from datePublished
+   BIND(xsd:integer(
+            IF(CONTAINS(?datePublished, "-"),
+            STRBEFORE(?datePublished, "-"),
+            IF(STRLEN(STR(?datePublished)) >= 4,
+                SUBSTR(STR(?datePublished), 1, 4),
+                STR(?datePublished)
+                )
+            )  
+        ) AS ?year
+    )   
+
+  #FILTER(?mesh = mesh:D007668)
+  FILTER EXISTS {?article schema:about mesh:D007668}  # Kidney
+  FILTER EXISTS {?article schema:about mesh:D020869}  # Gene Expression Profiling
+  FILTER EXISTS {?article schema:about mesh:D006801}  # Human studies
+
+  # Year filter
+  FILTER(?year <= 2024)
+
+}
+GROUP BY ?name
+ORDER BY DESC(?articles)

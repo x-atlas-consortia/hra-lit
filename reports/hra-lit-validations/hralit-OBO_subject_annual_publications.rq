@@ -1,0 +1,47 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+PREFIX mesh: <http://id.nlm.nih.gov/mesh/>
+PREFIX meshv: <http://id.nlm.nih.gov/mesh/vocab#>
+PREFIX uberon: <http://purl.obolibrary.org/obo/UBERON_>
+PREFIX cl: <http://purl.obolibrary.org/obo/CL_>
+PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX HRAlit: <https://purl.humanatlas.io/graph/hra-lit>
+PREFIX hint: <http://www.bigdata.com/queryHints#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT 
+?subject ?subject_label ?year (COUNT(?article) AS ?article_count)
+WHERE {
+  # Article selection
+  ?article skos:relatedMatch ?subject ;
+           schema:datePublished ?datePublished .
+    
+  # Uberon and CL labels
+  ?subject rdfs:label ?subject_label .
+
+  BIND(xsd:integer(
+        IF(CONTAINS(?datePublished, "-"),
+        STRBEFORE(?datePublished, "-"),
+        IF(STRLEN(STR(?datePublished)) >= 4,
+            SUBSTR(STR(?datePublished), 1, 4),
+            STR(?datePublished)
+            )
+        )  
+    ) AS ?year
+  ) 
+
+  # Filter examples
+  FILTER(
+    ?subject = uberon:0000426 ||                    # extravillous trophoblast
+    ?subject = cl:0000066 ||                        # epithelial cell (example)
+    ?subject IN (uberon:0000426, cl:0000066)        # Alternative syntax
+  )
+  # FILTER(?subject_label = "extravillous trophoblast")
+  # FILTER(CONTAINS(STR(?subject), "0000426"))
+}
+GROUP BY ?subject ?subject_label ?year
+ORDER BY ?subject_label desc(?year)

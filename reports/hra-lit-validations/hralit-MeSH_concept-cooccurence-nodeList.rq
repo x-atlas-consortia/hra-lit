@@ -1,0 +1,50 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+PREFIX mesh: <http://id.nlm.nih.gov/mesh/>
+PREFIX meshv: <http://id.nlm.nih.gov/mesh/vocab#>
+PREFIX HRAlit: <https://purl.humanatlas.io/graph/hra-lit>
+PREFIX hint: <http://www.bigdata.com/queryHints#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?meshDescriptor
+       (SAMPLE(?label) as ?label)
+       (COUNT(DISTINCT ?article) as ?articleCount)
+FROM HRAlit: 
+FROM NAMED <http://id.nlm.nih.gov/mesh/>
+WHERE {
+  # Subquery to find qualifying articles first
+  # Query hints to speed up processing
+  hint:Query hint:optimizer "Runtime" .
+  {
+    SELECT DISTINCT ?article ?year WHERE {
+    ?article schema:about mesh:D007668 ;   # Kidney
+             schema:about mesh:D020869 ;   # Gene Expression Profiling  
+             schema:about mesh:D006801 ;   # Human studies
+             schema:datePublished ?datePublished .
+      
+    BIND(xsd:integer(
+          IF(CONTAINS(?datePublished, "-"),
+             STRBEFORE(?datePublished, "-"),
+             IF(STRLEN(STR(?datePublished)) >= 4,
+                SUBSTR(STR(?datePublished), 1, 4),
+                STR(?datePublished)
+               )
+            )  
+          ) AS ?year
+        )   
+      FILTER(?year <= 2024 && ?year >= 1999)
+    }
+  }
+  ?article schema:about ?meshDescriptor .
+  
+  OPTIONAL{  
+    # Get MeSH labels
+    GRAPH <http://id.nlm.nih.gov/mesh/> {
+      ?meshDescriptor rdfs:label ?label .
+    }
+  }
+
+}
+GROUP BY ?meshDescriptor
+ORDER BY ?meshDescriptor
