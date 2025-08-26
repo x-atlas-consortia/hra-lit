@@ -28,7 +28,6 @@ WHERE {
             schema:ScholarlyArticle,
             schema:Organization,
             schema:Person,
-            schema:Collection,
             owl:NamedIndividual,
             meshv:TopicalDescriptor,
             meshv:Term,

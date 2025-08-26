@@ -1,0 +1,44 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+PREFIX mesh: <http://id.nlm.nih.gov/mesh/>
+PREFIX meshv: <http://id.nlm.nih.gov/mesh/vocab#>
+PREFIX uberon: <http://purl.obolibrary.org/obo/UBERON_>
+PREFIX cl: <http://purl.obolibrary.org/obo/CL_>
+PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX hint: <http://www.bigdata.com/queryHints#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX ccf: <http://purl.org/ccf/>
+PREFIX HRAlit: <https://purl.humanatlas.io/graph/hra-lit>
+PREFIX HRA: <https://purl.humanatlas.io/collection/hra>
+
+SELECT DISTINCT ?iri ?label (<http://id.nlm.nih.gov/mesh/D004194> as ?type) (<https://purl.humanatlas.io/graph/hra-lit> as ?source)
+FROM <http://id.nlm.nih.gov/mesh/>
+WHERE {
+  # Identify set of MeSH descriptors related to Kidney
+  { 
+    SELECT DISTINCT ?iri 
+    WHERE {
+      GRAPH mesh: { mesh:D007668 meshv:treeNumber ?treeNum .
+       ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+       ?searchDescriptor meshv:treeNumber ?childTreeNum . 
+     }
+      GRAPH HRAlit: {
+        ?article schema:about ?searchDescriptor ;
+          schema:about ?iri .
+      }
+      hint:SubQuery hint:runOnce true .
+    }
+  }
+	 
+   GRAPH <http://id.nlm.nih.gov/mesh/> {
+     ?iri rdfs:label ?label .
+     ?iri meshv:treeNumber ?childDisTreeNum .
+     FILTER(STRSTARTS(STR(?childDisTreeNum), "http://id.nlm.nih.gov/mesh/C"))
+     FILTER(LANG(?label) = 'en')
+   }
+}
+ORDER BY ?type ?label

@@ -1,0 +1,93 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+PREFIX mesh: <http://id.nlm.nih.gov/mesh/>
+PREFIX meshv: <http://id.nlm.nih.gov/mesh/vocab#>
+PREFIX uberon: <http://purl.obolibrary.org/obo/uberon#>
+PREFIX cl: <http://purl.obolibrary.org/obo/cl#>
+PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX hint: <http://www.bigdata.com/queryHints#>
+PREFIX ccf: <http://purl.org/ccf/>
+PREFIX HRAlit: <https://purl.humanatlas.io/graph/hra-lit>
+PREFIX HRA: <https://purl.humanatlas.io/collection/hra>
+
+SELECT DISTINCT ?iri ?label ?type (<https://purl.humanatlas.io/graph/hra-lit> as ?source)
+WHERE {
+  {
+    VALUES (?type) {
+      (<http://purl.obolibrary.org/obo/UBERON_0000061>)
+    }
+    GRAPH <https://purl.humanatlas.io/graph/mesh-uberon-cl-human-mapping> {
+      [] ?foo ?iri .
+      FILTER (STRSTARTS(STR(?iri), 'http://purl.obolibrary.org/obo/UBERON_'))
+    }
+    GRAPH <https://purl.humanatlas.io/vocab/uberon> {
+        ?iri rdfs:label ?label .
+        ?iri rdfs:subClassOf* ?type .
+    }
+    GRAPH HRA: {
+        ?iri ccf:ccf_asctb_type ?asctbType .
+        ?iri ccf:ccf_part_of* <http://purl.obolibrary.org/obo/UBERON_0002113> .
+    }
+    # Ensure class is a subclass of Anatomical Structure
+    # SERVICE <https://ubergraph.apps.renci.org/sparql> {
+    #     GRAPH <http://reasoner.renci.org/redundant> {
+    #         ?iri <http://purl.obolibrary.org/obo/BFO_0000050> <http://purl.obolibrary.org/obo/UBERON_0002113> .
+    #         FILTER (STRSTARTS(STR(?iri), 'http://purl.obolibrary.org/obo/UBERON_'))
+    #     }
+    # }
+  }
+  UNION
+  {
+    VALUES (?type) {
+      (<http://purl.obolibrary.org/obo/CL_0000000>)
+    }
+    GRAPH <https://purl.humanatlas.io/graph/mesh-uberon-cl-human-mapping> {
+      [] ?foo ?iri .
+      FILTER (STRSTARTS(STR(?iri), 'http://purl.obolibrary.org/obo/CL_'))
+    }
+    # Ensure class is a subclass of Anatomical Structure
+    GRAPH <https://purl.humanatlas.io/vocab/uberon> {
+        ?iri rdfs:label ?label .
+        ?iri rdfs:subClassOf* ?type .
+    }
+    GRAPH HRA: {
+      [] a ccf:AsctbRecord ;
+        ccf:anatomical_structure [
+          ccf:source_concept ?as 
+        ];
+        ccf:cell_type [
+          ccf:source_concept ?iri
+        ];
+        .
+        ?as ccf:ccf_part_of* <http://purl.obolibrary.org/obo/UBERON_0002113> .
+    }
+    # Alternative Cell Type Look-ups
+    # GRAPH HRA: {
+    #     [] a ccf:CellMarkerDescriptor ;
+    #         ccf:primary_anatomical_structure ?as ;
+    #         ccf:primary_cell_type ?iri ;
+    #         # ccf:biomarker ?biomarker ;
+    #         .
+    #     ?as ccf:ccf_part_of* <http://purl.obolibrary.org/obo/UBERON_0002113> .
+    # }
+    # SERVICE <https://lod.humanatlas.io/sparql> {
+    #   GRAPH <https://purl.humanatlas.io/asct-b/kidney> {
+    #       ?iri rdfs:label [] .
+    #       # ?as ccf:ccf_part_of* <http://purl.obolibrary.org/obo/UBERON_0002113> .
+    #   }
+    # }
+    # Ensure class is a subclass of Anatomical Structure
+    # SERVICE <https://ubergraph.apps.renci.org/sparql> {
+    #     GRAPH <http://reasoner.renci.org/redundant> {
+    #         ?as <http://purl.obolibrary.org/obo/BFO_0000050> <http://purl.obolibrary.org/obo/UBERON_0002113> .
+    #         FILTER (STRSTARTS(STR(?as), 'http://purl.obolibrary.org/obo/UBERON_'))
+    #     }
+    # }
+  }
+}
+
+ORDER BY ?type ?label

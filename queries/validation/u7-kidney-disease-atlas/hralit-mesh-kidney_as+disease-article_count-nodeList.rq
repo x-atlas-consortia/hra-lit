@@ -1,0 +1,84 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+PREFIX mesh: <http://id.nlm.nih.gov/mesh/>
+PREFIX meshv: <http://id.nlm.nih.gov/mesh/vocab#>
+PREFIX uberon: <http://purl.obolibrary.org/obo/UBERON_>
+PREFIX cl: <http://purl.obolibrary.org/obo/CL_>
+PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX hint: <http://www.bigdata.com/queryHints#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX ccf: <http://purl.org/ccf/>
+PREFIX HRAlit: <https://purl.humanatlas.io/graph/hra-lit>
+PREFIX HRA: <https://purl.humanatlas.io/collection/hra>
+
+SELECT DISTINCT ?iri (SAMPLE(?label) as ?label) ?type ?concept_label (COUNT(DISTINCT ?article) as ?articleCount)
+WHERE {
+  # Select set of articles MeSH Descriptors
+  {
+    VALUES (?type) {
+        (<http://purl.obolibrary.org/obo/UBERON_0000061>)
+      }
+    VALUES (?concept_label ) {
+        ("Disease")
+      } 
+    
+    {SELECT DISTINCT ?iri ?article
+      WHERE {
+          # Identifies set of MeSH descriptors related to Kidney
+          GRAPH mesh: { mesh:D007668 meshv:treeNumber ?treeNum .
+          ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+          ?searchDescriptor meshv:treeNumber ?childTreeNum . 
+          }
+          GRAPH HRAlit: {
+            ?article schema:about ?searchDescriptor ;
+                    schema:about ?iri .
+          }
+          hint:SubQuery hint:runOnce true .
+        }
+  }
+  # Filters MeSH for Anatomy and Disease Concepts
+    GRAPH <http://id.nlm.nih.gov/mesh/> {
+      ?iri rdfs:label ?label .
+      ?iri meshv:treeNumber ?childDisTreeNum .
+      FILTER(STRSTARTS(STR(?childDisTreeNum), "http://id.nlm.nih.gov/mesh/C"))
+      FILTER(LANG(?label) = 'en')
+    }
+  }
+  UNION 
+  {
+   VALUES (?type) {
+        (<http://id.nlm.nih.gov/mesh/D000715>)
+      }
+   VALUES (?concept_label ) {
+        ("Anatomical Structure")
+      }
+      
+   {SELECT DISTINCT ?iri ?article
+      WHERE {
+        # Identifies set of MeSH descriptors related to Kidney
+        GRAPH mesh: { mesh:D007668 meshv:treeNumber ?treeNum .
+        ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+        ?iri meshv:treeNumber ?childTreeNum . 
+        }
+        GRAPH HRAlit: {
+          ?article schema:about ?iri 
+        }
+        hint:SubQuery hint:runOnce true .
+      }
+    }
+	 
+  # Filters MeSH for Anatomy and Disease Concepts
+   GRAPH <http://id.nlm.nih.gov/mesh/> {
+     ?iri rdfs:label ?label .
+     ?iri meshv:treeNumber ?childDisTreeNum .
+     FILTER(STRSTARTS(STR(?childDisTreeNum), "http://id.nlm.nih.gov/mesh/A"))
+     FILTER(LANG(?label) = 'en')
+   }
+  }
+} 
+GROUP BY ?iri ?label ?type ?concept_label
+ORDER BY DESC(?articleCount )
