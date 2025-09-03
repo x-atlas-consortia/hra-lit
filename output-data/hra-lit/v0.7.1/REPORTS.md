@@ -373,7 +373,7 @@ PREFIX HRA: <https://purl.humanatlas.io/collection/hra>
 PREFIX UBERON: <https://purl.humanatlas.io/vocab/uberon>
 PREFIX MESH_MAPPING: <https://purl.humanatlas.io/graph/mesh-uberon-cl-human-mapping>
 
-SELECT DISTINCT ?subject (<https://purl.humanatlas.io/graph/hra-lit#COOCCURS_WITH_DISEASE> as ?predicate) ?object (COUNT(DISTINCT(?article)) AS ?pub_count)
+SELECT DISTINCT ?subject (<https://purl.humanatlas.io/graph/hra-lit#COOCCURS_WITH_DISEASE> as ?predicate) ?object (HRAlit: as ?source) (COUNT(DISTINCT(?article)) AS ?pub_count)
 WHERE {
   # Identify set of MeSH descriptors related to Kidney
   GRAPH mesh: {
@@ -411,14 +411,14 @@ ORDER BY DESC(?pub_count)
 
 #### Results ([View CSV File](reports/hra-lit-kidney/hra-lit-kidney-diseases-cooccur-edges.csv))
 
-| subject | predicate | object | pub_count |
-| :--- | :--- | :--- | :--- |
-| http://purl.obolibrary.org/obo/UBERON_0002113 | https://purl.humanatlas.io/graph/hra-lit#COOCCURS_WITH_DISEASE | http://id.nlm.nih.gov/mesh/D007674 | 23376 |
-| http://purl.obolibrary.org/obo/UBERON_0002113 | https://purl.humanatlas.io/graph/hra-lit#COOCCURS_WITH_DISEASE | http://id.nlm.nih.gov/mesh/D058186 | 10827 |
-| http://purl.obolibrary.org/obo/UBERON_0002113 | https://purl.humanatlas.io/graph/hra-lit#COOCCURS_WITH_DISEASE | http://id.nlm.nih.gov/mesh/D007680 | 10025 |
-| http://purl.obolibrary.org/obo/UBERON_0002113 | https://purl.humanatlas.io/graph/hra-lit#COOCCURS_WITH_DISEASE | http://id.nlm.nih.gov/mesh/D007676 | 7004 |
-| http://purl.obolibrary.org/obo/UBERON_0002113 | https://purl.humanatlas.io/graph/hra-lit#COOCCURS_WITH_DISEASE | http://id.nlm.nih.gov/mesh/D051436 | 6355 |
-| ... | ... | ... | ... |
+| subject | predicate | object | source | pub_count |
+| :--- | :--- | :--- | :--- | :--- |
+| http://purl.obolibrary.org/obo/UBERON_0002113 | https://purl.humanatlas.io/graph/hra-lit#COOCCURS_WITH_DISEASE | http://id.nlm.nih.gov/mesh/D007674 | https://purl.humanatlas.io/graph/hra-lit | 23376 |
+| http://purl.obolibrary.org/obo/UBERON_0002113 | https://purl.humanatlas.io/graph/hra-lit#COOCCURS_WITH_DISEASE | http://id.nlm.nih.gov/mesh/D058186 | https://purl.humanatlas.io/graph/hra-lit | 10827 |
+| http://purl.obolibrary.org/obo/UBERON_0002113 | https://purl.humanatlas.io/graph/hra-lit#COOCCURS_WITH_DISEASE | http://id.nlm.nih.gov/mesh/D007680 | https://purl.humanatlas.io/graph/hra-lit | 10025 |
+| http://purl.obolibrary.org/obo/UBERON_0002113 | https://purl.humanatlas.io/graph/hra-lit#COOCCURS_WITH_DISEASE | http://id.nlm.nih.gov/mesh/D007676 | https://purl.humanatlas.io/graph/hra-lit | 7004 |
+| http://purl.obolibrary.org/obo/UBERON_0002113 | https://purl.humanatlas.io/graph/hra-lit#COOCCURS_WITH_DISEASE | http://id.nlm.nih.gov/mesh/D051436 | https://purl.humanatlas.io/graph/hra-lit | 6355 |
+| ... | ... | ... | ... | ... |
 
 
 ### <a id="hralit-MeSH_concept-cooccurence-edgeList"></a>hralit-MeSH_concept-cooccurence-edgeList

@@ -17,7 +17,7 @@ PREFIX HRA: <https://purl.humanatlas.io/collection/hra>
 PREFIX UBERON: <https://purl.humanatlas.io/vocab/uberon>
 PREFIX MESH_MAPPING: <https://purl.humanatlas.io/graph/mesh-uberon-cl-human-mapping>
 
-SELECT DISTINCT ?subject (<https://purl.humanatlas.io/graph/hra-lit#COOCCURS_WITH_DISEASE> as ?predicate) ?object (COUNT(DISTINCT(?article)) AS ?pub_count)
+SELECT DISTINCT ?subject (<https://purl.humanatlas.io/graph/hra-lit#COOCCURS_WITH_DISEASE> as ?predicate) ?object (HRAlit: as ?source) (COUNT(DISTINCT(?article)) AS ?pub_count)
 WHERE {
   # Identify set of MeSH descriptors related to Kidney
   GRAPH mesh: {
