@@ -17,7 +17,7 @@ PREFIX HRA: <https://purl.humanatlas.io/collection/hra>
 PREFIX UBERON: <https://purl.humanatlas.io/vocab/uberon>
 PREFIX MESH_MAPPING: <https://purl.humanatlas.io/graph/mesh-uberon-cl-human-mapping>
 
-SELECT DISTINCT ?iri (SAMPLE(?label) as ?label) (mesh:D007674 as ?type) (HRAlit: as ?source)
+SELECT DISTINCT ?iri (SAMPLE(?label) as ?label) (mesh:D004194 as ?type) (HRAlit: as ?source)
 WHERE {
   # Identify set of MeSH descriptors related to Kidney Diseases
   GRAPH mesh: {
