@@ -1,0 +1,45 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+PREFIX mesh: <http://id.nlm.nih.gov/mesh/>
+PREFIX meshv: <http://id.nlm.nih.gov/mesh/vocab#>
+PREFIX uberon: <http://purl.obolibrary.org/obo/UBERON_>
+PREFIX cl: <http://purl.obolibrary.org/obo/CL_>
+PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX hint: <http://www.bigdata.com/queryHints#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX ccf: <http://purl.org/ccf/>
+PREFIX HRAlit: <https://purl.humanatlas.io/graph/hra-lit>
+PREFIX HRA: <https://purl.humanatlas.io/collection/hra>
+PREFIX MESH_MAPPING: <https://purl.humanatlas.io/graph/mesh-uberon-cl-human-mapping>
+
+# SELECT DISTINCT ?obo ?term
+# SELECT DISTINCT ?disease ?disease_label
+SELECT (COUNT(DISTINCT ?article) as ?count)
+WHERE {
+  # Identify set of MeSH descriptors related to Kidney
+  GRAPH mesh: {
+    mesh:D007668 meshv:treeNumber ?treeNum .
+    ?childTreeNum meshv:parentTreeNumber* ?treeNum .
+    ?kidneyDescriptor meshv:treeNumber ?childTreeNum ;
+      meshv:preferredConcept ?term .
+  }
+
+  # Identify set of MeSH descriptors related to Kidney Diseases
+  GRAPH mesh: {
+    mesh:D007674 meshv:treeNumber ?treeNum2 .
+    ?childTreeNum2 meshv:parentTreeNumber* ?treeNum2 .
+    ?diseaseDescriptor meshv:treeNumber ?childTreeNum2 ;
+      meshv:preferredConcept ?disease .
+
+    ?disease rdfs:label ?disease_label .
+  }
+
+  GRAPH HRAlit: {
+    ?article schema:about ?kidneyDescriptor ;
+      schema:about ?diseaseDescriptor .
+  }
+}
